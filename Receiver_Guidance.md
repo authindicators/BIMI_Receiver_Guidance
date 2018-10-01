@@ -18,7 +18,7 @@
    organization="Comcast, Inc"
      [author.address]
      email="alex_brotman@comcast.com"
-   [[author]]
+     [[author]]
    initials="T."
    surname="Zink"
    fullname="Terry Zink"
