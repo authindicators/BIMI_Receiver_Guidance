@@ -378,16 +378,16 @@ a handful of considerations:
 
 
 * Failing to verify BIMI certs when they otherwise should be. This can be caused by:
-** Not having the key to a corresponding MVA
-** Not having access to the key when required
-** The wrong key is associated with the wrong MVA
++ Not having the key to a corresponding MVA
++ Not having access to the key when required
++ The wrong key is associated with the wrong MVA
 * Failing to load a logo in the email client
-** Failing to access the logo (e.g., permissions errors)
-** Connectivity problems to the logo
++ Failing to access the logo (e.g., permissions errors)
++ Connectivity problems to the logo
 * Failing to display a correct logo in the email client
-** Having the wrong logo stored for a brand (i.e., uploading it to a local store but associating 
++ Having the wrong logo stored for a brand (i.e., uploading it to a local store but associating 
    it with the wrong brand)
-** Caching a logo for too long after it has updated
++ Caching a logo for too long after it has updated
 
 There are many reasons why a logo may fail to load; having tools to investigate (logs, headers 
 in messages, internal documentation that is clearly written, having the knowledge pushed out 
