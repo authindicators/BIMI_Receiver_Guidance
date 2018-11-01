@@ -2,7 +2,7 @@
 
    Title = "Receivers Guidance for Implementing Branded Indicators for Message Identification (BIMI)"
    abbrev = "BIMI-RG"
-   category = "fyi"
+   category = "bcp"
    docName = "draft-ietf-bimi-receiver-guidance"
    ipr = "trust200902"
    area = "Applications"
