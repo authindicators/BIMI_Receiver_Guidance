@@ -9,7 +9,7 @@
    workgroup = ""
    keyword = [""]
 
-   date = 2018-10-01T00:00:00Z
+   date = 2018-11-01T00:00:00Z
 
    [[author]]
    initials="A."
