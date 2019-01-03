@@ -15,7 +15,7 @@
    initials="A."
    surname="Brotman"
    fullname="Alex Brotman"
-   organization="Comcast, Inc"
+   organization="Comcast"
      [author.address]
      email="alex_brotman@comcast.com"
      [[author]]
