@@ -24,6 +24,13 @@
    fullname="Terry Zink"
      [author.address]
      email="tzink@terryzink.com"
+     [[author]]
+   initials="M."
+   surname="Bradshaw"
+   fullname="Marc Bradshaw"
+   organization="Fastmail"
+     [author.address]
+     email="marc@fastmailteam.com"
 
 
 %%%
