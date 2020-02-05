@@ -3,10 +3,9 @@
 
 
 Network Working Group                                         A. Brotman
-Internet-Draft                                              Comcast, Inc
+Internet-Draft                                                   Comcast
 Intended status: Best Current Practice                           T. Zink
-Expires: May 5, 2019                           Zink Magical Contraptions
-                                                        November 1, 2018
+Expires: February 6, 2020                                 August 5, 2019
 
 
    Receivers Guidance for Implementing Branded Indicators for Message
@@ -28,38 +27,36 @@ Status of This Memo
    Internet-Drafts are working documents of the Internet Engineering
    Task Force (IETF).  Note that other groups may also distribute
    working documents as Internet-Drafts.  The list of current Internet-
-   Drafts is at http://datatracker.ietf.org/drafts/current/.
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
 
    Internet-Drafts are draft documents valid for a maximum of six months
    and may be updated, replaced, or obsoleted by other documents at any
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on May 5, 2019.
+   This Internet-Draft will expire on February 6, 2020.
 
 Copyright Notice
 
-   Copyright (c) 2018 IETF Trust and the persons identified as the
+   Copyright (c) 2019 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
    Provisions Relating to IETF Documents
-   (http://trustee.ietf.org/license-info) in effect on the date of
+   (https://trustee.ietf.org/license-info) in effect on the date of
    publication of this document.  Please review these documents
    carefully, as they describe your rights and restrictions with respect
    to this document.  Code Components extracted from this document must
    include Simplified BSD License text as described in Section 4.e of
-
-
-
-
-Brotman & Zink             Expires May 5, 2019                  [Page 1]
-
-Internet-Draft                   BIMI-RG                   November 2018
-
-
    the Trust Legal Provisions and are provided without warranty as
    described in the Simplified BSD License.
+
+
+
+Brotman & Zink          Expires February 6, 2020                [Page 1]
+
+Internet-Draft                   BIMI-RG                     August 2019
+
 
 Table of Contents
 
@@ -109,9 +106,12 @@ Table of Contents
 
 
 
-Brotman & Zink             Expires May 5, 2019                  [Page 2]
+
+
+
+Brotman & Zink          Expires February 6, 2020                [Page 2]
 
-Internet-Draft                   BIMI-RG                   November 2018
+Internet-Draft                   BIMI-RG                     August 2019
 
 
 1.1.  Terminology
@@ -165,9 +165,9 @@ Internet-Draft                   BIMI-RG                   November 2018
 
 
 
-Brotman & Zink             Expires May 5, 2019                  [Page 3]
+Brotman & Zink          Expires February 6, 2020                [Page 3]
 
-Internet-Draft                   BIMI-RG                   November 2018
+Internet-Draft                   BIMI-RG                     August 2019
 
 
    o  BIMI Certificates
@@ -221,9 +221,9 @@ Internet-Draft                   BIMI-RG                   November 2018
 
 
 
-Brotman & Zink             Expires May 5, 2019                  [Page 4]
+Brotman & Zink          Expires February 6, 2020                [Page 4]
 
-Internet-Draft                   BIMI-RG                   November 2018
+Internet-Draft                   BIMI-RG                     August 2019
 
 
 5.1.  BIMI Site Requirements
@@ -277,9 +277,9 @@ Internet-Draft                   BIMI-RG                   November 2018
 
 
 
-Brotman & Zink             Expires May 5, 2019                  [Page 5]
+Brotman & Zink          Expires February 6, 2020                [Page 5]
 
-Internet-Draft                   BIMI-RG                   November 2018
+Internet-Draft                   BIMI-RG                     August 2019
 
 
       settings from the mailstore, it is possible that some MUAs will
@@ -333,9 +333,9 @@ Internet-Draft                   BIMI-RG                   November 2018
 
 
 
-Brotman & Zink             Expires May 5, 2019                  [Page 6]
+Brotman & Zink          Expires February 6, 2020                [Page 6]
 
-Internet-Draft                   BIMI-RG                   November 2018
+Internet-Draft                   BIMI-RG                     August 2019
 
 
 6.2.  TTL of cached images
@@ -389,9 +389,9 @@ Internet-Draft                   BIMI-RG                   November 2018
 
 
 
-Brotman & Zink             Expires May 5, 2019                  [Page 7]
+Brotman & Zink          Expires February 6, 2020                [Page 7]
 
-Internet-Draft                   BIMI-RG                   November 2018
+Internet-Draft                   BIMI-RG                     August 2019
 
 
       if the message has a BIMI-Selector header that is covered by the
@@ -445,9 +445,9 @@ Internet-Draft                   BIMI-RG                   November 2018
 
 
 
-Brotman & Zink             Expires May 5, 2019                  [Page 8]
+Brotman & Zink          Expires February 6, 2020                [Page 8]
 
-Internet-Draft                   BIMI-RG                   November 2018
+Internet-Draft                   BIMI-RG                     August 2019
 
 
    should automatically be displayed in the MUA; a site may impose
@@ -501,9 +501,9 @@ Internet-Draft                   BIMI-RG                   November 2018
 
 
 
-Brotman & Zink             Expires May 5, 2019                  [Page 9]
+Brotman & Zink          Expires February 6, 2020                [Page 9]
 
-Internet-Draft                   BIMI-RG                   November 2018
+Internet-Draft                   BIMI-RG                     August 2019
 
 
 8.  Working with MVAs
@@ -557,9 +557,9 @@ Internet-Draft                   BIMI-RG                   November 2018
 
 
 
-Brotman & Zink             Expires May 5, 2019                 [Page 10]
+Brotman & Zink          Expires February 6, 2020               [Page 10]
 
-Internet-Draft                   BIMI-RG                   November 2018
+Internet-Draft                   BIMI-RG                     August 2019
 
 
 8.1.  Resolving disputes
@@ -613,9 +613,9 @@ Internet-Draft                   BIMI-RG                   November 2018
 
 
 
-Brotman & Zink             Expires May 5, 2019                 [Page 11]
+Brotman & Zink          Expires February 6, 2020               [Page 11]
 
-Internet-Draft                   BIMI-RG                   November 2018
+Internet-Draft                   BIMI-RG                     August 2019
 
 
    o  Failing to access the logo (e.g., permissions errors)
@@ -669,9 +669,9 @@ Internet-Draft                   BIMI-RG                   November 2018
 
 
 
-Brotman & Zink             Expires May 5, 2019                 [Page 12]
+Brotman & Zink          Expires February 6, 2020               [Page 12]
 
-Internet-Draft                   BIMI-RG                   November 2018
+Internet-Draft                   BIMI-RG                     August 2019
 
 
 11.1.  Glossary
@@ -725,9 +725,9 @@ Internet-Draft                   BIMI-RG                   November 2018
 
 
 
-Brotman & Zink             Expires May 5, 2019                 [Page 13]
+Brotman & Zink          Expires February 6, 2020               [Page 13]
 
-Internet-Draft                   BIMI-RG                   November 2018
+Internet-Draft                   BIMI-RG                     August 2019
 
 
       of example.com.  It aligns with org.example.com, because both have
@@ -761,8 +761,8 @@ Internet-Draft                   BIMI-RG                   November 2018
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
-              DOI 10.17487/RFC2119, March 1997, <https://www.rfc-
-              editor.org/info/rfc2119>.
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/info/rfc2119>.
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
@@ -771,7 +771,7 @@ Internet-Draft                   BIMI-RG                   November 2018
 Authors' Addresses
 
    Alex Brotman
-   Comcast, Inc
+   Comcast
 
    Email: alex_brotman@comcast.com
 
@@ -781,13 +781,12 @@ Authors' Addresses
 
 
 
-Brotman & Zink             Expires May 5, 2019                 [Page 14]
+Brotman & Zink          Expires February 6, 2020               [Page 14]
 
-Internet-Draft                   BIMI-RG                   November 2018
+Internet-Draft                   BIMI-RG                     August 2019
 
 
    Terry Zink
-   Zink Magical Contraptions
 
    Email: tzink@terryzink.com
 
@@ -837,4 +836,5 @@ Internet-Draft                   BIMI-RG                   November 2018
 
 
 
-Brotman & Zink             Expires May 5, 2019                 [Page 15]
+
+Brotman & Zink          Expires February 6, 2020               [Page 15]
