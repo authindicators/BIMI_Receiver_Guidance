@@ -113,9 +113,6 @@ to perform the following:
 * Validate DMARC
 * Validate a BIMI Certificate (a new kind of Extended Validation (EV) certificate)
 * Fetch an image located at an https location
-* For some receivers, an additional requirement is a BIMI-capable IMAP daemon, or 
-  another method of a mail server signaling to an MUA that it is safe to load a 
-  BIMI image , as well as securely pointing to the BIMI location to pull it from. 
 
 A site may wish to implement URI alteration and image caching for hosted recipients. 
 By implementing BIMI, a site agrees that through some combination of trust mechanisms, 
