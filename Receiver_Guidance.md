@@ -67,7 +67,7 @@ document are to be interpreted as described in [BCP 14] [@!RFC2119]
 As stated in other BIMI drafts, BIMI intends to advance email authentication 
 by granting a sending party brand impressions as long as the message 
 passes authentication mechanisms and and meets other receiver qualifications 
-(reputation, encryption, whitelisting, et cetera). DMARC currently has wide 
+(reputation, encryption, allow listing, et cetera). DMARC currently has wide 
 adoption by some of the Internet’s larger brands, but there is still a long 
 tail of small-to-medium size brands (and many large ones) that do not have it. 
 Because BIMI provides a visual presence in the inbox, and because visual 
@@ -149,7 +149,7 @@ This may include, but is not limited to:
   or not allowing inclusion of overly large address spaces)
 * SMTP delivery via TLS
 * Feedback Loop registration or other method of registration with the receiving site 
-* Domain reputation via a DNS Whitelist or other reputation system 
+* Domain reputation via a DNS allow list or other reputation system 
 
 These localized requirements are at the discretion of the receiving site. In general, 
 the stricter the criteria, the less chance there is of an MUA erroneously showing a 
@@ -418,8 +418,8 @@ additional criteria to determine whether or not a logo should be displayed, and 
 necessary to give away the exact nature of the algorithm other than to say "You must maintain 
 good sending practices."
 
-If you use an explicit whitelist, a site may want to list the minimum requirements, and the 
-method of applying to be whitelisted.  Similarly, a provider may wish to state what type of 
+If you use an explicit allow list, a site may want to list the minimum requirements, and the 
+method of applying to be listed.  Similarly, a provider may wish to state what type of 
 activity will revoke the decision to display logos previously approved.
 
 ## For users: 
