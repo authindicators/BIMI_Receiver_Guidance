@@ -5,7 +5,10 @@
 Network Working Group                                         A. Brotman
 Internet-Draft                                                   Comcast
 Intended status: Best Current Practice                           T. Zink
-Expires: February 6, 2020                                 August 5, 2019
+Expires: February 6, 2020
+                                                             M. Bradshaw
+                                                                Fastmail
+                                                          August 5, 2019
 
 
    Receivers Guidance for Implementing Branded Indicators for Message
@@ -47,16 +50,17 @@ Copyright Notice
    publication of this document.  Please review these documents
    carefully, as they describe your rights and restrictions with respect
    to this document.  Code Components extracted from this document must
-   include Simplified BSD License text as described in Section 4.e of
-   the Trust Legal Provisions and are provided without warranty as
-   described in the Simplified BSD License.
 
 
 
-Brotman & Zink          Expires February 6, 2020                [Page 1]
+Brotman, et al.         Expires February 6, 2020                [Page 1]
 
 Internet-Draft                   BIMI-RG                     August 2019
 
+
+   include Simplified BSD License text as described in Section 4.e of
+   the Trust Legal Provisions and are provided without warranty as
+   described in the Simplified BSD License.
 
 Table of Contents
 
@@ -68,14 +72,14 @@ Table of Contents
            "yes".  . . . . . . . . . . . . . . . . . . . . . . . . .   3
    4.  Site implementations  . . . . . . . . . . . . . . . . . . . .   4
    5.  Validation of a BIMI message  . . . . . . . . . . . . . . . .   4
-     5.1.  BIMI Site Requirements  . . . . . . . . . . . . . . . . .   5
+     5.1.  BIMI Site Requirements  . . . . . . . . . . . . . . . . .   4
      5.2.  BIMI Certificate Validation . . . . . . . . . . . . . . .   6
    6.  Communicating BIMI results between the MTA and the MUA  . . .   6
      6.1.  Image Retrieval . . . . . . . . . . . . . . . . . . . . .   6
      6.2.  TTL of cached images  . . . . . . . . . . . . . . . . . .   7
      6.3.  Privacy Concerns  . . . . . . . . . . . . . . . . . . . .   7
      6.4.  Basic flow example  . . . . . . . . . . . . . . . . . . .   7
-   7.  Domain Reputation . . . . . . . . . . . . . . . . . . . . . .   8
+   7.  Domain Reputation . . . . . . . . . . . . . . . . . . . . . .   9
      7.1.  Rolling up based upon domain vs organizational domain . .   9
    8.  Working with MVAs . . . . . . . . . . . . . . . . . . . . . .  10
      8.1.  Resolving disputes  . . . . . . . . . . . . . . . . . . .  11
@@ -83,7 +87,7 @@ Table of Contents
    10. Public documentation  . . . . . . . . . . . . . . . . . . . .  12
      10.1.  For Brands:  . . . . . . . . . . . . . . . . . . . . . .  12
      10.2.  For users: . . . . . . . . . . . . . . . . . . . . . . .  12
-   11. Appendix  . . . . . . . . . . . . . . . . . . . . . . . . . .  12
+   11. Appendix  . . . . . . . . . . . . . . . . . . . . . . . . . .  13
      11.1.  Glossary . . . . . . . . . . . . . . . . . . . . . . . .  13
    12. Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  14
    13. References  . . . . . . . . . . . . . . . . . . . . . . . . .  14
@@ -105,11 +109,7 @@ Table of Contents
 
 
 
-
-
-
-
-Brotman & Zink          Expires February 6, 2020                [Page 2]
+Brotman, et al.         Expires February 6, 2020                [Page 2]
 
 Internet-Draft                   BIMI-RG                     August 2019
 
@@ -165,7 +165,7 @@ Internet-Draft                   BIMI-RG                     August 2019
 
 
 
-Brotman & Zink          Expires February 6, 2020                [Page 3]
+Brotman, et al.         Expires February 6, 2020                [Page 3]
 
 Internet-Draft                   BIMI-RG                     August 2019
 
@@ -200,11 +200,6 @@ Internet-Draft                   BIMI-RG                     August 2019
 
    o  Fetch an image located at an https location
 
-   o  For some receivers, an additional requirement is a BIMI-capable
-      IMAP daemon, or another method of a mail server signaling to an
-      MUA that it is safe to load a BIMI image , as well as securely
-      pointing to the BIMI location to pull it from.
-
    A site may wish to implement URI alteration and image caching for
    hosted recipients.  By implementing BIMI, a site agrees that through
    some combination of trust mechanisms, it will instruct a BIMI-capable
@@ -215,42 +210,54 @@ Internet-Draft                   BIMI-RG                     August 2019
 
 5.  Validation of a BIMI message
 
-
-
-
-
-
-
-Brotman & Zink          Expires February 6, 2020                [Page 4]
-
-Internet-Draft                   BIMI-RG                     August 2019
-
-
 5.1.  BIMI Site Requirements
 
    In the BIMI specification, a message MUST be authenticated via DMARC.
    As stated in the DMARC draft, this requires that only one of DKIM or
    SPF must successfully pass validation.  However, for additional local
-   security measures, a receiving site may create additional
-   requirements for senders in order to verify BIMI (that is, indicate
-   to a downstream MUA that it is safe to load a BIMI logo in the email
-   client)
+   security measures, it is recommended that a receiving site implement
+   the following additional requirements:
+
+
+
+
+Brotman, et al.         Expires February 6, 2020                [Page 4]
+
+Internet-Draft                   BIMI-RG                     August 2019
+
+
+   o  The message MUST contain one, and only one RFC822.FROM Header, and
+      that header MUST contain one, and only one email address
+
+   o  The DMARC policy MUST be either p=quarantine or p=reject
+
+   o  If a DMARC subdomain policy is defined then it MUST NOT be sp=none
+
+   o  The SPF policy for the domain MUST NOT end with +all
+
+   o  Is the DMARC policy is quarantine and a pct= tag is defined then
+      it MUST be pct=100
+
+   A receiving site may choose to create additional requirements for
+   senders in order to verify BIMI (that is, indicate to a downstream
+   MUA that it is safe to load a BIMI logo in the email client)
+
    This may include, but is not limited to:
 
    o  Requiring both DKIM and SPF to validate and align with the
       organizational domain in the From: address (whereas DMARC only
       requires one of SPF or DKIM to align with the From: domain)
 
-   o  A DMARC policy of quarantine or reject
-
    o  SPF "strength" requirements (e.g., requiring "-all", disallowing
-      usage of "?all" or "+all", or not allowing inclusion of overly
-      large address spaces)
+      usage of "?all" or not allowing inclusion of overly large address
+      spaces)
 
    o  SMTP delivery via TLS
 
    o  Feedback Loop registration or other method of registration with
-      the receiving site.
+      the receiving site
+
+   o  Domain reputation via a DNS Whitelist or other reputation system
 
    These localized requirements are at the discretion of the receiving
    site.  In general, the stricter the criteria, the less chance there
@@ -268,20 +275,18 @@ Internet-Draft                   BIMI-RG                     August 2019
    o  It may be useful to have messages exiting a site to have those
       BIMI-* headers removed as well.
 
+
+
+Brotman, et al.         Expires February 6, 2020                [Page 5]
+
+Internet-Draft                   BIMI-RG                     August 2019
+
+
    o  It is useful for a site that has not implemented BIMI to remove
       those headers so that an MUA that does make use of those headers
       would not accidentally display a BIMI image when the message has
       not been properly authenticated by the email receiver (even though
       an MUA should not make use of BIMI headers and instead rely upon
-
-
-
-
-Brotman & Zink          Expires February 6, 2020                [Page 5]
-
-Internet-Draft                   BIMI-RG                     August 2019
-
-
       settings from the mailstore, it is possible that some MUAs will
       nevertheless use headers without taking appropriate precautions).
 
@@ -324,19 +329,19 @@ Internet-Draft                   BIMI-RG                     August 2019
    o  In its most basic setup, a BIMI-capable MUA could retrieve that
       image file directly from the site specified in the BIMI record.
 
+
+
+
+
+Brotman, et al.         Expires February 6, 2020                [Page 6]
+
+Internet-Draft                   BIMI-RG                     August 2019
+
+
    o  Other providers may choose to cache the associated images in a
       local store which could be used as the BIMI resource address in
       the headers of a BIMI-approved message in a sort of proxy
       configuration.
-
-
-
-
-
-Brotman & Zink          Expires February 6, 2020                [Page 6]
-
-Internet-Draft                   BIMI-RG                     August 2019
-
 
 6.2.  TTL of cached images
 
@@ -381,19 +386,19 @@ Internet-Draft                   BIMI-RG                     August 2019
    o  Upon receipt of a message, the receiver checks to see if the
       message passes aligned-SPF or DKIM, and DMARC, and ensures that
       the sending domain has a DMARC policy of "quarantine" or "reject"
+
+
+
+Brotman, et al.         Expires February 6, 2020                [Page 7]
+
+Internet-Draft                   BIMI-RG                     August 2019
+
+
       per local receiver policy, while properly applying the appropriate
       DMARC policy to the message.
 
    o  If the message passes prior checks, the receiver will then check
       to see if the domain in the From: address has a BIMI record (or,
-
-
-
-Brotman & Zink          Expires February 6, 2020                [Page 7]
-
-Internet-Draft                   BIMI-RG                     August 2019
-
-
       if the message has a BIMI-Selector header that is covered by the
       DKIM-Signature, uses that to do the BIMI query in DNS).
 
@@ -436,20 +441,21 @@ Internet-Draft                   BIMI-RG                     August 2019
       displays it in the sender photo (or however else it chooses to
       render the BIMI logo in conjunction with the message).
 
+
+
+
+
+Brotman, et al.         Expires February 6, 2020                [Page 8]
+
+Internet-Draft                   BIMI-RG                     August 2019
+
+
 7.  Domain Reputation
 
    Receivers are advised to consider incorporating local sources of
    domain trust intelligence into the processes which ultimately
    determine whether or not BIMI logos are displayed.  Simply because a
    sending domain passes BIMI requirements does not mean the images
-
-
-
-Brotman & Zink          Expires February 6, 2020                [Page 8]
-
-Internet-Draft                   BIMI-RG                     August 2019
-
-
    should automatically be displayed in the MUA; a site may impose
    further restrictions based on domain reputation.
 
@@ -492,19 +498,18 @@ Internet-Draft                   BIMI-RG                     August 2019
 
    To alleviate this, receivers may wish to show logos only for domains
    that have organizational domains with strong DMARC policies.  Or, if
+
+
+
+Brotman, et al.         Expires February 6, 2020                [Page 9]
+
+Internet-Draft                   BIMI-RG                     August 2019
+
+
    an organizational domain does not have a strong DMARC policy but a
    subdomain does, then it may treat the organizational domain as if it
    does have a strong DMARC policy so as to prevent a phisher or spammer
    from impersonating the brand or any of its subdomains.
-
-
-
-
-
-Brotman & Zink          Expires February 6, 2020                [Page 9]
-
-Internet-Draft                   BIMI-RG                     August 2019
-
 
 8.  Working with MVAs
 
@@ -550,17 +555,15 @@ Internet-Draft                   BIMI-RG                     August 2019
    researching multiple MVAs, a brand can reduce the chances that losing
    one by a receiver affects their brand.
 
-   For this reason, brands are encouraged to get certified at multiple
-   MVAs, and receivers are encouraged to use multiple MVAs.
 
 
-
-
-
-Brotman & Zink          Expires February 6, 2020               [Page 10]
+Brotman, et al.         Expires February 6, 2020               [Page 10]
 
 Internet-Draft                   BIMI-RG                     August 2019
 
+
+   For this reason, brands are encouraged to get certified at multiple
+   MVAs, and receivers are encouraged to use multiple MVAs.
 
 8.1.  Resolving disputes
 
@@ -608,15 +611,14 @@ Internet-Draft                   BIMI-RG                     August 2019
 
    o  The wrong key is associated with the wrong MVA
 
-   o  Failing to load a logo in the email client
 
 
-
-
-Brotman & Zink          Expires February 6, 2020               [Page 11]
+Brotman, et al.         Expires February 6, 2020               [Page 11]
 
 Internet-Draft                   BIMI-RG                     August 2019
 
+
+   o  Failing to load a logo in the email client
 
    o  Failing to access the logo (e.g., permissions errors)
 
@@ -661,18 +663,18 @@ Internet-Draft                   BIMI-RG                     August 2019
    user's system.  Ensure your customers have a place that documents
    BIMI and demonstrates how to check messages for fraud.
 
-11.  Appendix
 
 
 
 
 
 
-
-Brotman & Zink          Expires February 6, 2020               [Page 12]
+Brotman, et al.         Expires February 6, 2020               [Page 12]
 
 Internet-Draft                   BIMI-RG                     August 2019
 
+
+11.  Appendix
 
 11.1.  Glossary
 
@@ -720,16 +722,15 @@ Internet-Draft                   BIMI-RG                     August 2019
       defined by DMARC, of the domain in the From: address being the
       same as the organizational domain that passed SPF or DKIM.  For
       example, foo.example.com has an organizational domain of
-      example.com; bar.foo.example.com also has an organizational domain
 
 
 
-
-Brotman & Zink          Expires February 6, 2020               [Page 13]
+Brotman, et al.         Expires February 6, 2020               [Page 13]
 
 Internet-Draft                   BIMI-RG                     August 2019
 
 
+      example.com; bar.foo.example.com also has an organizational domain
       of example.com.  It aligns with org.example.com, because both have
       the same organizational domain.
 
@@ -780,8 +781,7 @@ Authors' Addresses
 
 
 
-
-Brotman & Zink          Expires February 6, 2020               [Page 14]
+Brotman, et al.         Expires February 6, 2020               [Page 14]
 
 Internet-Draft                   BIMI-RG                     August 2019
 
@@ -791,6 +791,10 @@ Internet-Draft                   BIMI-RG                     August 2019
    Email: tzink@terryzink.com
 
 
+   Marc Bradshaw
+   Fastmail
+
+   Email: marc@fastmailteam.com
 
 
 
@@ -833,8 +837,4 @@ Internet-Draft                   BIMI-RG                     August 2019
 
 
 
-
-
-
-
-Brotman & Zink          Expires February 6, 2020               [Page 15]
+Brotman, et al.         Expires February 6, 2020               [Page 15]

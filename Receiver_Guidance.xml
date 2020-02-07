@@ -42,6 +42,21 @@
 <uri></uri>
 </address>
 </author>
+<author initials="M." surname="Bradshaw" fullname="Marc Bradshaw">
+<organization>Fastmail</organization>
+<address>
+<postal>
+<street></street>
+<city></city>
+<code></code>
+<country></country>
+<region></region>
+</postal>
+<phone></phone>
+<email>marc@fastmailteam.com</email>
+<uri></uri>
+</address>
+</author>
 <date year="2019" month="August" day="5"/>
 
 <area>Applications</area>
@@ -140,9 +155,6 @@ to perform the following:
 <t>Validate DMARC</t>
 <t>Validate a BIMI Certificate (a new kind of Extended Validation (EV) certificate)</t>
 <t>Fetch an image located at an https location</t>
-<t>For some receivers, an additional requirement is a BIMI-capable IMAP daemon, or
-another method of a mail server signaling to an MUA that it is safe to load a
-BIMI image , as well as securely pointing to the BIMI location to pull it from.</t>
 </list>
 </t>
 <t>A site may wish to implement URI alteration and image caching for hosted recipients.
@@ -158,23 +170,35 @@ able to authenticate the BIMI certificate associated with the sending domain.
 <section anchor="bimi-site-requirements" title="BIMI Site Requirements">
 <t>In the BIMI specification, a message MUST be authenticated via DMARC. As stated
 in the DMARC draft, this requires that only one of DKIM or SPF must successfully
-pass validation. However, for additional local security measures, a receiving site
-may create additional requirements for senders in order to verify BIMI (that is,
-indicate to a downstream MUA that it is safe to load a BIMI logo in the email client)
-<vspace/>
-This may include, but is not limited to:
+pass validation. However, for additional local security measures, it is recommended
+that a receiving site implement the following additional requirements:
+</t>
+<t>
+<list style="symbols">
+<t>The message MUST contain one, and only one RFC822.FROM Header, and that header
+MUST contain one, and only one email address</t>
+<t>The DMARC policy MUST be either p=quarantine or p=reject</t>
+<t>If a DMARC subdomain policy is defined then it MUST NOT be sp=none</t>
+<t>The SPF policy for the domain MUST NOT end with +all</t>
+<t>Is the DMARC policy is quarantine and a pct= tag is defined then it MUST be pct=100</t>
+</list>
+</t>
+<t>A receiving site may choose to create additional requirements for senders in order to
+verify BIMI  (that is, indicate to a downstream MUA that it is safe to load a BIMI logo
+in the email client)
+</t>
+<t>This may include, but is not limited to:
 </t>
 <t>
 <list style="symbols">
 <t>Requiring both DKIM and SPF to validate and align with the organizational domain
 in the From: address (whereas DMARC only requires one of SPF or DKIM to align with
 the From: domain)</t>
-<t>A DMARC policy of quarantine or reject</t>
 <t>SPF &quot;strength&quot; requirements (e.g., requiring &quot;-all&quot;, disallowing usage of &quot;?all&quot;
-or &quot;+all&quot;, or not allowing inclusion of overly large address spaces)</t>
+or not allowing inclusion of overly large address spaces)</t>
 <t>SMTP delivery via TLS</t>
-<t>Feedback Loop registration or other method of registration with the receiving site.
-<vspace/></t>
+<t>Feedback Loop registration or other method of registration with the receiving site</t>
+<t>Domain reputation via a DNS Whitelist or other reputation system</t>
 </list>
 </t>
 <t>These localized requirements are at the discretion of the receiving site. In general,
