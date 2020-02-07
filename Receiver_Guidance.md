@@ -129,19 +129,30 @@ able to authenticate the BIMI certificate associated with the sending domain.
 
 In the BIMI specification, a message MUST be authenticated via DMARC. As stated 
 in the DMARC draft, this requires that only one of DKIM or SPF must successfully 
-pass validation. However, for additional local security measures, a receiving site 
-may create additional requirements for senders in order to verify BIMI (that is, 
-indicate to a downstream MUA that it is safe to load a BIMI logo in the email client)  
+pass validation. However, for additional local security measures, it is recommended 
+that a receiving site implement the following additional requirements:
+
+* The message MUST contain one, and only one RFC822.FROM Header, and that header
+  MUST contain one, and only one email address
+* The DMARC policy MUST be either p=quarantine or p=reject
+* If a DMARC subdomain policy is defined then it MUST NOT be sp=none
+* The SPF policy for the domain MUST NOT end with +all
+* Is the DMARC policy is quarantine and a pct= tag is defined then it MUST be pct=100
+
+A receiving site may choose to create additional requirements for senders in order to
+verify BIMI  (that is, indicate to a downstream MUA that it is safe to load a BIMI logo
+in the email client) 
+
 This may include, but is not limited to:
 
 * Requiring both DKIM and SPF to validate and align with the organizational domain 
   in the From: address (whereas DMARC only requires one of SPF or DKIM to align with 
   the From: domain)
-* A DMARC policy of quarantine or reject
 * SPF "strength" requirements (e.g., requiring "-all", disallowing usage of "?all" 
-  or "+all", or not allowing inclusion of overly large address spaces)
+  or not allowing inclusion of overly large address spaces)
 * SMTP delivery via TLS
-* Feedback Loop registration or other method of registration with the receiving site.  
+* Feedback Loop registration or other method of registration with the receiving site 
+* Domain reputation via a DNS Whitelist or other reputation system 
 
 These localized requirements are at the discretion of the receiving site. In general, 
 the stricter the criteria, the less chance there is of an MUA erroneously showing a 
