@@ -470,8 +470,6 @@ BIMI and demonstrates how to check messages for fraud.
   will be stored in a field within the certificate. This should allow a receiver site to 
   validate the retrieved imagery before putting the BIMI image URI into the message headers.
 
-* Terry Zink - Alex Brotman’s best friend.
-
 # Contributors
 
 TBD
