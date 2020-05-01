@@ -79,7 +79,7 @@ Table of Contents
      6.2.  TTL of cached images  . . . . . . . . . . . . . . . . . .   7
      6.3.  Privacy Concerns  . . . . . . . . . . . . . . . . . . . .   7
      6.4.  Basic flow example  . . . . . . . . . . . . . . . . . . .   7
-   7.  Domain Reputation . . . . . . . . . . . . . . . . . . . . . .   9
+   7.  Domain Reputation . . . . . . . . . . . . . . . . . . . . . .   8
      7.1.  Rolling up based upon domain vs organizational domain . .   9
    8.  Working with MVAs . . . . . . . . . . . . . . . . . . . . . .  10
      8.1.  Resolving disputes  . . . . . . . . . . . . . . . . . . .  11
@@ -87,7 +87,7 @@ Table of Contents
    10. Public documentation  . . . . . . . . . . . . . . . . . . . .  12
      10.1.  For Brands:  . . . . . . . . . . . . . . . . . . . . . .  12
      10.2.  For users: . . . . . . . . . . . . . . . . . . . . . . .  12
-   11. Appendix  . . . . . . . . . . . . . . . . . . . . . . . . . .  13
+   11. Appendix  . . . . . . . . . . . . . . . . . . . . . . . . . .  12
      11.1.  Glossary . . . . . . . . . . . . . . . . . . . . . . . .  13
    12. Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  14
    13. References  . . . . . . . . . . . . . . . . . . . . . . . . .  14
@@ -215,8 +215,8 @@ Internet-Draft                   BIMI-RG                     August 2019
    In the BIMI specification, a message MUST be authenticated via DMARC.
    As stated in the DMARC draft, this requires that only one of DKIM or
    SPF must successfully pass validation.  However, for additional local
-   security measures, it is recommended that a receiving site implement
-   the following additional requirements:
+   security measures, a receiving site may choose to create additional
+   requirements for senders in order to verify BIMI (that is, indicate
 
 
 
@@ -226,21 +226,8 @@ Brotman, et al.         Expires February 6, 2020                [Page 4]
 Internet-Draft                   BIMI-RG                     August 2019
 
 
-   o  The message MUST contain one, and only one RFC822.FROM Header, and
-      that header MUST contain one, and only one email address
-
-   o  The DMARC policy MUST be either p=quarantine or p=reject
-
-   o  If a DMARC subdomain policy is defined then it MUST NOT be sp=none
-
-   o  The SPF policy for the domain MUST NOT end with +all
-
-   o  Is the DMARC policy is quarantine and a pct= tag is defined then
-      it MUST be pct=100
-
-   A receiving site may choose to create additional requirements for
-   senders in order to verify BIMI (that is, indicate to a downstream
-   MUA that it is safe to load a BIMI logo in the email client)
+   to a downstream MUA that it is safe to load a BIMI logo in the email
+   client)
 
    This may include, but is not limited to:
 
@@ -275,13 +262,6 @@ Internet-Draft                   BIMI-RG                     August 2019
    o  It may be useful to have messages exiting a site to have those
       BIMI-* headers removed as well.
 
-
-
-Brotman, et al.         Expires February 6, 2020                [Page 5]
-
-Internet-Draft                   BIMI-RG                     August 2019
-
-
    o  It is useful for a site that has not implemented BIMI to remove
       those headers so that an MUA that does make use of those headers
       would not accidentally display a BIMI image when the message has
@@ -289,6 +269,18 @@ Internet-Draft                   BIMI-RG                     August 2019
       an MUA should not make use of BIMI headers and instead rely upon
       settings from the mailstore, it is possible that some MUAs will
       nevertheless use headers without taking appropriate precautions).
+
+
+
+
+
+
+
+
+Brotman, et al.         Expires February 6, 2020                [Page 5]
+
+Internet-Draft                   BIMI-RG                     August 2019
+
 
 5.2.  BIMI Certificate Validation
 
@@ -306,12 +298,6 @@ Internet-Draft                   BIMI-RG                     August 2019
       passed BIMI, and a second flag that tells the MUA where to get the
       BIMI logo from.
 
-   o  When displaying a message, the MUA does not look for any BIMI
-      headers stamped by the MTA, but instead relies upon the mailstore
-      flags or message properties that a message passed BIMI, and use
-      that to decide show the logo.  The MUA then pulls the required
-      image and displays it as appropriate.
-
    Alternatively, the MUA may also look for the flag in the mailstore
    and then attempt to extract the key/value pairs from the BIMI-
    Location headers.  In either case, the MUA must first check to see if
@@ -326,8 +312,22 @@ Internet-Draft                   BIMI-RG                     August 2019
    an image file to display for each BIMI-validated message.  There are
    multiple ways to accomplish this, for example:
 
-   o  In its most basic setup, a BIMI-capable MUA could retrieve that
-      image file directly from the site specified in the BIMI record.
+   o  In its most basic setup, a BIMI-capable MUA could retrieve the
+      image file directly from the site specified in the BIMI-Location
+      header.
+
+   o  A BIMI capable MTA will add a header containing the Base64 encoded
+      SVG of the image file.  The MUA can use this header to retrieve
+      the already validated image file for display.  This is the
+      recommended method of image retrieval as the work of retrieval and
+      validation has already been done by the MTA.
+
+   o  Other providers may choose to cache the associated images in a
+      local store which could be used as the BIMI resource address in
+      the headers of a BIMI-approved message in a sort of proxy
+      configuration.
+
+
 
 
 
@@ -337,11 +337,6 @@ Brotman, et al.         Expires February 6, 2020                [Page 6]
 
 Internet-Draft                   BIMI-RG                     August 2019
 
-
-   o  Other providers may choose to cache the associated images in a
-      local store which could be used as the BIMI resource address in
-      the headers of a BIMI-approved message in a sort of proxy
-      configuration.
 
 6.2.  TTL of cached images
 
@@ -386,6 +381,11 @@ Internet-Draft                   BIMI-RG                     August 2019
    o  Upon receipt of a message, the receiver checks to see if the
       message passes aligned-SPF or DKIM, and DMARC, and ensures that
       the sending domain has a DMARC policy of "quarantine" or "reject"
+      per local receiver policy, while properly applying the appropriate
+      DMARC policy to the message.
+
+   o  If the message passes prior checks, the receiver will then check
+      to see if the domain in the From: address has a BIMI record (or,
 
 
 
@@ -394,11 +394,6 @@ Brotman, et al.         Expires February 6, 2020                [Page 7]
 Internet-Draft                   BIMI-RG                     August 2019
 
 
-      per local receiver policy, while properly applying the appropriate
-      DMARC policy to the message.
-
-   o  If the message passes prior checks, the receiver will then check
-      to see if the domain in the From: address has a BIMI record (or,
       if the message has a BIMI-Selector header that is covered by the
       DKIM-Signature, uses that to do the BIMI query in DNS).
 
@@ -421,27 +416,32 @@ Internet-Draft                   BIMI-RG                     August 2019
 
    o  The email receiver then does the rest of its anti-spam, anti-
       malware, and anti-phishing checks (these checks may be performed
-      before BIMI is verified).  If a message fails a phishing or
-      malware checks, the email receiver must not say the message passed
-      BIMI.  If a message is neither malware nor phishing but is
-      detected as spam (meaning that the message comes from a known
-      brand, but contains spammy content), then the email receiver may
-      optionally say that the message passed BIMI (and therefore a
-      receiver should show the image) but it is up to the receiver.
+      before BIMI is verified).  MUAs SHOULD consider message
+      classification when deciding if a logo should be displayed.  If a
+      message is classified as phishing or malware then the MUA SHOULD
+      NOT display the logo.  If a message is classified as spam (meaning
+      that the message comes from a known brand, but contains spammy
+      content), then the email receiver MAY choose not to display the
+      logo.  MTAs MAY choose to override a bimi=pass for messages
+      identified as phishing or malware, and if so they SHOULD add a
+      comment to the Authentication-Results header stating why that
+      result was returned.
 
-   o  The email receiver then sets either the appropriate IMAP flags, or
-      other mailstore flag, or other message property that signals to a
-      downstream email client that the message passed BIMI and is safe
-      to load the logo, along with a pointer to the logo (e.g., to the
-      https location specified in the BIMI record).
+   o  The email receiver then adds the relevant Authentication-Results
+      and BIMI-* headers to the message to signal to the downstream
+      email client that the message passed BIMI and that is safe to load
+      the logo.
 
-   o  What eventually happens is the email client then looks at the
-      flags set by the email receiver (MTA).  If the flags are set to
-      show a BIMI logo, then the email client downloads the image and
-      displays it in the sender photo (or however else it chooses to
-      render the BIMI logo in conjunction with the message).
+   o  Eventually, the MUA checks the BIMI-* headers, downloads the
+      image, and displays it as the sender photo (or however else it
+      chooses to render the BIMI logo in conjunction with the message).
 
+7.  Domain Reputation
 
+   Receivers are advised to consider incorporating local sources of
+   domain trust intelligence into the processes which ultimately
+   determine whether or not BIMI logos are displayed.  Simply because a
+   sending domain passes BIMI requirements does not mean the images
 
 
 
@@ -450,12 +450,6 @@ Brotman, et al.         Expires February 6, 2020                [Page 8]
 Internet-Draft                   BIMI-RG                     August 2019
 
 
-7.  Domain Reputation
-
-   Receivers are advised to consider incorporating local sources of
-   domain trust intelligence into the processes which ultimately
-   determine whether or not BIMI logos are displayed.  Simply because a
-   sending domain passes BIMI requirements does not mean the images
    should automatically be displayed in the MUA; a site may impose
    further restrictions based on domain reputation.
 
@@ -498,6 +492,12 @@ Internet-Draft                   BIMI-RG                     August 2019
 
    To alleviate this, receivers may wish to show logos only for domains
    that have organizational domains with strong DMARC policies.  Or, if
+   an organizational domain does not have a strong DMARC policy but a
+   subdomain does, then it may treat the organizational domain as if it
+   does have a strong DMARC policy so as to prevent a phisher or spammer
+   from impersonating the brand or any of its subdomains.
+
+
 
 
 
@@ -505,11 +505,6 @@ Brotman, et al.         Expires February 6, 2020                [Page 9]
 
 Internet-Draft                   BIMI-RG                     August 2019
 
-
-   an organizational domain does not have a strong DMARC policy but a
-   subdomain does, then it may treat the organizational domain as if it
-   does have a strong DMARC policy so as to prevent a phisher or spammer
-   from impersonating the brand or any of its subdomains.
 
 8.  Working with MVAs
 
@@ -555,15 +550,17 @@ Internet-Draft                   BIMI-RG                     August 2019
    researching multiple MVAs, a brand can reduce the chances that losing
    one by a receiver affects their brand.
 
+   For this reason, brands are encouraged to get certified at multiple
+   MVAs, and receivers are encouraged to use multiple MVAs.
+
+
+
 
 
 Brotman, et al.         Expires February 6, 2020               [Page 10]
 
 Internet-Draft                   BIMI-RG                     August 2019
 
-
-   For this reason, brands are encouraged to get certified at multiple
-   MVAs, and receivers are encouraged to use multiple MVAs.
 
 8.1.  Resolving disputes
 
@@ -611,14 +608,15 @@ Internet-Draft                   BIMI-RG                     August 2019
 
    o  The wrong key is associated with the wrong MVA
 
+   o  Failing to load a logo in the email client
+
+
 
 
 Brotman, et al.         Expires February 6, 2020               [Page 11]
 
 Internet-Draft                   BIMI-RG                     August 2019
 
-
-   o  Failing to load a logo in the email client
 
    o  Failing to access the logo (e.g., permissions errors)
 
@@ -663,6 +661,8 @@ Internet-Draft                   BIMI-RG                     August 2019
    user's system.  Ensure your customers have a place that documents
    BIMI and demonstrates how to check messages for fraud.
 
+11.  Appendix
+
 
 
 
@@ -673,8 +673,6 @@ Brotman, et al.         Expires February 6, 2020               [Page 12]
 
 Internet-Draft                   BIMI-RG                     August 2019
 
-
-11.  Appendix
 
 11.1.  Glossary
 
@@ -722,6 +720,8 @@ Internet-Draft                   BIMI-RG                     August 2019
       defined by DMARC, of the domain in the From: address being the
       same as the organizational domain that passed SPF or DKIM.  For
       example, foo.example.com has an organizational domain of
+      example.com; bar.foo.example.com also has an organizational domain
+
 
 
 
@@ -730,7 +730,6 @@ Brotman, et al.         Expires February 6, 2020               [Page 13]
 Internet-Draft                   BIMI-RG                     August 2019
 
 
-      example.com; bar.foo.example.com also has an organizational domain
       of example.com.  It aligns with org.example.com, because both have
       the same organizational domain.
 
@@ -742,8 +741,6 @@ Internet-Draft                   BIMI-RG                     August 2019
       This should allow a receiver site to validate the retrieved
       imagery before putting the BIMI image URI into the message
       headers.
-
-   o  Terry Zink - Alex Brotman's best friend.
 
 12.  Contributors
 
@@ -777,6 +774,9 @@ Authors' Addresses
    Email: alex_brotman@comcast.com
 
 
+   Terry Zink
+
+   Email: tzink@terryzink.com
 
 
 
@@ -786,15 +786,15 @@ Brotman, et al.         Expires February 6, 2020               [Page 14]
 Internet-Draft                   BIMI-RG                     August 2019
 
 
-   Terry Zink
-
-   Email: tzink@terryzink.com
-
-
    Marc Bradshaw
    Fastmail
 
    Email: marc@fastmailteam.com
+
+
+
+
+
 
 
 
