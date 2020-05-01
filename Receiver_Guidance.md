@@ -175,11 +175,6 @@ display the images:
   in an IMAP mailstore, a flag on the message could be set that indicates that the message 
   passed BIMI, and a second flag that tells the MUA where to get the BIMI logo from.
 
-* When displaying a message, the MUA does not look for any BIMI headers stamped by the 
-  MTA, but instead relies upon the mailstore flags or message properties that a message 
-  passed BIMI, and use that to decide show the logo. The MUA then pulls the required image 
-  and displays it as appropriate.
-
 Alternatively, the MUA may also look for the flag in the mailstore and then attempt to 
 extract the key/value pairs from the BIMI-Location headers. In either case, the MUA must 
 first check to see if a message passed BIMI before loading the BIMI image.
