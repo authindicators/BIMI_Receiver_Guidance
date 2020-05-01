@@ -188,9 +188,14 @@ A core part of the BIMI specification is that the MUA will retrieve an image fil
 display for each BIMI-validated message. There are multiple ways to accomplish this, 
 for example:
 
-* In its most basic setup, a BIMI-capable MUA could retrieve that image file directly 
-  from the site specified in the BIMI record. 
+* In its most basic setup, a BIMI-capable MUA could retrieve the image file directly 
+  from the site specified in the BIMI-Location header. 
   
+* A BIMI capable MTA will add a header containing the Base64 encoded SVG of the image file. 
+  The MUA can use this header to retrieve the already validated image file for display. This 
+  is the recommended method of image retrieval as the work of retrieval and validation has 
+  already been done by the MTA.
+
 * Other providers may choose to cache the associated images in a local store which could 
   be used as the BIMI resource address in the headers of a BIMI-approved message in a 
   sort of proxy configuration.
@@ -251,16 +256,18 @@ One sample implementation of BIMI by a receiver, who does everything on-the-fly,
   a BIMI image. The MUA MAY show a default image such as a set of initials, or unidentified sender.
 
 * The email receiver then does the rest of its anti-spam, anti-malware, and anti-phishing checks 
-  (these checks may be performed before BIMI is verified). If a message fails a phishing or 
-  malware checks, the email receiver must not say the message passed BIMI. If a message is 
-  neither malware nor phishing but is detected as spam (meaning that the message comes from a known 
-  brand, but contains spammy content), then the email receiver may optionally say that the message 
-  passed BIMI (and therefore a receiver should show the image) but it is up to the receiver.
+  (these checks may be performed before BIMI is verified).
+  MUAs SHOULD consider message classification when deciding if a logo should be displayed. 
+  If a message is classified as phishing or malware then the MUA SHOULD NOT display the logo. 
+  If a message is classified as spam (meaning that the message comes from a known 
+  brand, but contains spammy content), then the email receiver MAY choose not to display the 
+  logo. 
+  MTAs MAY choose to override a bimi=pass for messages identified as phishing or malware, and if so
+  they SHOULD add a comment to the Authentication-Results header stating why that result was returned.
 
-* The email receiver then sets either the appropriate IMAP flags, or other mailstore flag, or 
-  other message property that signals to a downstream email client that the message passed BIMI 
-  and is safe to load the logo, along with a pointer to the logo (e.g., to the https location 
-  specified in the BIMI record).
+* The email receiver then adds the relevant Authentication-Results and BIMI-* headers to the message 
+  to signal to the downstream email client that the message passed BIMI and that is safe to load the 
+  logo.
 
 * What eventually happens is the email client then looks at the flags set by the email receiver 
   (MTA). If the flags are set to show a BIMI logo, then the email client downloads the image 
