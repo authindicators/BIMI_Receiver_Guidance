@@ -42,6 +42,21 @@
 <uri></uri>
 </address>
 </author>
+<author initials="M." surname="Bradshaw" fullname="Marc Bradshaw">
+<organization>Fastmail</organization>
+<address>
+<postal>
+<street></street>
+<city></city>
+<code></code>
+<country></country>
+<region></region>
+</postal>
+<phone></phone>
+<email>marc@fastmailteam.com</email>
+<uri></uri>
+</address>
+</author>
 <date year="2019" month="August" day="5"/>
 
 <area>Applications</area>
@@ -86,7 +101,7 @@ document are to be interpreted as described in [BCP 14] <xref target="RFC2119"/>
 <t>As stated in other BIMI drafts, BIMI intends to advance email authentication
 by granting a sending party brand impressions as long as the message
 passes authentication mechanisms and and meets other receiver qualifications
-(reputation, encryption, whitelisting, et cetera). DMARC currently has wide
+(reputation, encryption, allow listing, et cetera). DMARC currently has wide
 adoption by some of the Internet’s larger brands, but there is still a long
 tail of small-to-medium size brands (and many large ones) that do not have it.
 Because BIMI provides a visual presence in the inbox, and because visual
@@ -140,9 +155,6 @@ to perform the following:
 <t>Validate DMARC</t>
 <t>Validate a BIMI Certificate (a new kind of Extended Validation (EV) certificate)</t>
 <t>Fetch an image located at an https location</t>
-<t>For some receivers, an additional requirement is a BIMI-capable IMAP daemon, or
-another method of a mail server signaling to an MUA that it is safe to load a
-BIMI image , as well as securely pointing to the BIMI location to pull it from.</t>
 </list>
 </t>
 <t>A site may wish to implement URI alteration and image caching for hosted recipients.
@@ -158,23 +170,22 @@ able to authenticate the BIMI certificate associated with the sending domain.
 <section anchor="bimi-site-requirements" title="BIMI Site Requirements">
 <t>In the BIMI specification, a message MUST be authenticated via DMARC. As stated
 in the DMARC draft, this requires that only one of DKIM or SPF must successfully
-pass validation. However, for additional local security measures, a receiving site
-may create additional requirements for senders in order to verify BIMI (that is,
+pass validation. However, for additional local security measures, a receiving site may
+choose to create additional requirements for senders in order to verify BIMI  (that is,
 indicate to a downstream MUA that it is safe to load a BIMI logo in the email client)
-<vspace/>
-This may include, but is not limited to:
+</t>
+<t>This may include, but is not limited to:
 </t>
 <t>
 <list style="symbols">
 <t>Requiring both DKIM and SPF to validate and align with the organizational domain
 in the From: address (whereas DMARC only requires one of SPF or DKIM to align with
 the From: domain)</t>
-<t>A DMARC policy of quarantine or reject</t>
 <t>SPF &quot;strength&quot; requirements (e.g., requiring &quot;-all&quot;, disallowing usage of &quot;?all&quot;
-or &quot;+all&quot;, or not allowing inclusion of overly large address spaces)</t>
+or not allowing inclusion of overly large address spaces)</t>
 <t>SMTP delivery via TLS</t>
-<t>Feedback Loop registration or other method of registration with the receiving site.
-<vspace/></t>
+<t>Feedback Loop registration or other method of registration with the receiving site</t>
+<t>Domain reputation via a DNS allow list or other reputation system</t>
 </list>
 </t>
 <t>These localized requirements are at the discretion of the receiving site. In general,
@@ -218,10 +229,6 @@ display the images:
 are saved) that the message passed BIMI, and it is safe to load the logo. For example,
 in an IMAP mailstore, a flag on the message could be set that indicates that the message
 passed BIMI, and a second flag that tells the MUA where to get the BIMI logo from.</t>
-<t>When displaying a message, the MUA does not look for any BIMI headers stamped by the
-MTA, but instead relies upon the mailstore flags or message properties that a message
-passed BIMI, and use that to decide show the logo. The MUA then pulls the required image
-and displays it as appropriate.</t>
 </list>
 </t>
 <t>Alternatively, the MUA may also look for the flag in the mailstore and then attempt to
@@ -239,8 +246,12 @@ for example:
 </t>
 <t>
 <list style="symbols">
-<t>In its most basic setup, a BIMI-capable MUA could retrieve that image file directly
-from the site specified in the BIMI record.</t>
+<t>In its most basic setup, a BIMI-capable MUA could retrieve the image file directly
+from the site specified in the BIMI-Location header.</t>
+<t>A BIMI capable MTA will add a header containing the Base64 encoded SVG of the image file.
+The MUA can use this header to retrieve the already validated image file for display. This
+is the recommended method of image retrieval as the work of retrieval and validation has
+already been done by the MTA.</t>
 <t>Other providers may choose to cache the associated images in a local store which could
 be used as the BIMI resource address in the headers of a BIMI-approved message in a
 sort of proxy configuration.</t>
@@ -301,19 +312,19 @@ BIMI cert, this is a successful BIMI verification.</t>
 <t>If the BIMI verification does not verify, then the MTA must not indicate to the MUA to show
 a BIMI image. The MUA MAY show a default image such as a set of initials, or unidentified sender.</t>
 <t>The email receiver then does the rest of its anti-spam, anti-malware, and anti-phishing checks
-(these checks may be performed before BIMI is verified). If a message fails a phishing or
-malware checks, the email receiver must not say the message passed BIMI. If a message is
-neither malware nor phishing but is detected as spam (meaning that the message comes from a known
-brand, but contains spammy content), then the email receiver may optionally say that the message
-passed BIMI (and therefore a receiver should show the image) but it is up to the receiver.</t>
-<t>The email receiver then sets either the appropriate IMAP flags, or other mailstore flag, or
-other message property that signals to a downstream email client that the message passed BIMI
-and is safe to load the logo, along with a pointer to the logo (e.g., to the https location
-specified in the BIMI record).</t>
-<t>What eventually happens is the email client then looks at the flags set by the email receiver
-(MTA). If the flags are set to show a BIMI logo, then the email client downloads the image
-and displays it in the sender photo (or however else it chooses to render the BIMI logo in
-conjunction with the message).</t>
+(these checks may be performed before BIMI is verified).
+MUAs SHOULD consider message classification when deciding if a logo should be displayed.
+If a message is classified as phishing or malware then the MUA SHOULD NOT display the logo.
+If a message is classified as spam (meaning that the message comes from a known
+brand, but contains spammy content), then the email receiver MAY choose not to display the
+logo.
+MTAs MAY choose to override a bimi=pass for messages identified as phishing or malware, and if so
+they SHOULD add a comment to the Authentication-Results header stating why that result was returned.</t>
+<t>The email receiver then adds the relevant Authentication-Results and BIMI-* headers to the message
+to signal to the downstream email client that the message passed BIMI and that is safe to load the
+logo.</t>
+<t>Eventually, the MUA checks the BIMI-* headers, downloads the image, and displays it as the sender
+photo (or however else it chooses to render the BIMI logo in conjunction with the message).</t>
 </list>
 </t>
 </section>
@@ -460,8 +471,8 @@ additional criteria to determine whether or not a logo should be displayed, and 
 necessary to give away the exact nature of the algorithm other than to say &quot;You must maintain
 good sending practices.&quot;
 </t>
-<t>If you use an explicit whitelist, a site may want to list the minimum requirements, and the
-method of applying to be whitelisted.  Similarly, a provider may wish to state what type of
+<t>If you use an explicit allow list, a site may want to list the minimum requirements, and the
+method of applying to be listed.  Similarly, a provider may wish to state what type of
 activity will revoke the decision to display logos previously approved.
 </t>
 </section>
@@ -517,7 +528,6 @@ create a place where information pertaining to iconography for a sending domain 
 securely verified. In the case of BIMI, hashes for an MVA-approved set of iconography
 will be stored in a field within the certificate. This should allow a receiver site to
 validate the retrieved imagery before putting the BIMI image URI into the message headers.</t>
-<t>Terry Zink - Alex Brotman’s best friend.</t>
 </list>
 </t>
 </section>
