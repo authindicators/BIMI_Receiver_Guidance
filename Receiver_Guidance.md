@@ -111,7 +111,7 @@ to perform the following:
 * Validate SPF
 * Validate DKIM signatures
 * Validate DMARC
-* Validate a BIMI Certificate (a new kind of Extended Validation (EV) certificate)
+* Validate a BIMI Verified Mark Certificate (VMC) (a new kind of Extended Validation (EV) certificate)
 * Fetch an image located at an https location
 
 A site may wish to implement URI alteration and image caching for hosted recipients. 
@@ -161,7 +161,7 @@ Additionally:
   the mailstore, it is possible that some MUAs will nevertheless use headers 
   without taking appropriate precautions).
 
-## BIMI Certificate Validation
+## BIMI Certificate (VMC) Validation
 
 (Currently, see document in Reference below)
 
@@ -170,17 +170,15 @@ Additionally:
 In order for a receiver that has implemented BIMI to notify an MUA that it should 
 display the images:
 
-* An MTA must verify BIMI and if successful, write to the mail store (where the messages 
-  are saved) that the message passed BIMI, and it is safe to load the logo. For example, 
-  in an IMAP mailstore, a flag on the message could be set that indicates that the message 
-  passed BIMI, and a second flag that tells the MUA where to get the BIMI logo from.
+* An MTA must verify BIMI and add mail headers to indicate if BIMI verification passed, 
+  and if so, add additinal headers containing the logo to be displayed.
 
-Alternatively, the MUA may also look for the flag in the mailstore and then attempt to 
-extract the key/value pairs from the BIMI-Location headers. In either case, the MUA must 
-first check to see if a message passed BIMI before loading the BIMI image.
+The MUA must check to see if a message passed BIMI before loading the BIMI image.
 
 While the MTA MAY stamp BIMI-related information in the message headers, they should not 
-be relied upon by an MUA.
+be relied upon by an MUA without additional checks to make sure they were added by a 
+trusted source, for example, making sure the MTA strips existing headers on ingress, or 
+by checking for a bimi pass in a trusted Authentication-Results header.
 
 ## Image Retrieval
 
@@ -246,13 +244,10 @@ One sample implementation of BIMI by a receiver, who does everything on-the-fly,
   that the BIMI record points to, and attempts to verify the BIMI cert with each public key it 
   has from the MVAs that it works with.
 
-* Upon successful verification of the cert, the receiver checks to see if the signed image hash 
-  in the BIMI cert matches any of the hashes of the images that the BIMI record points to (the 
-  receiver, in this instance, is not storing any of the images locally, but instead is downloading 
-  them on-the-fly). If a hash of a downloaded image from the BIMI record matches the hash in the 
-  BIMI cert, this is a successful BIMI verification.
+* Upon successful verification of the cert, the receiver extracts the verified image file from 
+  the VMC. If the SVG also passes the SVG validation steps then this is a successful BIMI verification. 
 
-* If the BIMI verification does not verify, then the MTA must not indicate to the MUA to show 
+* If the BIMI verification does not pass then the MTA must not indicate to the MUA to show 
   a BIMI image. The MUA MAY show a default image such as a set of initials, or unidentified sender.
 
 * The email receiver then does the rest of its anti-spam, anti-malware, and anti-phishing checks 
