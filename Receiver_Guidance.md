@@ -226,11 +226,6 @@ images is outside the scope of this document.
 
 One sample implementation of BIMI by a receiver, who does everything on-the-fly, is as following:
 
-* An email receiver has established a relationship with several MVAs, trusts them, and has 
-  received their public keys for verifying BIMI certificates. The email receiver makes 
-  these keys available to its mail servers (e.g., by distributing local copies to 
-  each server).  [NOTE: Use of MVA above per Thede]
-
 * Upon receipt of a message, the receiver checks to see if the message passes aligned-SPF 
   or DKIM, and DMARC, and ensures that the sending domain has a DMARC policy of `quarantine`
   or `reject` per local receiver policy, while properly applying the appropriate DMARC 
@@ -241,8 +236,8 @@ One sample implementation of BIMI by a receiver, who does everything on-the-fly,
   is covered by the DKIM-Signature, uses that to do the BIMI query in DNS).
 
 * If a BIMI record is found, the receiver then retrieves the BIMI certificate from the location 
-  that the BIMI record points to, and attempts to verify the BIMI cert with each public key it 
-  has from the MVAs that it works with.
+  that the BIMI record points to, and attempts to verify the BIMI cert using a trusted root 
+  certificate. .
 
 * Upon successful verification of the cert, the receiver extracts the verified image file from 
   the VMC. If the SVG also passes the SVG validation steps then this is a successful BIMI verification. 
