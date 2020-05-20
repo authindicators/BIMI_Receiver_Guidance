@@ -118,7 +118,7 @@ A site may wish to implement URI alteration and image caching for hosted recipie
 By implementing BIMI, a site agrees that through some combination of trust mechanisms, 
 it will instruct a BIMI-capable MUA to display the image fetched from a URI within the 
 message headers. This URI is created after the MTA authenticates a message, and is also 
-able to authenticate the BIMI certificate associated with the sending domain.
+able to authenticate the VMC associated with the sending domain.
 
 # Validation of a BIMI message
 
@@ -207,7 +207,7 @@ in an unreasonably short period of time. In this case, a receiver may want to se
 own TTL. 
 
 One option is to set it to several hours, or a day; another option is to set the TTL to 
-the same as the expiration period in the BIMI certificate that points to the BIMI image. The 
+the same as the expiration period in the VMC that contains the BIMI image. The 
 downside is that the caching mechanism might need to check for certificate revocation, and 
 then re-fetch images.
 
@@ -235,11 +235,11 @@ One sample implementation of BIMI by a receiver, who does everything on-the-fly,
   in the From: address has a BIMI record (or, if the message has a BIMI-Selector header that 
   is covered by the DKIM-Signature, uses that to do the BIMI query in DNS).
 
-* If a BIMI record is found, the receiver then retrieves the BIMI certificate from the location 
-  that the BIMI record points to, and attempts to verify the BIMI cert using a trusted root 
+* If a BIMI record is found, the receiver then retrieves the VMC from the location 
+  that the BIMI record points to, and attempts to verify the VMC using a trusted root 
   certificate. .
 
-* Upon successful verification of the cert, the receiver extracts the verified image file from 
+* Upon successful verification of the VMC, the receiver extracts the verified image from 
   the VMC. If the SVG also passes the SVG validation steps then this is a successful BIMI verification. 
 
 * If the BIMI verification does not pass then the MTA must not indicate to the MUA to show 
