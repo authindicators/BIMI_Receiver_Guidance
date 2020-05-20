@@ -372,10 +372,10 @@ There are several factors to consider for email receivers on things that can go 
 a handful of considerations:
 
 
-* Failing to verify BIMI certs when they otherwise should be. This can be caused by:
-+ Not having the key to a corresponding MVA
-+ Not having access to the key when required
-+ The wrong key is associated with the wrong MVA
+* Failing to verify a VMC
+* Failing to extract an Indicator from a validated VMC
+* Failing to validate a SVG against the recommended profile
+* Failing to parse a gzipped SVG Indicator
 * Failing to load a logo in the email client
 + Failing to access the logo (e.g., permissions errors)
 + Connectivity problems to the logo
