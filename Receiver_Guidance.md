@@ -94,7 +94,7 @@ The following terms are used throughout this document.
 * SPF
 * DMARC
 * Alignment
-* BIMI Certificates
+* Verified Mark Certificate (VMC)
 * IMAP
 * Recipient Domain
 * Sending Domain
@@ -161,7 +161,7 @@ Additionally:
   the mailstore, it is possible that some MUAs will nevertheless use headers 
   without taking appropriate precautions).
 
-## BIMI Certificate (VMC) Validation
+## Verified Mark Certificate (VMC) Validation
 
 (Currently, see document in Reference below)
 
@@ -359,7 +359,7 @@ could be viewed by anyone.
 
 MVAs should respect the decision of the courts and any brand found to be infringing ought to be 
 removed from their list of domains for which they load BIMI logos for.  The issuing MVA of the 
-infringing brand’s BIMI Certificate should formally revoke it. However, this is not guaranteed in 
+infringing brand’s VMC should formally revoke it. However, this is not guaranteed in 
 the case of a rogue MVA or a sloppy MVA. Therefore, email receivers should also pay attention to 
 the Dispute Resolution Agencies, and any results that they say are infringing should be prevented 
 from loading in their email clients. The email receiver should also keep track of how often disputes 
@@ -454,7 +454,7 @@ BIMI and demonstrates how to check messages for fraud.
   bar.foo.example.com also has an organizational domain of example.com. It aligns with 
   org.example.com, because both have the same organizational domain.
 
-* BIMI Certificates - An Extended Validation Certificate is used in conjunction with BIMI to 
+* Verified Mark Certificates (VMC) - An Extended Validation Certificate is used in conjunction with BIMI to 
   create a place where information pertaining to iconography for a sending domain can be 
   securely verified. In the case of BIMI, hashes for an MVA-approved set of iconography 
   will be stored in a field within the certificate. This should allow a receiver site to 
