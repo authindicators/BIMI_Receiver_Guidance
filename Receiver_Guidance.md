@@ -304,43 +304,6 @@ strong DMARC policies. Or, if an organizational domain does not have a strong DM
 does, then it may treat the organizational domain as if it does have a strong DMARC policy so as to prevent 
 a phisher or spammer from impersonating the brand or any of its subdomains. 
 
-# Working with MVAs
-
-Email receivers need to know whether or not it’s safe to download and display an image. That is, 
-an attacker could go through the trouble of creating a BIMI logo and uploading it, but the logo 
-may look visually similar to a real brand. For example, a spammer or phisher could create a 
-lookalike domain for a well-known brand such as Paypal, then copy/paste (or slightly modify) 
-the logo.
-
-To prevent this, an email receiver could choose to verify logos of known brands by themselves 
-(do it all in-house) and establish its own internal processes, or it could use a Mark Verifying 
-Authority (MVA). The receiver could then outsource the maintenance of the list of trusted brands to 
-the MVA, and simply download the list of brands and images from the MVA and display the logos in 
-its email clients.
-
-However, even here a receiver would need to exercise caution. It needs to ensure that MVAs follow 
-best practices, respond to complaints, and do a good job of vetting brands. If users ultimately end 
-up getting phished because they trust signals in the email client, then it is the email receiver 
-that will suffer the brunt of the complaints and loss of reputation, rather than the MVA.
-
-Therefore, an email receiver still needs to track complaints from its users, especially with respect 
-to phishing and impersonation, and then send the feedback back to the MVA. If an MVA still generates 
-too many complaints, this could be indicative of a rogue MVA (one that intentionally signs up malicious 
-accounts), or a “sloppy” MVA (one with internal processes that not rigorous enough, or are designed to 
-maximize revenue at the cost of lax security).
-
-An email receiver should use multiple MVAs to reduce the risk of becoming too reliant upon a single 
-MVA in case they have to stop using it, and therefore lose many dozens, hundreds, or thousands of 
-images with no replacement and thereby contributing to user dissatisfaction confusion. Furthermore, 
-because MVAs may be revoked, brands may wish to diversify their own risk by getting certified by at 
-least two MVAs. The reason for doing this is that if the MVA they use ever gets revoked by an email 
-receiver because of its bad practices, then their own brand will suffer penalties (not having a logo 
-displayed) despite never having done anything wrong. By researching multiple MVAs, a brand can reduce 
-the chances that losing one by a receiver affects their brand.
-
-For this reason, brands are encouraged to get certified at multiple MVAs, and receivers are encouraged 
-to use multiple MVAs.
-
 ## Resolving disputes
 
 From time to time, disputes may arise between brands where one brand says that another is infringing 
