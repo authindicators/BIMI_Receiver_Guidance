@@ -321,7 +321,7 @@ use of the logo were legitimate. Then, they would publish the result of the disp
 could be viewed by anyone.
 
 MVAs should respect the decision of the courts and any brand found to be infringing ought to be 
-removed from their list of domains for which they load BIMI logos for.  The issuing MVA of the 
+added to their list of domains for which BIMI logos are not loaded.  The issuing MVA of the 
 infringing brand’s VMC should formally revoke it. However, this is not guaranteed in 
 the case of a rogue MVA or a sloppy MVA. Therefore, email receivers should also pay attention to 
 the Dispute Resolution Agencies, and any results that they say are infringing should be prevented 
