@@ -94,7 +94,7 @@ The following terms are used throughout this document.
 * SPF
 * DMARC
 * Alignment
-* BIMI Certificates
+* Verified Mark Certificate (VMC)
 * IMAP
 * Recipient Domain
 * Sending Domain
@@ -118,7 +118,7 @@ A site may wish to implement URI alteration and image caching for hosted recipie
 By implementing BIMI, a site agrees that through some combination of trust mechanisms, 
 it will instruct a BIMI-capable MUA to display the image fetched from a URI within the 
 message headers. This URI is created after the MTA authenticates a message, and is also 
-able to authenticate the BIMI certificate associated with the sending domain.
+able to authenticate the VMC associated with the sending domain.
 
 # Validation of a BIMI message
 
@@ -161,7 +161,7 @@ Additionally:
   the mailstore, it is possible that some MUAs will nevertheless use headers 
   without taking appropriate precautions).
 
-## BIMI Certificate (VMC) Validation
+## Verified Mark Certificate (VMC) Validation
 
 (Currently, see document in Reference below)
 
@@ -207,7 +207,7 @@ in an unreasonably short period of time. In this case, a receiver may want to se
 own TTL. 
 
 One option is to set it to several hours, or a day; another option is to set the TTL to 
-the same as the expiration period in the BIMI certificate that points to the BIMI image. The 
+the same as the expiration period in the VMC that contains the BIMI image. The 
 downside is that the caching mechanism might need to check for certificate revocation, and 
 then re-fetch images.
 
@@ -226,11 +226,6 @@ images is outside the scope of this document.
 
 One sample implementation of BIMI by a receiver, who does everything on-the-fly, is as following:
 
-* An email receiver has established a relationship with several MVAs, trusts them, and has 
-  received their public keys for verifying BIMI certificates. The email receiver makes 
-  these keys available to its mail servers (e.g., by distributing local copies to 
-  each server).  [NOTE: Use of MVA above per Thede]
-
 * Upon receipt of a message, the receiver checks to see if the message passes aligned-SPF 
   or DKIM, and DMARC, and ensures that the sending domain has a DMARC policy of `quarantine`
   or `reject` per local receiver policy, while properly applying the appropriate DMARC 
@@ -240,11 +235,11 @@ One sample implementation of BIMI by a receiver, who does everything on-the-fly,
   in the From: address has a BIMI record (or, if the message has a BIMI-Selector header that 
   is covered by the DKIM-Signature, uses that to do the BIMI query in DNS).
 
-* If a BIMI record is found, the receiver then retrieves the BIMI certificate from the location 
-  that the BIMI record points to, and attempts to verify the BIMI cert with each public key it 
-  has from the MVAs that it works with.
+* If a BIMI record is found, the receiver then retrieves the VMC from the location 
+  that the BIMI record points to, and attempts to verify the VMC using a trusted root 
+  certificate. .
 
-* Upon successful verification of the cert, the receiver extracts the verified image file from 
+* Upon successful verification of the VMC, the receiver extracts the verified image from 
   the VMC. If the SVG also passes the SVG validation steps then this is a successful BIMI verification. 
 
 * If the BIMI verification does not pass then the MTA must not indicate to the MUA to show 
@@ -309,43 +304,6 @@ strong DMARC policies. Or, if an organizational domain does not have a strong DM
 does, then it may treat the organizational domain as if it does have a strong DMARC policy so as to prevent 
 a phisher or spammer from impersonating the brand or any of its subdomains. 
 
-# Working with MVAs
-
-Email receivers need to know whether or not it’s safe to download and display an image. That is, 
-an attacker could go through the trouble of creating a BIMI logo and uploading it, but the logo 
-may look visually similar to a real brand. For example, a spammer or phisher could create a 
-lookalike domain for a well-known brand such as Paypal, then copy/paste (or slightly modify) 
-the logo.
-
-To prevent this, an email receiver could choose to verify logos of known brands by themselves 
-(do it all in-house) and establish its own internal processes, or it could use a Mark Verifying 
-Authority (MVA). The receiver could then outsource the maintenance of the list of trusted brands to 
-the MVA, and simply download the list of brands and images from the MVA and display the logos in 
-its email clients.
-
-However, even here a receiver would need to exercise caution. It needs to ensure that MVAs follow 
-best practices, respond to complaints, and do a good job of vetting brands. If users ultimately end 
-up getting phished because they trust signals in the email client, then it is the email receiver 
-that will suffer the brunt of the complaints and loss of reputation, rather than the MVA.
-
-Therefore, an email receiver still needs to track complaints from its users, especially with respect 
-to phishing and impersonation, and then send the feedback back to the MVA. If an MVA still generates 
-too many complaints, this could be indicative of a rogue MVA (one that intentionally signs up malicious 
-accounts), or a “sloppy” MVA (one with internal processes that not rigorous enough, or are designed to 
-maximize revenue at the cost of lax security).
-
-An email receiver should use multiple MVAs to reduce the risk of becoming too reliant upon a single 
-MVA in case they have to stop using it, and therefore lose many dozens, hundreds, or thousands of 
-images with no replacement and thereby contributing to user dissatisfaction confusion. Furthermore, 
-because MVAs may be revoked, brands may wish to diversify their own risk by getting certified by at 
-least two MVAs. The reason for doing this is that if the MVA they use ever gets revoked by an email 
-receiver because of its bad practices, then their own brand will suffer penalties (not having a logo 
-displayed) despite never having done anything wrong. By researching multiple MVAs, a brand can reduce 
-the chances that losing one by a receiver affects their brand.
-
-For this reason, brands are encouraged to get certified at multiple MVAs, and receivers are encouraged 
-to use multiple MVAs.
-
 ## Resolving disputes
 
 From time to time, disputes may arise between brands where one brand says that another is infringing 
@@ -363,8 +321,8 @@ use of the logo were legitimate. Then, they would publish the result of the disp
 could be viewed by anyone.
 
 MVAs should respect the decision of the courts and any brand found to be infringing ought to be 
-removed from their list of domains for which they load BIMI logos for.  The issuing MVA of the 
-infringing brand’s BIMI Certificate should formally revoke it. However, this is not guaranteed in 
+added to their list of domains for which BIMI logos are not loaded.  The issuing MVA of the 
+infringing brand’s VMC should formally revoke it. However, this is not guaranteed in 
 the case of a rogue MVA or a sloppy MVA. Therefore, email receivers should also pay attention to 
 the Dispute Resolution Agencies, and any results that they say are infringing should be prevented 
 from loading in their email clients. The email receiver should also keep track of how often disputes 
@@ -377,10 +335,10 @@ There are several factors to consider for email receivers on things that can go 
 a handful of considerations:
 
 
-* Failing to verify BIMI certs when they otherwise should be. This can be caused by:
-+ Not having the key to a corresponding MVA
-+ Not having access to the key when required
-+ The wrong key is associated with the wrong MVA
+* Failing to verify a VMC
+* Failing to extract an Indicator from a validated VMC
+* Failing to validate a SVG against the recommended profile
+* Failing to parse a gzipped SVG Indicator
 * Failing to load a logo in the email client
 + Failing to access the logo (e.g., permissions errors)
 + Connectivity problems to the logo
@@ -459,7 +417,7 @@ BIMI and demonstrates how to check messages for fraud.
   bar.foo.example.com also has an organizational domain of example.com. It aligns with 
   org.example.com, because both have the same organizational domain.
 
-* BIMI Certificates - An Extended Validation Certificate is used in conjunction with BIMI to 
+* Verified Mark Certificates (VMC) - An Extended Validation Certificate is used in conjunction with BIMI to 
   create a place where information pertaining to iconography for a sending domain can be 
   securely verified. In the case of BIMI, hashes for an MVA-approved set of iconography 
   will be stored in a field within the certificate. This should allow a receiver site to 
