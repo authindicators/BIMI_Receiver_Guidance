@@ -126,7 +126,8 @@ able to authenticate the VMC associated with the sending domain.
 
 In the BIMI specification, a message MUST be authenticated via DMARC. As stated 
 in the DMARC draft, this requires that only one of DKIM or SPF must successfully 
-pass validation. However, for additional local security measures, a receiving site may 
+pass validation with alignment with the organizational domain in the From: address. 
+However, for additional local security measures, a receiving site may 
 choose to create additional requirements for senders in order to verify BIMI  (that is, 
 indicate to a downstream MUA that it is safe to load a BIMI logo in the email client) 
 
