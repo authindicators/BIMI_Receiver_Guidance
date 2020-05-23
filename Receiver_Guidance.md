@@ -112,7 +112,7 @@ to perform the following:
 * Validate DKIM signatures
 * Validate DMARC
 * Validate a BIMI Verified Mark Certificate (VMC) (a new kind of Extended Validation (EV) certificate)
-* Fetch an image located at an https location
+* Fetch an image using HTTPS
 
 A site may wish to implement URI alteration and image caching for hosted recipients. 
 By implementing BIMI, a site agrees that through some combination of trust mechanisms, 
