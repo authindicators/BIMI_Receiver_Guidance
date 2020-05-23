@@ -47,13 +47,13 @@ drafts which should first be consulted and reviewed.
 # Introduction
 
 The Brand Indicators for Message Identification (BIMI) specification 
-introduces a method by which Mail User Agent (MUA, e.g, an email client) 
-providers combine DMARC-based message authentication in addition to 
-cryptographic methods to ensure the identity of a sender, and then to 
-retrieve iconography that the sender has selected.  The iconography can 
-then be displayed within the MUA. The displayed iconography grants the 
-sender brand impressions via the BIMI-capable MUA, and should be a driving 
-factor for the adoption of authenticated email.
+introduces a method by which Mail User Agent (MUA, e.g., an email client) 
+providers combine DMARC-based message authentication with cryptographic 
+methods to ensure the identity of a sender. If the identity is ensured, 
+the MUA can then retrieve sender-selected iconography to display within 
+the MUA. This displayed iconography grants the sender brand impressions 
+via the BIMI-capable MUA, and should be a driving factor for the adoption 
+of authenticated email.
 
 ## Terminology
 
