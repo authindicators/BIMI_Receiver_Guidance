@@ -260,8 +260,9 @@ One sample implementation of BIMI by a receiver, who does everything on-the-fly,
   to signal to the downstream email client that the message passed BIMI and that is safe to load the 
   logo.
 
-* Eventually, the MUA checks the BIMI-* headers, downloads the image, and displays it as the sender 
-  photo (or however else it chooses to render the BIMI logo in conjunction with the message).
+* Eventually, the MUA checks the BIMI-* headers, decodes the image in the BIMI-Indicator header, 
+ and displays it as the sender photo (or however else it chooses to render the BIMI logo in conjunction 
+ with the message).
 
 
 # Domain Reputation
