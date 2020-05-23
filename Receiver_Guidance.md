@@ -333,9 +333,8 @@ evidence of a sloppy MVA or a rogue MVA.
 
 # Troubleshooting BIMI
 
-There are several factors to consider for email receivers on things that can go wrong, below are 
+There are several factors to consider for email receivers on things that can go wrong; below are 
 a handful of considerations:
-
 
 * Failing to verify a VMC
 * Failing to extract an Indicator from a validated VMC
@@ -351,7 +350,7 @@ a handful of considerations:
 
 There are many reasons why a logo may fail to load; having tools to investigate (logs, headers 
 in messages, internal documentation that is clearly written, having the knowledge pushed out 
-to multiple escalation channels) are important for investigation.
+to multiple escalation channels) is important for investigation.
 
 # Public documentation
 
