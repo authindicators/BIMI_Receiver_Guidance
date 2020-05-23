@@ -76,7 +76,7 @@ to spur DMARC adoption, whereas a concern purely from security may not.
 
 # Should your site implement BIMI?
 
-## If your site satisfies the requirements, this is likely a "yes".
+If your site satisfies the requirements, this is likely a "yes".
 
 As email has evolved over the past three decades, it is no longer a medium of 
 merely exchanging text, but of enabling people to build rich experiences on top 
