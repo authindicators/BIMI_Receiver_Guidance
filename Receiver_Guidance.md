@@ -389,25 +389,33 @@ BIMI and demonstrates how to check messages for fraud.
 * MTA - Mail Transfer Agent - Software used to transfer messages between two systems, typically
   between two sites, using SMTP as the protocol.
 
-* SPF - SPF is a framework that designates which systems should be sending for a given 
+* SPF - [Sender Policy Framework](https://tools.ietf.org/html/rfc7208) - 
+  SPF is a framework that designates which systems should be sending for a given 
   domain.  This can be a list of IPs, CIDRs, or references to DNS records.  As the sender 
   should be controlling their DNS, they should understand which IPs should be sending as 
   their domain.
 
-* DKIM - DKIM is a system by which a chosen set of headers, combined with the message 
+* DKIM - [DomainKeys Identified Mail](https://tools.ietf.org/html/rfc6376) - 
+  DKIM is a system by which a chosen set of headers, combined with the message 
   contents, are cryptographically signed, and then validated by the receiving system. 
   Using DNS, the receiving system can retrieve a public key, and then validate the signature 
   within the headers of a message. When implemented properly, the systems responsible for 
   sending the messages for a given domain name should be the only ones capable 
-  of creating messages that correctly validates.  Provided that certain restrictions are 
-  met, DKIM is one possible technology a receiver could utilize to authenticate messages in 
-  the context of BIMI. 
+  of creating messages that correctly validates. 
 
-* DMARC - DMARC is a message authentication mechanism that works with SPF and DKIM. The 
+* DMARC - [Domain-based Message Authentication, Reporting, and Conformance](https://tools.ietf.org/html/rfc7489) - 
+  DMARC is a message authentication mechanism that works with SPF and DKIM. The 
   BIMI specification requires that a message passes DMARC. In order for a message to pass 
   DMARC, one of SPF or DKIM must successfully validate, and the domain in the From: address 
   must align with the domain that passed SPF or DKIM.
-  
+
+* Alignment - Alignment refers to the organizational domain, as defined by DMARC, of the 
+  domain in the From: address being the same as the organizational domain that passed SPF or 
+  DKIM. For example, foo.example.com has an organizational domain of example.com; 
+  bar.foo.example.com also has an organizational domain of example.com. It aligns with 
+  org.example.com, because both have the same organizational domain. A definition of 
+  organizational domain and methods of discovery may be found in the [DMARC](https://tools.ietf.org/html/rfc7489) RFC. 
+
 * MVA - Mark Verifying Authority - An entity that a receiver uses to certify that the
   iconography that they intend to use with BIMI is properly/legally licensed for their use.
 
@@ -415,13 +423,7 @@ BIMI and demonstrates how to check messages for fraud.
   that believe they are both entitled to use a logo.  Receivers should then abide by the
   decision of the DRA as it pertains to logo usage in the MUA.
 
-* Alignment - Alignment refers to the organizational domain, as defined by DMARC, of the 
-  domain in the From: address being the same as the organizational domain that passed SPF or 
-  DKIM. For example, foo.example.com has an organizational domain of example.com; 
-  bar.foo.example.com also has an organizational domain of example.com. It aligns with 
-  org.example.com, because both have the same organizational domain.
-
-* Verified Mark Certificates (VMC) - An Extended Validation Certificate is used in conjunction with BIMI to 
+* VMC - Verified Mark Certificate - An Extended Validation Certificate is used in conjunction with BIMI to 
   create a place where information pertaining to iconography for a sending domain can be 
   securely verified. In the case of BIMI, hashes for an MVA-approved set of iconography 
   will be stored in a field within the certificate. This should allow a receiver site to 
