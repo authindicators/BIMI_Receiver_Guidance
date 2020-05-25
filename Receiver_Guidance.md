@@ -243,7 +243,7 @@ One sample implementation of BIMI by a receiver, who does everything on-the-fly,
 * Upon successful verification of the VMC, the receiver extracts the verified image from 
   the VMC. If the SVG also passes the SVG validation steps then this is a successful BIMI verification. 
 
-* If the BIMI verification does not pass then the MTA must not indicate to the MUA to show 
+* If the BIMI verification fails then the MTA must not indicate to the MUA to show 
   a BIMI image. The MUA MAY show a default image such as a set of initials, or unidentified sender.
 
 * The email receiver then does the rest of its anti-spam, anti-malware, and anti-phishing checks 
