@@ -357,7 +357,7 @@ to multiple escalation channels) is important for investigation.
 
 # Public documentation
 
-## For Brands: 
+## Documentation For Brands: 
 
 It is ideal to publish the criteria that is used by your site to determine when BIMI will 
 be displayed. It is fine to say that you use some internal domain reputation metrics as 
@@ -369,7 +369,7 @@ If you use an explicit allow list, a site may want to list the minimum requireme
 method of applying to be listed.  Similarly, a provider may wish to state what type of 
 activity will revoke the decision to display logos previously approved.
 
-## For users: 
+## Documentation For Users: 
 
 BIMI is not meant to instill additional trust in messages, and it is important to make 
 this known to your users. All messages, even those with logos, should still be treated with 
