@@ -79,13 +79,13 @@ drafts which should first be consulted and reviewed.
 
 <section anchor="introduction" title="Introduction">
 <t>The Brand Indicators for Message Identification (BIMI) specification
-introduces a method by which Mail User Agent (MUA, e.g, an email client)
-providers combine DMARC-based message authentication in addition to
-cryptographic methods to ensure the identity of a sender, and then to
-retrieve iconography that the sender has selected.  The iconography can
-then be displayed within the MUA. The displayed iconography grants the
-sender brand impressions via the BIMI-capable MUA, and should be a driving
-factor for the adoption of authenticated email.
+introduces a method by which Mail User Agent (MUA, e.g., an email client)
+providers combine DMARC-based message authentication with cryptographic
+methods to ensure the identity of a sender. If the identity is ensured,
+the MUA can then retrieve sender-selected iconography to display within
+the MUA. This displayed iconography grants the sender brand impressions
+via the BIMI-capable MUA, and should be a driving factor for the adoption
+of authenticated email.
 </t>
 
 <section anchor="terminology" title="Terminology">
@@ -111,16 +111,17 @@ to spur DMARC adoption, whereas a concern purely from security may not.
 </section>
 
 <section anchor="should-your-site-implement-bimi" title="Should your site implement BIMI?">
-
-<section anchor="if-your-site-satisfies-the-requirements-this-is-likely-a-yes" title="If your site satisfies the requirements, this is likely a &quot;yes&quot;.">
+<t>If your site satisfies the <xref target="bimi-site-requirements"/>, this is likely a &quot;yes&quot;.
+</t>
 <t>As email has evolved over the past three decades, it is no longer a medium of
 merely exchanging text, but of enabling people to build rich experiences on top
 of it. BIMI provides an incentive for brands to send email more securely
 because the desired behavior - a visual imprint in the inbox - first requires
 DMARC adoption.
 </t>
-<t>#Terminology
-</t>
+</section>
+
+<section anchor="terminology-1" title="Terminology">
 <t>The following terms are used throughout this document.
 </t>
 <t>
@@ -131,7 +132,7 @@ DMARC adoption.
 <t>SPF</t>
 <t>DMARC</t>
 <t>Alignment</t>
-<t>BIMI Certificates</t>
+<t>Verified Mark Certificate (VMC)</t>
 <t>IMAP</t>
 <t>Recipient Domain</t>
 <t>Sending Domain</t>
@@ -141,7 +142,6 @@ DMARC adoption.
 </t>
 <t>For definitions of these terms, see the Appendix.
 </t>
-</section>
 </section>
 
 <section anchor="site-implementations" title="Site implementations">
@@ -154,14 +154,14 @@ to perform the following:
 <t>Validate DKIM signatures</t>
 <t>Validate DMARC</t>
 <t>Validate a BIMI Verified Mark Certificate (VMC) (a new kind of Extended Validation (EV) certificate)</t>
-<t>Fetch an image located at an https location</t>
+<t>Fetch an image using HTTPS</t>
 </list>
 </t>
 <t>A site may wish to implement URI alteration and image caching for hosted recipients.
 By implementing BIMI, a site agrees that through some combination of trust mechanisms,
 it will instruct a BIMI-capable MUA to display the image fetched from a URI within the
 message headers. This URI is created after the MTA authenticates a message, and is also
-able to authenticate the BIMI certificate associated with the sending domain.
+able to authenticate the VMC associated with the sending domain.
 </t>
 </section>
 
@@ -170,7 +170,8 @@ able to authenticate the BIMI certificate associated with the sending domain.
 <section anchor="bimi-site-requirements" title="BIMI Site Requirements">
 <t>In the BIMI specification, a message MUST be authenticated via DMARC. As stated
 in the DMARC draft, this requires that only one of DKIM or SPF must successfully
-pass validation. However, for additional local security measures, a receiving site may
+pass validation with alignment with the organizational domain in the From: address.
+However, for additional local security measures, a receiving site may
 choose to create additional requirements for senders in order to verify BIMI  (that is,
 indicate to a downstream MUA that it is safe to load a BIMI logo in the email client)
 </t>
@@ -213,7 +214,7 @@ without taking appropriate precautions).</t>
 </t>
 </section>
 
-<section anchor="bimi-certificate-vmc-validation" title="BIMI Certificate (VMC) Validation">
+<section anchor="verified-mark-certificate-vmc-validation" title="Verified Mark Certificate (VMC) Validation">
 <t>(Currently, see document in Reference below)
 </t>
 </section>
@@ -264,7 +265,7 @@ in an unreasonably short period of time. In this case, a receiver may want to se
 own TTL.
 </t>
 <t>One option is to set it to several hours, or a day; another option is to set the TTL to
-the same as the expiration period in the BIMI certificate that points to the BIMI image. The
+the same as the expiration period in the VMC that contains the BIMI image. The
 downside is that the caching mechanism might need to check for certificate revocation, and
 then re-fetch images.
 </t>
@@ -288,10 +289,6 @@ images is outside the scope of this document.
 </t>
 <t>
 <list style="symbols">
-<t>An email receiver has established a relationship with several MVAs, trusts them, and has
-received their public keys for verifying BIMI certificates. The email receiver makes
-these keys available to its mail servers (e.g., by distributing local copies to
-each server).  [NOTE: Use of MVA above per Thede]</t>
 <t>Upon receipt of a message, the receiver checks to see if the message passes aligned-SPF
 or DKIM, and DMARC, and ensures that the sending domain has a DMARC policy of <spanx style="verb">quarantine</spanx>
 or <spanx style="verb">reject</spanx> per local receiver policy, while properly applying the appropriate DMARC
@@ -299,12 +296,12 @@ policy to the message.</t>
 <t>If the message passes prior checks, the receiver will then check to see if the domain
 in the From: address has a BIMI record (or, if the message has a BIMI-Selector header that
 is covered by the DKIM-Signature, uses that to do the BIMI query in DNS).</t>
-<t>If a BIMI record is found, the receiver then retrieves the BIMI certificate from the location
-that the BIMI record points to, and attempts to verify the BIMI cert with each public key it
-has from the MVAs that it works with.</t>
-<t>Upon successful verification of the cert, the receiver extracts the verified image file from
+<t>If a BIMI record is found, the receiver then retrieves the VMC from the location
+that the BIMI record points to, and attempts to verify the VMC using a trusted root
+certificate. .</t>
+<t>Upon successful verification of the VMC, the receiver extracts the verified image from
 the VMC. If the SVG also passes the SVG validation steps then this is a successful BIMI verification.</t>
-<t>If the BIMI verification does not pass then the MTA must not indicate to the MUA to show
+<t>If the BIMI verification fails then the MTA must not indicate to the MUA to show
 a BIMI image. The MUA MAY show a default image such as a set of initials, or unidentified sender.</t>
 <t>The email receiver then does the rest of its anti-spam, anti-malware, and anti-phishing checks
 (these checks may be performed before BIMI is verified).
@@ -318,8 +315,9 @@ they SHOULD add a comment to the Authentication-Results header stating why that 
 <t>The email receiver then adds the relevant Authentication-Results and BIMI-* headers to the message
 to signal to the downstream email client that the message passed BIMI and that is safe to load the
 logo.</t>
-<t>Eventually, the MUA checks the BIMI-* headers, downloads the image, and displays it as the sender
-photo (or however else it chooses to render the BIMI logo in conjunction with the message).</t>
+<t>Eventually, the MUA checks the BIMI-* headers, decodes the image in the BIMI-Indicator header,
+and displays it as the sender photo (or however else it chooses to render the BIMI logo in conjunction
+with the message).</t>
 </list>
 </t>
 </section>
@@ -365,45 +363,10 @@ strong DMARC policies. Or, if an organizational domain does not have a strong DM
 does, then it may treat the organizational domain as if it does have a strong DMARC policy so as to prevent
 a phisher or spammer from impersonating the brand or any of its subdomains.
 </t>
+<t>A strong DMARC policy may be defined as one which has some level of enforcement. ie, a p=quarantine policy with
+an effective pct=100, or a p=reject policy.
+</t>
 </section>
-</section>
-
-<section anchor="working-with-mvas" title="Working with MVAs">
-<t>Email receivers need to know whether or not it’s safe to download and display an image. That is,
-an attacker could go through the trouble of creating a BIMI logo and uploading it, but the logo
-may look visually similar to a real brand. For example, a spammer or phisher could create a
-lookalike domain for a well-known brand such as Paypal, then copy/paste (or slightly modify)
-the logo.
-</t>
-<t>To prevent this, an email receiver could choose to verify logos of known brands by themselves
-(do it all in-house) and establish its own internal processes, or it could use a Mark Verifying
-Authority (MVA). The receiver could then outsource the maintenance of the list of trusted brands to
-the MVA, and simply download the list of brands and images from the MVA and display the logos in
-its email clients.
-</t>
-<t>However, even here a receiver would need to exercise caution. It needs to ensure that MVAs follow
-best practices, respond to complaints, and do a good job of vetting brands. If users ultimately end
-up getting phished because they trust signals in the email client, then it is the email receiver
-that will suffer the brunt of the complaints and loss of reputation, rather than the MVA.
-</t>
-<t>Therefore, an email receiver still needs to track complaints from its users, especially with respect
-to phishing and impersonation, and then send the feedback back to the MVA. If an MVA still generates
-too many complaints, this could be indicative of a rogue MVA (one that intentionally signs up malicious
-accounts), or a “sloppy” MVA (one with internal processes that not rigorous enough, or are designed to
-maximize revenue at the cost of lax security).
-</t>
-<t>An email receiver should use multiple MVAs to reduce the risk of becoming too reliant upon a single
-MVA in case they have to stop using it, and therefore lose many dozens, hundreds, or thousands of
-images with no replacement and thereby contributing to user dissatisfaction confusion. Furthermore,
-because MVAs may be revoked, brands may wish to diversify their own risk by getting certified by at
-least two MVAs. The reason for doing this is that if the MVA they use ever gets revoked by an email
-receiver because of its bad practices, then their own brand will suffer penalties (not having a logo
-displayed) despite never having done anything wrong. By researching multiple MVAs, a brand can reduce
-the chances that losing one by a receiver affects their brand.
-</t>
-<t>For this reason, brands are encouraged to get certified at multiple MVAs, and receivers are encouraged
-to use multiple MVAs.
-</t>
 
 <section anchor="resolving-disputes" title="Resolving disputes">
 <t>From time to time, disputes may arise between brands where one brand says that another is infringing
@@ -421,8 +384,8 @@ use of the logo were legitimate. Then, they would publish the result of the disp
 could be viewed by anyone.
 </t>
 <t>MVAs should respect the decision of the courts and any brand found to be infringing ought to be
-removed from their list of domains for which they load BIMI logos for.  The issuing MVA of the
-infringing brand’s BIMI Certificate should formally revoke it. However, this is not guaranteed in
+added to their list of domains for which BIMI logos are not loaded.  The issuing MVA of the
+infringing brand’s VMC should formally revoke it. However, this is not guaranteed in
 the case of a rogue MVA or a sloppy MVA. Therefore, email receivers should also pay attention to
 the Dispute Resolution Agencies, and any results that they say are infringing should be prevented
 from loading in their email clients. The email receiver should also keep track of how often disputes
@@ -433,15 +396,15 @@ evidence of a sloppy MVA or a rogue MVA.
 </section>
 
 <section anchor="troubleshooting-bimi" title="Troubleshooting BIMI">
-<t>There are several factors to consider for email receivers on things that can go wrong, below are
+<t>There are several factors to consider for email receivers on things that can go wrong; below are
 a handful of considerations:
 </t>
 <t>
 <list style="symbols">
-<t>Failing to verify BIMI certs when they otherwise should be. This can be caused by:</t>
-<t>Not having the key to a corresponding MVA</t>
-<t>Not having access to the key when required</t>
-<t>The wrong key is associated with the wrong MVA</t>
+<t>Failing to verify a VMC</t>
+<t>Failing to extract an Indicator from a validated VMC</t>
+<t>Failing to validate a SVG against the recommended profile</t>
+<t>Failing to parse a gzipped SVG Indicator</t>
 <t>Failing to load a logo in the email client</t>
 <t>Failing to access the logo (e.g., permissions errors)</t>
 <t>Connectivity problems to the logo</t>
@@ -453,13 +416,13 @@ it with the wrong brand)</t>
 </t>
 <t>There are many reasons why a logo may fail to load; having tools to investigate (logs, headers
 in messages, internal documentation that is clearly written, having the knowledge pushed out
-to multiple escalation channels) are important for investigation.
+to multiple escalation channels) is important for investigation.
 </t>
 </section>
 
 <section anchor="public-documentation" title="Public documentation">
 
-<section anchor="for-brands" title="For Brands:">
+<section anchor="documentation-for-brands" title="Documentation For Brands:">
 <t>It is ideal to publish the criteria that is used by your site to determine when BIMI will
 be displayed. It is fine to say that you use some internal domain reputation metrics as
 additional criteria to determine whether or not a logo should be displayed, and it isn’t
@@ -472,7 +435,7 @@ activity will revoke the decision to display logos previously approved.
 </t>
 </section>
 
-<section anchor="for-users" title="For users:">
+<section anchor="documentation-for-users" title="Documentation For Users:">
 <t>BIMI is not meant to instill additional trust in messages, and it is important to make
 this known to your users. All messages, even those with logos, should still be treated with
 (mild) skepticism, and any action regarding the message should still be individually evaluated.
@@ -492,33 +455,35 @@ BIMI and demonstrates how to check messages for fraud.
 be a thick client or a web-based application.</t>
 <t>MTA - Mail Transfer Agent - Software used to transfer messages between two systems, typically
 between two sites, using SMTP as the protocol.</t>
-<t>SPF - SPF is a framework that designates which systems should be sending for a given
+<t>SPF - <eref target="https://tools.ietf.org/html/rfc7208">Sender Policy Framework</eref> -
+SPF is a framework that designates which systems should be sending for a given
 domain.  This can be a list of IPs, CIDRs, or references to DNS records.  As the sender
 should be controlling their DNS, they should understand which IPs should be sending as
 their domain.</t>
-<t>DKIM - DKIM is a system by which a chosen set of headers, combined with the message
+<t>DKIM - <eref target="https://tools.ietf.org/html/rfc6376">DomainKeys Identified Mail</eref> -
+DKIM is a system by which a chosen set of headers, combined with the message
 contents, are cryptographically signed, and then validated by the receiving system.
 Using DNS, the receiving system can retrieve a public key, and then validate the signature
 within the headers of a message. When implemented properly, the systems responsible for
 sending the messages for a given domain name should be the only ones capable
-of creating messages that correctly validates.  Provided that certain restrictions are
-met, DKIM is one possible technology a receiver could utilize to authenticate messages in
-the context of BIMI.</t>
-<t>DMARC - DMARC is a message authentication mechanism that works with SPF and DKIM. The
+of creating messages that correctly validates.</t>
+<t>DMARC - <eref target="https://tools.ietf.org/html/rfc7489">Domain-based Message Authentication, Reporting, and Conformance</eref> -
+DMARC is a message authentication mechanism that works with SPF and DKIM. The
 BIMI specification requires that a message passes DMARC. In order for a message to pass
 DMARC, one of SPF or DKIM must successfully validate, and the domain in the From: address
 must align with the domain that passed SPF or DKIM.</t>
+<t>Alignment - Alignment refers to the organizational domain, as defined by DMARC, of the
+domain in the From: address being the same as the organizational domain that passed SPF or
+DKIM. For example, baz.example.com has an organizational domain of example.com;
+bar.foo.example.com also has an organizational domain of example.com. It aligns with
+org.example.com, because both have the same organizational domain. A definition of
+organizational domain and methods of discovery may be found in the <eref target="https://tools.ietf.org/html/rfc7489">DMARC</eref> RFC.</t>
 <t>MVA - Mark Verifying Authority - An entity that a receiver uses to certify that the
 iconography that they intend to use with BIMI is properly/legally licensed for their use.</t>
 <t>DRA - Dispute Resolution Authority - This organization will moderate between two entities
 that believe they are both entitled to use a logo.  Receivers should then abide by the
 decision of the DRA as it pertains to logo usage in the MUA.</t>
-<t>Alignment - Alignment refers to the organizational domain, as defined by DMARC, of the
-domain in the From: address being the same as the organizational domain that passed SPF or
-DKIM. For example, foo.example.com has an organizational domain of example.com;
-bar.foo.example.com also has an organizational domain of example.com. It aligns with
-org.example.com, because both have the same organizational domain.</t>
-<t>BIMI Certificates - An Extended Validation Certificate is used in conjunction with BIMI to
+<t>VMC - Verified Mark Certificate - An Extended Validation Certificate is used in conjunction with BIMI to
 create a place where information pertaining to iconography for a sending domain can be
 securely verified. In the case of BIMI, hashes for an MVA-approved set of iconography
 will be stored in a field within the certificate. This should allow a receiver site to
