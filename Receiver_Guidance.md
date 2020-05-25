@@ -411,7 +411,7 @@ BIMI and demonstrates how to check messages for fraud.
 
 * Alignment - Alignment refers to the organizational domain, as defined by DMARC, of the 
   domain in the From: address being the same as the organizational domain that passed SPF or 
-  DKIM. For example, foo.example.com has an organizational domain of example.com; 
+  DKIM. For example, baz.example.com has an organizational domain of example.com; 
   bar.foo.example.com also has an organizational domain of example.com. It aligns with 
   org.example.com, because both have the same organizational domain. A definition of 
   organizational domain and methods of discovery may be found in the [DMARC](https://tools.ietf.org/html/rfc7489) RFC. 
