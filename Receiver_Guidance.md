@@ -306,6 +306,9 @@ strong DMARC policies. Or, if an organizational domain does not have a strong DM
 does, then it may treat the organizational domain as if it does have a strong DMARC policy so as to prevent 
 a phisher or spammer from impersonating the brand or any of its subdomains. 
 
+A strong DMARC policy may be defined as one which has some level of enforcement. ie, a p=quarantine policy with 
+an effective pct=100, or a p=reject policy. 
+
 ## Resolving disputes
 
 From time to time, disputes may arise between brands where one brand says that another is infringing 
