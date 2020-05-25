@@ -76,7 +76,7 @@ to spur DMARC adoption, whereas a concern purely from security may not.
 
 # Should your site implement BIMI?
 
-If your site satisfies the requirements, this is likely a "yes".
+If your site satisfies the [requirements](#bimi-site-requirements), this is likely a "yes".
 
 As email has evolved over the past three decades, it is no longer a medium of 
 merely exchanging text, but of enabling people to build rich experiences on top 
@@ -84,7 +84,7 @@ of it. BIMI provides an incentive for brands to send email more securely
 because the desired behavior - a visual imprint in the inbox - first requires 
 DMARC adoption. 
 
-#Terminology
+# Terminology
 
 The following terms are used throughout this document. 
 
@@ -122,7 +122,7 @@ able to authenticate the VMC associated with the sending domain.
 
 # Validation of a BIMI message
 
-## BIMI Site Requirements
+## BIMI Site Requirements{#bimi-site-requirements}
 
 In the BIMI specification, a message MUST be authenticated via DMARC. As stated 
 in the DMARC draft, this requires that only one of DKIM or SPF must successfully 
