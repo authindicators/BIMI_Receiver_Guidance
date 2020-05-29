@@ -265,15 +265,8 @@ One sample implementation of BIMI by a receiver, who does everything on-the-fly,
 * If the BIMI verification fails then the MTA must not indicate to the MUA to show 
   a BIMI image. The MUA MAY show a default image such as a set of initials, or unidentified sender.
 
-* The email receiver then does the rest of its anti-spam, anti-malware, and anti-phishing checks 
-  (these checks may be performed before BIMI is verified).
-  MUAs SHOULD consider message classification when deciding if a logo should be displayed. 
-  If a message is classified as phishing or malware then the MUA SHOULD NOT display the logo. 
-  If a message is classified as spam (meaning that the message comes from a known 
-  brand, but contains spammy content), then the email receiver MAY choose not to display the 
-  logo. 
-  MTAs MAY choose to override a bimi=pass for messages identified as phishing or malware, and if so
-  they SHOULD add a comment to the Authentication-Results header stating why that result was returned.
+* The email receiver then does the rest of its anti-spam, anti-malware, and anti-phishing checks as 
+  discussed in [Message Classification](#message-classification) below.
 
 * The email receiver then adds the relevant Authentication-Results and BIMI-* headers to the message 
   to signal to the downstream email client that the message passed BIMI and that is safe to load the 
@@ -283,6 +276,23 @@ One sample implementation of BIMI by a receiver, who does everything on-the-fly,
  and displays it as the sender photo (or however else it chooses to render the BIMI logo in conjunction 
  with the message).
 
+## Message Classification {#message-classification}
+
+The successful validation of BIMI does NOT indicate that a message is not spam, malware, or phishing.
+
+It is expected that receivers undertake their usual message filtering and classification steps, and 
+take the results of these checks into consideration when deciding if a BIMI Indicator should be 
+shown to the user.
+
+If classification is preformed before BIMI is evaluated then a receiver MAY CHOOSE to skip BIMI 
+processing for that message, in this case they SHOULD add a bimi=skipped entry to the Authentication-Results 
+header for that message, and SHOULD add a comment stating the reasons for skipping BIMI processing.
+
+If a message is classified as phishing or malware then the MUA SHOULD NOT display the logo.
+
+If a message is classified as spam (meaning that the message comes from a known 
+brand, but contains spammy content), then the email receiver MAY choose not to display the 
+logo. 
 
 # Domain Reputation
 
