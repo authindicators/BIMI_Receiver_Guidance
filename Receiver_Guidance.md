@@ -109,14 +109,24 @@ to perform the following:
 * Validate SPF
 * Validate DKIM signatures
 * Validate DMARC
-* Validate a BIMI Verified Mark Certificate (VMC) (a new kind of Extended Validation (EV) certificate)
-* Fetch an image using HTTPS
+* Discover and fetch a BIMI assertion record using DNS
+* Fetch a SVG using HTTPS
+* Validate a SVG using a profile
+* Add Authentication-Results and BIMI-* Headers to a message
+
+Optionally, for a site to correctly implement BIMI Verified Mark Certificate (VMC) 
+verification, the receiver must be able to perform the following:
+
+* Fetch a VMC using HTTPS
+* Validate a VMC (a new kind of Extended Validation (EV) certificate)
+* Extract a SVG from a VMC
 
 A site may wish to implement URI alteration and image caching for hosted recipients. 
 By implementing BIMI, a site agrees that through some combination of trust mechanisms, 
 it will instruct a BIMI-capable MUA to display the image fetched from a URI within the 
 message headers. This URI is created after the MTA authenticates a message, and is also 
 able to authenticate the VMC associated with the sending domain.
+Discussion of these trust mechanisms is beyond the scope of this document.
 
 # Validation of a BIMI message
 
