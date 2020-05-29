@@ -95,11 +95,9 @@ The following terms are used throughout this document.
 * DMARC
 * Alignment
 * Verified Mark Certificate (VMC)
-* IMAP
 * Recipient Domain
 * Sending Domain
 * MVA
-* FBL
 
 For definitions of these terms, see the Appendix.
 
