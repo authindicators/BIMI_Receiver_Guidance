@@ -363,6 +363,13 @@ from loading in their email clients. The email receiver should also keep track o
 occur and are found against various MVAs, as an MVA with too many disputes ruled against it could be 
 evidence of a sloppy MVA or a rogue MVA.
 
+## VMC Root of Trust
+
+VMCs are verified back to their issuing Certificate Authority (CA). Receivers may wish to maintain their 
+own list of trusted CAs for BIMI rather than relying on a generally available bundle of trusted Root 
+Certificates such as those distributed with browsers or operating systems. The Authindicators Working Group 
+will maintain a list of known VMC Root CA Certificates to help bootstrap such a list.
+
 # BIMI Playbook Checklist
 
 There are several factors to consider for email receivers on things that can go wrong; below are 
