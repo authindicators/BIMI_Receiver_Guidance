@@ -66,7 +66,7 @@ document are to be interpreted as described in [BCP 14] [@!RFC2119]
 
 As stated in other BIMI drafts, BIMI intends to advance email authentication 
 by granting a sending party brand impressions as long as the message 
-passes authentication mechanisms and and meets other receiver qualifications 
+passes authentication mechanisms and meets other receiver qualifications 
 (reputation, encryption, allow listing, et cetera). DMARC currently has wide 
 adoption by some of the Internet’s larger brands, but there is still a long 
 tail of small-to-medium size brands (and many large ones) that do not have it. 
