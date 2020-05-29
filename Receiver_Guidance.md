@@ -353,7 +353,7 @@ from loading in their email clients. The email receiver should also keep track o
 occur and are found against various MVAs, as an MVA with too many disputes ruled against it could be 
 evidence of a sloppy MVA or a rogue MVA.
 
-# Troubleshooting BIMI
+# BIMI Playbook Checklist
 
 There are several factors to consider for email receivers on things that can go wrong; below are 
 a handful of considerations:
