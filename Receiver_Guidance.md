@@ -169,8 +169,8 @@ Additionally:
 In order for a receiver that has implemented BIMI to notify an MUA that it should 
 display the images:
 
-* An MTA must verify BIMI and add mail headers to indicate if BIMI verification passed, 
-  and if so, add additinal headers containing the logo to be displayed.
+* An MTA must verify BIMI, and if it passes, add additional headers containing the logo 
+  to be displayed.
 
 The MUA must check to see if a message passed BIMI before loading the BIMI image.
 
