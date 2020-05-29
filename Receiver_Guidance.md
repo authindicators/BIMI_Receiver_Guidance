@@ -228,6 +228,17 @@ system in some way. This has implications whether it be the sender or provider t
 the image. For example, a sender could include a singular selector for a single recipient, or 
 a provider could append a tracking string to the image URI in the header.
 
+A receiver may choose to track the number of selectors an organizational domain is permitted to 
+use and deny processing if this exceeds a defined limit. Similarly, a receiver may choose to 
+track and limit distinct Indicator URLs.
+
+MTAs are encouraged to cache BIMI Records, VMCs, and Indicators to limit tracking. 
+
+MUAs are encouraged to extract Indicators from the BIMI-Indicator header rather than retrieving 
+them directly from the source, as doing so will limit any data exposure to the MTA processing 
+the message. The BIMI approved SVG profile prohibits an SVG from loading external elements, 
+this removes the risk of tracking when an Indicator is shown in the client.
+
 An in-depth discussion of all the potential privacy leaks with respect to loading or embedding 
 images is outside the scope of this document.
 
