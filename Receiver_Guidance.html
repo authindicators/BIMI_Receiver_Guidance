@@ -388,10 +388,12 @@
 <link href="#rfc.section.7.2" rel="Chapter" title="7.2 TTL of cached images">
 <link href="#rfc.section.7.3" rel="Chapter" title="7.3 Privacy Concerns">
 <link href="#rfc.section.7.4" rel="Chapter" title="7.4 Basic flow example">
+<link href="#rfc.section.7.5" rel="Chapter" title="7.5 Message Classification">
 <link href="#rfc.section.8" rel="Chapter" title="8 Domain Reputation">
 <link href="#rfc.section.8.1" rel="Chapter" title="8.1 Rolling up based upon domain vs organizational domain">
 <link href="#rfc.section.8.2" rel="Chapter" title="8.2 Resolving disputes">
-<link href="#rfc.section.9" rel="Chapter" title="9 Troubleshooting BIMI">
+<link href="#rfc.section.8.3" rel="Chapter" title="8.3 VMC Root of Trust">
+<link href="#rfc.section.9" rel="Chapter" title="9 BIMI Playbook Checklist">
 <link href="#rfc.section.10" rel="Chapter" title="10 Public documentation">
 <link href="#rfc.section.10.1" rel="Chapter" title="10.1 Documentation For Brands:">
 <link href="#rfc.section.10.2" rel="Chapter" title="10.2 Documentation For Users:">
@@ -499,13 +501,17 @@
 </li>
 <li>7.4.   <a href="#rfc.section.7.4">Basic flow example</a>
 </li>
+<li>7.5.   <a href="#rfc.section.7.5">Message Classification</a>
+</li>
 </ul><li>8.   <a href="#rfc.section.8">Domain Reputation</a>
 </li>
 <ul><li>8.1.   <a href="#rfc.section.8.1">Rolling up based upon domain vs organizational domain</a>
 </li>
 <li>8.2.   <a href="#rfc.section.8.2">Resolving disputes</a>
 </li>
-</ul><li>9.   <a href="#rfc.section.9">Troubleshooting BIMI</a>
+<li>8.3.   <a href="#rfc.section.8.3">VMC Root of Trust</a>
+</li>
+</ul><li>9.   <a href="#rfc.section.9">BIMI Playbook Checklist</a>
 </li>
 <li>10.   <a href="#rfc.section.10">Public documentation</a>
 </li>
@@ -540,7 +546,7 @@
 <h1 id="rfc.section.2">
 <a href="#rfc.section.2">2.</a> <a href="#goals-for-bimi" id="goals-for-bimi">Goals for BIMI</a>
 </h1>
-<p id="rfc.section.2.p.1">As stated in other BIMI drafts, BIMI intends to advance email authentication by granting a sending party brand impressions as long as the message passes authentication mechanisms and and meets other receiver qualifications (reputation, encryption, allow listing, et cetera). DMARC currently has wide adoption by some of the Internet&#8217;s larger brands, but there is still a long tail of small-to-medium size brands (and many large ones) that do not have it.  Because BIMI provides a visual presence in the inbox, and because visual impressions are desirable for brands, BIMI provides an incentive for marketers to spur DMARC adoption, whereas a concern purely from security may not.  </p>
+<p id="rfc.section.2.p.1">As stated in other BIMI drafts, BIMI intends to advance email authentication by granting a sending party brand impressions as long as the message passes authentication mechanisms and meets other receiver qualifications (reputation, encryption, allow listing, et cetera). DMARC currently has wide adoption by some of the Internet&#8217;s larger brands, but there is still a long tail of small-to-medium size brands (and many large ones) that do not have it.  Because BIMI provides a visual presence in the inbox, and because visual impressions are desirable for brands, BIMI provides an incentive for marketers to spur DMARC adoption, whereas a concern purely from security may not.  </p>
 <h1 id="rfc.section.3">
 <a href="#rfc.section.3">3.</a> <a href="#should-your-site-implement-bimi" id="should-your-site-implement-bimi">Should your site implement BIMI?</a>
 </h1>
@@ -560,11 +566,9 @@
 <li>DMARC</li>
 <li>Alignment</li>
 <li>Verified Mark Certificate (VMC)</li>
-<li>IMAP</li>
 <li>Recipient Domain</li>
 <li>Sending Domain</li>
 <li>MVA</li>
-<li>FBL</li>
 </ul>
 
 <p> </p>
@@ -579,12 +583,24 @@
 <li>Validate SPF</li>
 <li>Validate DKIM signatures</li>
 <li>Validate DMARC</li>
-<li>Validate a BIMI Verified Mark Certificate (VMC) (a new kind of Extended Validation (EV) certificate)</li>
-<li>Fetch an image using HTTPS</li>
+<li>Discover and fetch a BIMI assertion record using DNS</li>
+<li>Fetch a SVG using HTTPS</li>
+<li>Validate a SVG using a profile</li>
+<li>Add Authentication-Results and BIMI-* Headers to a message</li>
 </ul>
 
 <p> </p>
-<p id="rfc.section.5.p.3">A site may wish to implement URI alteration and image caching for hosted recipients.  By implementing BIMI, a site agrees that through some combination of trust mechanisms, it will instruct a BIMI-capable MUA to display the image fetched from a URI within the message headers. This URI is created after the MTA authenticates a message, and is also able to authenticate the VMC associated with the sending domain.  </p>
+<p id="rfc.section.5.p.3">Optionally, for a site to correctly implement BIMI Verified Mark Certificate (VMC) verification, the receiver must be able to perform the following: </p>
+<p></p>
+
+<ul>
+<li>Fetch a VMC using HTTPS</li>
+<li>Validate a VMC (a new kind of Extended Validation (EV) certificate)</li>
+<li>Extract a SVG from a VMC</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.5.p.5">A site may wish to implement URI alteration and image caching for hosted recipients.  By implementing BIMI, a site agrees that through some combination of trust mechanisms, it will instruct a BIMI-capable MUA to display the image fetched from a URI within the message headers. This URI is created after the MTA authenticates a message, and is also able to authenticate the VMC associated with the sending domain.  Discussion of these trust mechanisms is beyond the scope of this document.  </p>
 <h1 id="rfc.section.6">
 <a href="#rfc.section.6">6.</a> <a href="#validation-of-a-bimi-message" id="validation-of-a-bimi-message">Validation of a BIMI message</a>
 </h1>
@@ -625,7 +641,7 @@
 <p id="rfc.section.7.p.1">In order for a receiver that has implemented BIMI to notify an MUA that it should display the images: </p>
 <p></p>
 
-<ul><li>An MTA must verify BIMI and add mail headers to indicate if BIMI verification passed, and if so, add additinal headers containing the logo to be displayed.</li></ul>
+<ul><li>An MTA must verify BIMI, and if it passes, add additional headers containing the logo to be displayed.</li></ul>
 
 <p> </p>
 <p id="rfc.section.7.p.3">The MUA must check to see if a message passed BIMI before loading the BIMI image.  </p>
@@ -652,7 +668,10 @@
 <a href="#rfc.section.7.3">7.3.</a> <a href="#privacy-concerns" id="privacy-concerns">Privacy Concerns</a>
 </h1>
 <p id="rfc.section.7.3.p.1">There is some concern that the retrieval of the iconography could result in a privacy leak.  <br> As the images are retrieved, it's possible that the image provider could track the retrieving system in some way. This has implications whether it be the sender or provider that is hosting the image. For example, a sender could include a singular selector for a single recipient, or a provider could append a tracking string to the image URI in the header.  </p>
-<p id="rfc.section.7.3.p.2">An in-depth discussion of all the potential privacy leaks with respect to loading or embedding images is outside the scope of this document.  </p>
+<p id="rfc.section.7.3.p.2">A receiver may choose to track the number of selectors an organizational domain is permitted to use and deny processing if this exceeds a defined limit. Similarly, a receiver may choose to track and limit distinct Indicator URLs.  </p>
+<p id="rfc.section.7.3.p.3">MTAs are encouraged to cache BIMI Records, VMCs, and Indicators to limit tracking.  </p>
+<p id="rfc.section.7.3.p.4">MUAs are encouraged to extract Indicators from the BIMI-Indicator header rather than retrieving them directly from the source, as doing so will limit any data exposure to the MTA processing the message. The BIMI approved SVG profile prohibits an SVG from loading external elements, this removes the risk of tracking when an Indicator is shown in the client.  </p>
+<p id="rfc.section.7.3.p.5">An in-depth discussion of all the potential privacy leaks with respect to loading or embedding images is outside the scope of this document.  </p>
 <h1 id="rfc.section.7.4">
 <a href="#rfc.section.7.4">7.4.</a> <a href="#basic-flow-example" id="basic-flow-example">Basic flow example</a>
 </h1>
@@ -665,12 +684,20 @@
 <li>If a BIMI record is found, the receiver then retrieves the VMC from the location that the BIMI record points to, and attempts to verify the VMC using a trusted root certificate. .</li>
 <li>Upon successful verification of the VMC, the receiver extracts the verified image from the VMC. If the SVG also passes the SVG validation steps then this is a successful BIMI verification.</li>
 <li>If the BIMI verification fails then the MTA must not indicate to the MUA to show a BIMI image. The MUA MAY show a default image such as a set of initials, or unidentified sender.</li>
-<li>The email receiver then does the rest of its anti-spam, anti-malware, and anti-phishing checks (these checks may be performed before BIMI is verified).  MUAs SHOULD consider message classification when deciding if a logo should be displayed.  If a message is classified as phishing or malware then the MUA SHOULD NOT display the logo.  If a message is classified as spam (meaning that the message comes from a known brand, but contains spammy content), then the email receiver MAY choose not to display the logo.  MTAs MAY choose to override a bimi=pass for messages identified as phishing or malware, and if so they SHOULD add a comment to the Authentication-Results header stating why that result was returned.</li>
+<li>The email receiver then does the rest of its anti-spam, anti-malware, and anti-phishing checks as discussed in <a href="#message-classification" class="xref">Section 7.5</a> below.</li>
 <li>The email receiver then adds the relevant Authentication-Results and BIMI-* headers to the message to signal to the downstream email client that the message passed BIMI and that is safe to load the logo.</li>
 <li>Eventually, the MUA checks the BIMI-* headers, decodes the image in the BIMI-Indicator header, and displays it as the sender photo (or however else it chooses to render the BIMI logo in conjunction with the message).</li>
 </ul>
 
 <p> </p>
+<h1 id="rfc.section.7.5">
+<a href="#rfc.section.7.5">7.5.</a> <a href="#message-classification" id="message-classification">Message Classification</a>
+</h1>
+<p id="rfc.section.7.5.p.1">The successful validation of BIMI does NOT indicate that a message is not spam, malware, or phishing.  </p>
+<p id="rfc.section.7.5.p.2">It is expected that receivers undertake their usual message filtering and classification steps, and take the results of these checks into consideration when deciding if a BIMI Indicator should be shown to the user.  </p>
+<p id="rfc.section.7.5.p.3">If classification is preformed before BIMI is evaluated then a receiver MAY CHOOSE to skip BIMI processing for that message, in this case they SHOULD add a bimi=skipped entry to the Authentication-Results header for that message, and SHOULD add a comment stating the reasons for skipping BIMI processing.  </p>
+<p id="rfc.section.7.5.p.4">If a message is classified as phishing or malware then the MUA SHOULD NOT display the logo.  </p>
+<p id="rfc.section.7.5.p.5">If a message is classified as spam (meaning that the message comes from a known brand, but contains spammy content), then the email receiver MAY choose not to display the logo.  </p>
 <h1 id="rfc.section.8">
 <a href="#rfc.section.8">8.</a> <a href="#domain-reputation" id="domain-reputation">Domain Reputation</a>
 </h1>
@@ -691,8 +718,12 @@
 <p id="rfc.section.8.2.p.2">A brand owner would want to have all email receivers stop showing logos for the infringing brand because it could damage its own brand&#8217;s reputation. However, an email receiver is not necessarily in a good position to determine what constitutes legitimate usage of a logo, nor determine ownership of a logo, nor may want the legal risk associated with making this determination.  </p>
 <p id="rfc.section.8.2.p.3">Therefore, email receivers are strongly encouraged to partner with Dispute Resolution Agencies. These agencies specialize in copyright infringement resolution. An affected party would then contact the Dispute Resolution Agency, rather than the email receiver, who would then make the decision about if use of the logo were legitimate. Then, they would publish the result of the dispute publicly where it could be viewed by anyone.  </p>
 <p id="rfc.section.8.2.p.4">MVAs should respect the decision of the courts and any brand found to be infringing ought to be added to their list of domains for which BIMI logos are not loaded.  The issuing MVA of the infringing brand&#8217;s VMC should formally revoke it. However, this is not guaranteed in the case of a rogue MVA or a sloppy MVA. Therefore, email receivers should also pay attention to the Dispute Resolution Agencies, and any results that they say are infringing should be prevented from loading in their email clients. The email receiver should also keep track of how often disputes occur and are found against various MVAs, as an MVA with too many disputes ruled against it could be evidence of a sloppy MVA or a rogue MVA.  </p>
+<h1 id="rfc.section.8.3">
+<a href="#rfc.section.8.3">8.3.</a> <a href="#vmc-root-of-trust" id="vmc-root-of-trust">VMC Root of Trust</a>
+</h1>
+<p id="rfc.section.8.3.p.1">VMCs are verified back to their issuing Certificate Authority (CA). Receivers may wish to maintain their own list of trusted CAs for BIMI rather than relying on a generally available bundle of trusted Root Certificates such as those distributed with browsers or operating systems. The Authindicators Working Group will maintain a list of known VMC Root CA Certificates to help bootstrap such a list.  </p>
 <h1 id="rfc.section.9">
-<a href="#rfc.section.9">9.</a> <a href="#troubleshooting-bimi" id="troubleshooting-bimi">Troubleshooting BIMI</a>
+<a href="#rfc.section.9">9.</a> <a href="#bimi-playbook-checklist" id="bimi-playbook-checklist">BIMI Playbook Checklist</a>
 </h1>
 <p id="rfc.section.9.p.1">There are several factors to consider for email receivers on things that can go wrong; below are a handful of considerations: </p>
 <p></p>
