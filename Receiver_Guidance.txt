@@ -76,9 +76,10 @@ Table of Contents
    7.  Communicating BIMI results between the MTA and the MUA  . . .   6
      7.1.  Image Retrieval . . . . . . . . . . . . . . . . . . . . .   6
      7.2.  TTL of cached images  . . . . . . . . . . . . . . . . . .   7
-     7.3.  Privacy Concerns  . . . . . . . . . . . . . . . . . . . .   7
-     7.4.  Basic flow example  . . . . . . . . . . . . . . . . . . .   8
-     7.5.  Message Classification  . . . . . . . . . . . . . . . . .   8
+     7.3.  Image Display . . . . . . . . . . . . . . . . . . . . . .   7
+     7.4.  Privacy Concerns  . . . . . . . . . . . . . . . . . . . .   7
+     7.5.  Basic flow example  . . . . . . . . . . . . . . . . . . .   8
+     7.6.  Message Classification  . . . . . . . . . . . . . . . . .   9
    8.  Domain Reputation . . . . . . . . . . . . . . . . . . . . . .   9
      8.1.  Rolling up based upon domain vs organizational domain . .   9
      8.2.  Resolving disputes  . . . . . . . . . . . . . . . . . . .  10
@@ -104,8 +105,7 @@ Table of Contents
    cryptographic methods to ensure the identity of a sender.  If the
    identity is ensured, the MUA can then retrieve sender-selected
    iconography to display within the MUA.  This displayed iconography
-   grants the sender brand impressions via the BIMI-capable MUA, and
-   should be a driving factor for the adoption of authenticated email.
+
 
 
 
@@ -113,6 +113,9 @@ Brotman, et al.         Expires February 6, 2020                [Page 2]
 
 Internet-Draft                   BIMI-RG                     August 2019
 
+
+   grants the sender brand impressions via the BIMI-capable MUA, and
+   should be a driving factor for the adoption of authenticated email.
 
 1.1.  Terminology
 
@@ -160,15 +163,14 @@ Internet-Draft                   BIMI-RG                     August 2019
 
    o  DMARC
 
-   o  Alignment
-
-
 
 
 Brotman, et al.         Expires February 6, 2020                [Page 3]
 
 Internet-Draft                   BIMI-RG                     August 2019
 
+
+   o  Alignment
 
    o  Verified Mark Certificate (VMC)
 
@@ -216,8 +218,6 @@ Internet-Draft                   BIMI-RG                     August 2019
    MUA to display the image fetched from a URI within the message
    headers.  This URI is created after the MTA authenticates a message,
    and is also able to authenticate the VMC associated with the sending
-   domain.  Discussion of these trust mechanisms is beyond the scope of
-   this document.
 
 
 
@@ -225,6 +225,9 @@ Brotman, et al.         Expires February 6, 2020                [Page 4]
 
 Internet-Draft                   BIMI-RG                     August 2019
 
+
+   domain.  Discussion of these trust mechanisms is beyond the scope of
+   this document.
 
 6.  Validation of a BIMI message
 
@@ -272,9 +275,6 @@ Internet-Draft                   BIMI-RG                     August 2019
    o  It may be useful to have messages exiting a site to have those
       BIMI-* headers removed as well.
 
-   o  It is useful for a site that has not implemented BIMI to remove
-      those headers so that an MUA that does make use of those headers
-
 
 
 Brotman, et al.         Expires February 6, 2020                [Page 5]
@@ -282,6 +282,8 @@ Brotman, et al.         Expires February 6, 2020                [Page 5]
 Internet-Draft                   BIMI-RG                     August 2019
 
 
+   o  It is useful for a site that has not implemented BIMI to remove
+      those headers so that an MUA that does make use of those headers
       would not accidentally display a BIMI image when the message has
       not been properly authenticated by the email receiver (even though
       an MUA should not make use of BIMI headers and instead rely upon
@@ -327,8 +329,6 @@ Internet-Draft                   BIMI-RG                     August 2019
 
    o  Other providers may choose to cache the associated images in a
       local store which could be used as the BIMI resource address in
-      the headers of a BIMI-approved message in a sort of proxy
-      configuration.
 
 
 
@@ -337,6 +337,9 @@ Brotman, et al.         Expires February 6, 2020                [Page 6]
 
 Internet-Draft                   BIMI-RG                     August 2019
 
+
+      the headers of a BIMI-approved message in a sort of proxy
+      configuration.
 
 7.2.  TTL of cached images
 
@@ -352,7 +355,16 @@ Internet-Draft                   BIMI-RG                     August 2019
    might need to check for certificate revocation, and then re-fetch
    images.
 
-7.3.  Privacy Concerns
+7.3.  Image Display
+
+   Although BIMI does not define an aspect ratio for Brand Indicators it
+   is expected that the majority of receivers will display them in a
+   square or circular space.  Is it recommended to brands that their
+   Indicators should be constructed to display in a 1:1 aspect ratio,
+   receivers should design the user interface display for BIMI
+   Indicators with this in mind.
+
+7.4.  Privacy Concerns
 
    There is some concern that the retrieval of the iconography could
    result in a privacy leak.
@@ -374,18 +386,6 @@ Internet-Draft                   BIMI-RG                     August 2019
    MUAs are encouraged to extract Indicators from the BIMI-Indicator
    header rather than retrieving them directly from the source, as doing
    so will limit any data exposure to the MTA processing the message.
-   The BIMI approved SVG profile prohibits an SVG from loading external
-   elements, this removes the risk of tracking when an Indicator is
-   shown in the client.
-
-   An in-depth discussion of all the potential privacy leaks with
-   respect to loading or embedding images is outside the scope of this
-   document.
-
-
-
-
-
 
 
 
@@ -394,7 +394,15 @@ Brotman, et al.         Expires February 6, 2020                [Page 7]
 Internet-Draft                   BIMI-RG                     August 2019
 
 
-7.4.  Basic flow example
+   The BIMI approved SVG profile prohibits an SVG from loading external
+   elements, this removes the risk of tracking when an Indicator is
+   shown in the client.
+
+   An in-depth discussion of all the potential privacy leaks with
+   respect to loading or embedding images is outside the scope of this
+   document.
+
+7.5.  Basic flow example
 
    One sample implementation of BIMI by a receiver, who does everything
    on-the-fly, is as following:
@@ -423,7 +431,7 @@ Internet-Draft                   BIMI-RG                     August 2019
       such as a set of initials, or unidentified sender.
 
    o  The email receiver then does the rest of its anti-spam, anti-
-      malware, and anti-phishing checks as discussed in Section 7.5
+      malware, and anti-phishing checks as discussed in Section 7.6
       below.
 
    o  The email receiver then adds the relevant Authentication-Results
@@ -433,14 +441,6 @@ Internet-Draft                   BIMI-RG                     August 2019
 
    o  Eventually, the MUA checks the BIMI-* headers, decodes the image
       in the BIMI-Indicator header, and displays it as the sender photo
-      (or however else it chooses to render the BIMI logo in conjunction
-      with the message).
-
-7.5.  Message Classification
-
-   The successful validation of BIMI does NOT indicate that a message is
-   not spam, malware, or phishing.
-
 
 
 
@@ -449,6 +449,14 @@ Brotman, et al.         Expires February 6, 2020                [Page 8]
 
 Internet-Draft                   BIMI-RG                     August 2019
 
+
+      (or however else it chooses to render the BIMI logo in conjunction
+      with the message).
+
+7.6.  Message Classification
+
+   The successful validation of BIMI does NOT indicate that a message is
+   not spam, malware, or phishing.
 
    It is expected that receivers undertake their usual message filtering
    and classification steps, and take the results of these checks into
@@ -490,14 +498,6 @@ Internet-Draft                   BIMI-RG                     August 2019
    brand/domain could specify multiple BIMI logos and differentiate them
    on a per-domain (per-selector) basis.  The advantage for the brand is
    that they can choose the image they want the user to see depending
-   upon various conditions (e.g., seasonal images, regional images,
-   etc.).
-
-   However, for an email receiver, it may be easier to roll up BIMI
-   logos on an organizational domain basis.  One reason may be for the
-   purposes of reputation, another may be for simplifying management of
-   images.  In this case, it would need to be made clear to brands that
-   this is how the loading of BIMI images works.  This documentation
 
 
 
@@ -506,6 +506,14 @@ Brotman, et al.         Expires February 6, 2020                [Page 9]
 Internet-Draft                   BIMI-RG                     August 2019
 
 
+   upon various conditions (e.g., seasonal images, regional images,
+   etc.).
+
+   However, for an email receiver, it may be easier to roll up BIMI
+   logos on an organizational domain basis.  One reason may be for the
+   purposes of reputation, another may be for simplifying management of
+   images.  In this case, it would need to be made clear to brands that
+   this is how the loading of BIMI images works.  This documentation
    could live on a postmaster site, under technical documentation, or
    other official page maintained by the receiver.  It could then be
    referred to when sending organizations ask about how to on-board to
@@ -545,14 +553,6 @@ Internet-Draft                   BIMI-RG                     August 2019
    logo, nor determine ownership of a logo, nor may want the legal risk
    associated with making this determination.
 
-   Therefore, email receivers are strongly encouraged to partner with
-   Dispute Resolution Agencies.  These agencies specialize in copyright
-   infringement resolution.  An affected party would then contact the
-   Dispute Resolution Agency, rather than the email receiver, who would
-   then make the decision about if use of the logo were legitimate.
-   Then, they would publish the result of the dispute publicly where it
-   could be viewed by anyone.
-
 
 
 
@@ -561,6 +561,14 @@ Brotman, et al.         Expires February 6, 2020               [Page 10]
 
 Internet-Draft                   BIMI-RG                     August 2019
 
+
+   Therefore, email receivers are strongly encouraged to partner with
+   Dispute Resolution Agencies.  These agencies specialize in copyright
+   infringement resolution.  An affected party would then contact the
+   Dispute Resolution Agency, rather than the email receiver, who would
+   then make the decision about if use of the logo were legitimate.
+   Then, they would publish the result of the dispute publicly where it
+   could be viewed by anyone.
 
    MVAs should respect the decision of the courts and any brand found to
    be infringing ought to be added to their list of domains for which
@@ -602,14 +610,6 @@ Internet-Draft                   BIMI-RG                     August 2019
 
    o  Connectivity problems to the logo
 
-   o  Failing to display a correct logo in the email client
-
-   o  Having the wrong logo stored for a brand (i.e., uploading it to a
-      local store but associating it with the wrong brand)
-
-   o  Caching a logo for too long after it has updated
-
-
 
 
 
@@ -617,6 +617,13 @@ Brotman, et al.         Expires February 6, 2020               [Page 11]
 
 Internet-Draft                   BIMI-RG                     August 2019
 
+
+   o  Failing to display a correct logo in the email client
+
+   o  Having the wrong logo stored for a brand (i.e., uploading it to a
+      local store but associating it with the wrong brand)
+
+   o  Caching a logo for too long after it has updated
 
    There are many reasons why a logo may fail to load; having tools to
    investigate (logs, headers in messages, internal documentation that
@@ -658,13 +665,6 @@ Internet-Draft                   BIMI-RG                     August 2019
       the end user.  This could be a thick client or a web-based
       application.
 
-   o  MTA - Mail Transfer Agent - Software used to transfer messages
-      between two systems, typically between two sites, using SMTP as
-      the protocol.
-
-   o  SPF - Sender Policy Framework [1] - SPF is a framework that
-      designates which systems should be sending for a given domain.
-      This can be a list of IPs, CIDRs, or references to DNS records.
 
 
 
@@ -674,6 +674,13 @@ Brotman, et al.         Expires February 6, 2020               [Page 12]
 Internet-Draft                   BIMI-RG                     August 2019
 
 
+   o  MTA - Mail Transfer Agent - Software used to transfer messages
+      between two systems, typically between two sites, using SMTP as
+      the protocol.
+
+   o  SPF - Sender Policy Framework [1] - SPF is a framework that
+      designates which systems should be sending for a given domain.
+      This can be a list of IPs, CIDRs, or references to DNS records.
       As the sender should be controlling their DNS, they should
       understand which IPs should be sending as their domain.
 
@@ -715,13 +722,6 @@ Internet-Draft                   BIMI-RG                     August 2019
       Certificate is used in conjunction with BIMI to create a place
       where information pertaining to iconography for a sending domain
       can be securely verified.  In the case of BIMI, hashes for an MVA-
-      approved set of iconography will be stored in a field within the
-      certificate.  This should allow a receiver site to validate the
-      retrieved imagery before putting the BIMI image URI into the
-      message headers.
-
-
-
 
 
 
@@ -729,6 +729,11 @@ Brotman, et al.         Expires February 6, 2020               [Page 13]
 
 Internet-Draft                   BIMI-RG                     August 2019
 
+
+      approved set of iconography will be stored in a field within the
+      certificate.  This should allow a receiver site to validate the
+      retrieved imagery before putting the BIMI image URI into the
+      message headers.
 
 12.  Contributors
 
@@ -774,11 +779,6 @@ Authors' Addresses
    Email: alex_brotman@comcast.com
 
 
-   Terry Zink
-
-   Email: tzink@terryzink.com
-
-
 
 
 Brotman, et al.         Expires February 6, 2020               [Page 14]
@@ -786,15 +786,15 @@ Brotman, et al.         Expires February 6, 2020               [Page 14]
 Internet-Draft                   BIMI-RG                     August 2019
 
 
+   Terry Zink
+
+   Email: tzink@terryzink.com
+
+
    Marc Bradshaw
    Fastmail
 
    Email: marc@fastmailteam.com
-
-
-
-
-
 
 
 
