@@ -220,6 +220,13 @@ the same as the expiration period in the VMC that contains the BIMI image. The
 downside is that the caching mechanism might need to check for certificate revocation, and 
 then re-fetch images.
 
+## Image Display
+
+Although BIMI does not define an aspect ratio for Brand Indicators it is expected that the 
+majority of receivers will display them in a square or circular space. Is it recommended 
+to brands that their Indicators should be constructed to display in a 1:1 aspect ratio, receivers 
+should design the user interface display for BIMI Indicators with this in mind.
+
 ## Privacy Concerns
 
 There is some concern that the retrieval of the iconography could result in a privacy leak.  
