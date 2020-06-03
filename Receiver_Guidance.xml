@@ -410,32 +410,6 @@ an effective pct=100, or a p=reject policy.
 </t>
 </section>
 
-<section anchor="resolving-disputes" title="Resolving disputes">
-<t>From time to time, disputes may arise between brands where one brand says that another is infringing
-on its logo.
-</t>
-<t>A brand owner would want to have all email receivers stop showing logos for the infringing brand
-because it could damage its own brand’s reputation. However, an email receiver is not necessarily
-in a good position to determine what constitutes legitimate usage of a logo, nor determine ownership
-of a logo, nor may want the legal risk associated with making this determination.
-</t>
-<t>Therefore, email receivers are strongly encouraged to partner with Dispute Resolution Agencies. These
-agencies specialize in copyright infringement resolution. An affected party would then contact the
-Dispute Resolution Agency, rather than the email receiver, who would then make the decision about if
-use of the logo were legitimate. Then, they would publish the result of the dispute publicly where it
-could be viewed by anyone.
-</t>
-<t>MVAs should respect the decision of the courts and any brand found to be infringing ought to be
-added to their list of domains for which BIMI logos are not loaded.  The issuing MVA of the
-infringing brand’s VMC should formally revoke it. However, this is not guaranteed in
-the case of a rogue MVA or a sloppy MVA. Therefore, email receivers should also pay attention to
-the Dispute Resolution Agencies, and any results that they say are infringing should be prevented
-from loading in their email clients. The email receiver should also keep track of how often disputes
-occur and are found against various MVAs, as an MVA with too many disputes ruled against it could be
-evidence of a sloppy MVA or a rogue MVA.
-</t>
-</section>
-
 <section anchor="vmc-root-of-trust" title="VMC Root of Trust">
 <t>VMCs are verified back to their issuing Certificate Authority (CA). Receivers may wish to maintain their
 own list of trusted CAs for BIMI rather than relying on a generally available bundle of trusted Root

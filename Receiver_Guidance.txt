@@ -82,18 +82,17 @@ Table of Contents
      7.6.  Message Classification  . . . . . . . . . . . . . . . . .   9
    8.  Domain Reputation . . . . . . . . . . . . . . . . . . . . . .   9
      8.1.  Rolling up based upon domain vs organizational domain . .   9
-     8.2.  Resolving disputes  . . . . . . . . . . . . . . . . . . .  10
-     8.3.  VMC Root of Trust . . . . . . . . . . . . . . . . . . . .  11
-   9.  BIMI Playbook Checklist . . . . . . . . . . . . . . . . . . .  11
-   10. Public documentation  . . . . . . . . . . . . . . . . . . . .  12
-     10.1.  Documentation For Brands:  . . . . . . . . . . . . . . .  12
-     10.2.  Documentation For Users: . . . . . . . . . . . . . . . .  12
+     8.2.  VMC Root of Trust . . . . . . . . . . . . . . . . . . . .  10
+   9.  BIMI Playbook Checklist . . . . . . . . . . . . . . . . . . .  10
+   10. Public documentation  . . . . . . . . . . . . . . . . . . . .  11
+     10.1.  Documentation For Brands:  . . . . . . . . . . . . . . .  11
+     10.2.  Documentation For Users: . . . . . . . . . . . . . . . .  11
    11. Appendix  . . . . . . . . . . . . . . . . . . . . . . . . . .  12
      11.1.  Glossary . . . . . . . . . . . . . . . . . . . . . . . .  12
-   12. Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  14
-   13. References  . . . . . . . . . . . . . . . . . . . . . . . . .  14
-   14. References  . . . . . . . . . . . . . . . . . . . . . . . . .  14
-     14.1.  Normative References . . . . . . . . . . . . . . . . . .  14
+   12. Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  13
+   13. References  . . . . . . . . . . . . . . . . . . . . . . . . .  13
+   14. References  . . . . . . . . . . . . . . . . . . . . . . . . .  13
+     14.1.  Normative References . . . . . . . . . . . . . . . . . .  13
      14.2.  URIs . . . . . . . . . . . . . . . . . . . . . . . . . .  14
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  14
 
@@ -105,7 +104,8 @@ Table of Contents
    cryptographic methods to ensure the identity of a sender.  If the
    identity is ensured, the MUA can then retrieve sender-selected
    iconography to display within the MUA.  This displayed iconography
-
+   grants the sender brand impressions via the BIMI-capable MUA, and
+   should be a driving factor for the adoption of authenticated email.
 
 
 
@@ -113,9 +113,6 @@ Brotman, et al.         Expires February 6, 2020                [Page 2]
 
 Internet-Draft                   BIMI-RG                     August 2019
 
-
-   grants the sender brand impressions via the BIMI-capable MUA, and
-   should be a driving factor for the adoption of authenticated email.
 
 1.1.  Terminology
 
@@ -163,14 +160,15 @@ Internet-Draft                   BIMI-RG                     August 2019
 
    o  DMARC
 
+   o  Alignment
+
+
 
 
 Brotman, et al.         Expires February 6, 2020                [Page 3]
 
 Internet-Draft                   BIMI-RG                     August 2019
 
-
-   o  Alignment
 
    o  Verified Mark Certificate (VMC)
 
@@ -218,6 +216,8 @@ Internet-Draft                   BIMI-RG                     August 2019
    MUA to display the image fetched from a URI within the message
    headers.  This URI is created after the MTA authenticates a message,
    and is also able to authenticate the VMC associated with the sending
+   domain.  Discussion of these trust mechanisms is beyond the scope of
+   this document.
 
 
 
@@ -225,9 +225,6 @@ Brotman, et al.         Expires February 6, 2020                [Page 4]
 
 Internet-Draft                   BIMI-RG                     August 2019
 
-
-   domain.  Discussion of these trust mechanisms is beyond the scope of
-   this document.
 
 6.  Validation of a BIMI message
 
@@ -275,6 +272,9 @@ Internet-Draft                   BIMI-RG                     August 2019
    o  It may be useful to have messages exiting a site to have those
       BIMI-* headers removed as well.
 
+   o  It is useful for a site that has not implemented BIMI to remove
+      those headers so that an MUA that does make use of those headers
+
 
 
 Brotman, et al.         Expires February 6, 2020                [Page 5]
@@ -282,8 +282,6 @@ Brotman, et al.         Expires February 6, 2020                [Page 5]
 Internet-Draft                   BIMI-RG                     August 2019
 
 
-   o  It is useful for a site that has not implemented BIMI to remove
-      those headers so that an MUA that does make use of those headers
       would not accidentally display a BIMI image when the message has
       not been properly authenticated by the email receiver (even though
       an MUA should not make use of BIMI headers and instead rely upon
@@ -329,6 +327,8 @@ Internet-Draft                   BIMI-RG                     August 2019
 
    o  Other providers may choose to cache the associated images in a
       local store which could be used as the BIMI resource address in
+      the headers of a BIMI-approved message in a sort of proxy
+      configuration.
 
 
 
@@ -337,9 +337,6 @@ Brotman, et al.         Expires February 6, 2020                [Page 6]
 
 Internet-Draft                   BIMI-RG                     August 2019
 
-
-      the headers of a BIMI-approved message in a sort of proxy
-      configuration.
 
 7.2.  TTL of cached images
 
@@ -386,6 +383,9 @@ Internet-Draft                   BIMI-RG                     August 2019
    MUAs are encouraged to extract Indicators from the BIMI-Indicator
    header rather than retrieving them directly from the source, as doing
    so will limit any data exposure to the MTA processing the message.
+   The BIMI approved SVG profile prohibits an SVG from loading external
+   elements, this removes the risk of tracking when an Indicator is
+   shown in the client.
 
 
 
@@ -393,10 +393,6 @@ Brotman, et al.         Expires February 6, 2020                [Page 7]
 
 Internet-Draft                   BIMI-RG                     August 2019
 
-
-   The BIMI approved SVG profile prohibits an SVG from loading external
-   elements, this removes the risk of tracking when an Indicator is
-   shown in the client.
 
    An in-depth discussion of all the potential privacy leaks with
    respect to loading or embedding images is outside the scope of this
@@ -441,6 +437,10 @@ Internet-Draft                   BIMI-RG                     August 2019
 
    o  Eventually, the MUA checks the BIMI-* headers, decodes the image
       in the BIMI-Indicator header, and displays it as the sender photo
+      (or however else it chooses to render the BIMI logo in conjunction
+      with the message).
+
+
 
 
 
@@ -449,9 +449,6 @@ Brotman, et al.         Expires February 6, 2020                [Page 8]
 
 Internet-Draft                   BIMI-RG                     August 2019
 
-
-      (or however else it chooses to render the BIMI logo in conjunction
-      with the message).
 
 7.6.  Message Classification
 
@@ -498,6 +495,9 @@ Internet-Draft                   BIMI-RG                     August 2019
    brand/domain could specify multiple BIMI logos and differentiate them
    on a per-domain (per-selector) basis.  The advantage for the brand is
    that they can choose the image they want the user to see depending
+   upon various conditions (e.g., seasonal images, regional images,
+   etc.).
+
 
 
 
@@ -505,9 +505,6 @@ Brotman, et al.         Expires February 6, 2020                [Page 9]
 
 Internet-Draft                   BIMI-RG                     August 2019
 
-
-   upon various conditions (e.g., seasonal images, regional images,
-   etc.).
 
    However, for an email receiver, it may be easier to roll up BIMI
    logos on an organizational domain basis.  One reason may be for the
@@ -541,48 +538,7 @@ Internet-Draft                   BIMI-RG                     August 2019
    enforcement. ie, a p=quarantine policy with an effective pct=100, or
    a p=reject policy.
 
-8.2.  Resolving disputes
-
-   From time to time, disputes may arise between brands where one brand
-   says that another is infringing on its logo.
-
-   A brand owner would want to have all email receivers stop showing
-   logos for the infringing brand because it could damage its own
-   brand's reputation.  However, an email receiver is not necessarily in
-   a good position to determine what constitutes legitimate usage of a
-   logo, nor determine ownership of a logo, nor may want the legal risk
-   associated with making this determination.
-
-
-
-
-
-Brotman, et al.         Expires February 6, 2020               [Page 10]
-
-Internet-Draft                   BIMI-RG                     August 2019
-
-
-   Therefore, email receivers are strongly encouraged to partner with
-   Dispute Resolution Agencies.  These agencies specialize in copyright
-   infringement resolution.  An affected party would then contact the
-   Dispute Resolution Agency, rather than the email receiver, who would
-   then make the decision about if use of the logo were legitimate.
-   Then, they would publish the result of the dispute publicly where it
-   could be viewed by anyone.
-
-   MVAs should respect the decision of the courts and any brand found to
-   be infringing ought to be added to their list of domains for which
-   BIMI logos are not loaded.  The issuing MVA of the infringing brand's
-   VMC should formally revoke it.  However, this is not guaranteed in
-   the case of a rogue MVA or a sloppy MVA.  Therefore, email receivers
-   should also pay attention to the Dispute Resolution Agencies, and any
-   results that they say are infringing should be prevented from loading
-   in their email clients.  The email receiver should also keep track of
-   how often disputes occur and are found against various MVAs, as an
-   MVA with too many disputes ruled against it could be evidence of a
-   sloppy MVA or a rogue MVA.
-
-8.3.  VMC Root of Trust
+8.2.  VMC Root of Trust
 
    VMCs are verified back to their issuing Certificate Authority (CA).
    Receivers may wish to maintain their own list of trusted CAs for BIMI
@@ -598,6 +554,14 @@ Internet-Draft                   BIMI-RG                     August 2019
 
    o  Failing to verify a VMC
 
+
+
+
+Brotman, et al.         Expires February 6, 2020               [Page 10]
+
+Internet-Draft                   BIMI-RG                     August 2019
+
+
    o  Failing to extract an Indicator from a validated VMC
 
    o  Failing to validate a SVG against the recommended profile
@@ -609,14 +573,6 @@ Internet-Draft                   BIMI-RG                     August 2019
    o  Failing to access the logo (e.g., permissions errors)
 
    o  Connectivity problems to the logo
-
-
-
-
-Brotman, et al.         Expires February 6, 2020               [Page 11]
-
-Internet-Draft                   BIMI-RG                     August 2019
-
 
    o  Failing to display a correct logo in the email client
 
@@ -654,6 +610,14 @@ Internet-Draft                   BIMI-RG                     August 2019
    action regarding the message should still be individually evaluated.
    It's possible for a site that has a high trust value to become
    compromised and send fraudulent messages that could compromise a
+
+
+
+Brotman, et al.         Expires February 6, 2020               [Page 11]
+
+Internet-Draft                   BIMI-RG                     August 2019
+
+
    user's system.  Ensure your customers have a place that documents
    BIMI and demonstrates how to check messages for fraud.
 
@@ -664,15 +628,6 @@ Internet-Draft                   BIMI-RG                     August 2019
    o  MUA - Mail User Agent - The application used to read messages by
       the end user.  This could be a thick client or a web-based
       application.
-
-
-
-
-
-Brotman, et al.         Expires February 6, 2020               [Page 12]
-
-Internet-Draft                   BIMI-RG                     August 2019
-
 
    o  MTA - Mail Transfer Agent - Software used to transfer messages
       between two systems, typically between two sites, using SMTP as
@@ -709,6 +664,16 @@ Internet-Draft                   BIMI-RG                     August 2019
       the same organizational domain.  A definition of organizational
       domain and methods of discovery may be found in the DMARC [4] RFC.
 
+
+
+
+
+
+Brotman, et al.         Expires February 6, 2020               [Page 12]
+
+Internet-Draft                   BIMI-RG                     August 2019
+
+
    o  MVA - Mark Verifying Authority - An entity that a receiver uses to
       certify that the iconography that they intend to use with BIMI is
       properly/legally licensed for their use.
@@ -722,14 +687,6 @@ Internet-Draft                   BIMI-RG                     August 2019
       Certificate is used in conjunction with BIMI to create a place
       where information pertaining to iconography for a sending domain
       can be securely verified.  In the case of BIMI, hashes for an MVA-
-
-
-
-Brotman, et al.         Expires February 6, 2020               [Page 13]
-
-Internet-Draft                   BIMI-RG                     August 2019
-
-
       approved set of iconography will be stored in a field within the
       certificate.  This should allow a receiver site to validate the
       retrieved imagery before putting the BIMI image URI into the
@@ -761,6 +718,18 @@ Internet-Draft                   BIMI-RG                     August 2019
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
 
+
+
+
+
+
+
+
+Brotman, et al.         Expires February 6, 2020               [Page 13]
+
+Internet-Draft                   BIMI-RG                     August 2019
+
+
 14.2.  URIs
 
    [1] https://tools.ietf.org/html/rfc7208
@@ -777,13 +746,6 @@ Authors' Addresses
    Comcast
 
    Email: alex_brotman@comcast.com
-
-
-
-
-Brotman, et al.         Expires February 6, 2020               [Page 14]
-
-Internet-Draft                   BIMI-RG                     August 2019
 
 
    Terry Zink
@@ -819,22 +781,4 @@ Internet-Draft                   BIMI-RG                     August 2019
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Brotman, et al.         Expires February 6, 2020               [Page 15]
+Brotman, et al.         Expires February 6, 2020               [Page 14]

@@ -392,8 +392,7 @@
 <link href="#rfc.section.7.6" rel="Chapter" title="7.6 Message Classification">
 <link href="#rfc.section.8" rel="Chapter" title="8 Domain Reputation">
 <link href="#rfc.section.8.1" rel="Chapter" title="8.1 Rolling up based upon domain vs organizational domain">
-<link href="#rfc.section.8.2" rel="Chapter" title="8.2 Resolving disputes">
-<link href="#rfc.section.8.3" rel="Chapter" title="8.3 VMC Root of Trust">
+<link href="#rfc.section.8.2" rel="Chapter" title="8.2 VMC Root of Trust">
 <link href="#rfc.section.9" rel="Chapter" title="9 BIMI Playbook Checklist">
 <link href="#rfc.section.10" rel="Chapter" title="10 Public documentation">
 <link href="#rfc.section.10.1" rel="Chapter" title="10.1 Documentation For Brands:">
@@ -510,9 +509,7 @@
 </li>
 <ul><li>8.1.   <a href="#rfc.section.8.1">Rolling up based upon domain vs organizational domain</a>
 </li>
-<li>8.2.   <a href="#rfc.section.8.2">Resolving disputes</a>
-</li>
-<li>8.3.   <a href="#rfc.section.8.3">VMC Root of Trust</a>
+<li>8.2.   <a href="#rfc.section.8.2">VMC Root of Trust</a>
 </li>
 </ul><li>9.   <a href="#rfc.section.9">BIMI Playbook Checklist</a>
 </li>
@@ -719,16 +716,9 @@
 <p id="rfc.section.8.1.p.4">To alleviate this, receivers may wish to show logos only for domains that have organizational domains with strong DMARC policies. Or, if an organizational domain does not have a strong DMARC policy but a subdomain does, then it may treat the organizational domain as if it does have a strong DMARC policy so as to prevent a phisher or spammer from impersonating the brand or any of its subdomains.  </p>
 <p id="rfc.section.8.1.p.5">A strong DMARC policy may be defined as one which has some level of enforcement. ie, a p=quarantine policy with an effective pct=100, or a p=reject policy.  </p>
 <h1 id="rfc.section.8.2">
-<a href="#rfc.section.8.2">8.2.</a> <a href="#resolving-disputes" id="resolving-disputes">Resolving disputes</a>
+<a href="#rfc.section.8.2">8.2.</a> <a href="#vmc-root-of-trust" id="vmc-root-of-trust">VMC Root of Trust</a>
 </h1>
-<p id="rfc.section.8.2.p.1">From time to time, disputes may arise between brands where one brand says that another is infringing on its logo.  </p>
-<p id="rfc.section.8.2.p.2">A brand owner would want to have all email receivers stop showing logos for the infringing brand because it could damage its own brand&#8217;s reputation. However, an email receiver is not necessarily in a good position to determine what constitutes legitimate usage of a logo, nor determine ownership of a logo, nor may want the legal risk associated with making this determination.  </p>
-<p id="rfc.section.8.2.p.3">Therefore, email receivers are strongly encouraged to partner with Dispute Resolution Agencies. These agencies specialize in copyright infringement resolution. An affected party would then contact the Dispute Resolution Agency, rather than the email receiver, who would then make the decision about if use of the logo were legitimate. Then, they would publish the result of the dispute publicly where it could be viewed by anyone.  </p>
-<p id="rfc.section.8.2.p.4">MVAs should respect the decision of the courts and any brand found to be infringing ought to be added to their list of domains for which BIMI logos are not loaded.  The issuing MVA of the infringing brand&#8217;s VMC should formally revoke it. However, this is not guaranteed in the case of a rogue MVA or a sloppy MVA. Therefore, email receivers should also pay attention to the Dispute Resolution Agencies, and any results that they say are infringing should be prevented from loading in their email clients. The email receiver should also keep track of how often disputes occur and are found against various MVAs, as an MVA with too many disputes ruled against it could be evidence of a sloppy MVA or a rogue MVA.  </p>
-<h1 id="rfc.section.8.3">
-<a href="#rfc.section.8.3">8.3.</a> <a href="#vmc-root-of-trust" id="vmc-root-of-trust">VMC Root of Trust</a>
-</h1>
-<p id="rfc.section.8.3.p.1">VMCs are verified back to their issuing Certificate Authority (CA). Receivers may wish to maintain their own list of trusted CAs for BIMI rather than relying on a generally available bundle of trusted Root Certificates such as those distributed with browsers or operating systems. The Authindicators Working Group will maintain a list of known VMC Root CA Certificates to help bootstrap such a list.  </p>
+<p id="rfc.section.8.2.p.1">VMCs are verified back to their issuing Certificate Authority (CA). Receivers may wish to maintain their own list of trusted CAs for BIMI rather than relying on a generally available bundle of trusted Root Certificates such as those distributed with browsers or operating systems. The Authindicators Working Group will maintain a list of known VMC Root CA Certificates to help bootstrap such a list.  </p>
 <h1 id="rfc.section.9">
 <a href="#rfc.section.9">9.</a> <a href="#bimi-playbook-checklist" id="bimi-playbook-checklist">BIMI Playbook Checklist</a>
 </h1>
