@@ -22,6 +22,7 @@
    initials="T."
    surname="Zink"
    fullname="Terry Zink"
+   organization="Zink Magical Contraptions"
      [author.address]
      email="tzink@terryzink.com"
      [[author]]
