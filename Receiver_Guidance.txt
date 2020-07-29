@@ -5,7 +5,7 @@
 Network Working Group                                         A. Brotman
 Internet-Draft                                                   Comcast
 Intended status: Best Current Practice                           T. Zink
-Expires: February 6, 2020
+Expires: February 6, 2020                      Zink Magical Contraptions
                                                              M. Bradshaw
                                                                 Fastmail
                                                           August 5, 2019
@@ -749,6 +749,7 @@ Authors' Addresses
 
 
    Terry Zink
+   Zink Magical Contraptions
 
    Email: tzink@terryzink.com
 
@@ -757,7 +758,6 @@ Authors' Addresses
    Fastmail
 
    Email: marc@fastmailteam.com
-
 
 
 
