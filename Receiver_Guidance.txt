@@ -5,15 +5,15 @@
 Network Working Group                                         A. Brotman
 Internet-Draft                                                   Comcast
 Intended status: Best Current Practice                           T. Zink
-Expires: February 6, 2020                      Zink Magical Contraptions
+Expires: January 31, 2021                      Zink Magical Contraptions
                                                              M. Bradshaw
                                                                 Fastmail
-                                                          August 5, 2019
+                                                           July 30, 2020
 
 
    Receivers Guidance for Implementing Branded Indicators for Message
                          Identification (BIMI)
-                   draft-ietf-bimi-receiver-guidance
+                  draft-brotman-ietf-bimi-guidance-02
 
 Abstract
 
@@ -37,11 +37,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on February 6, 2020.
+   This Internet-Draft will expire on January 31, 2021.
 
 Copyright Notice
 
-   Copyright (c) 2019 IETF Trust and the persons identified as the
+   Copyright (c) 2020 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Brotman, et al.         Expires February 6, 2020                [Page 1]
+Brotman, et al.         Expires January 31, 2021                [Page 1]
 
-Internet-Draft                   BIMI-RG                     August 2019
+Internet-Draft                   BIMI-RG                       July 2020
 
 
    include Simplified BSD License text as described in Section 4.e of
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Brotman, et al.         Expires February 6, 2020                [Page 2]
+Brotman, et al.         Expires January 31, 2021                [Page 2]
 
-Internet-Draft                   BIMI-RG                     August 2019
+Internet-Draft                   BIMI-RG                       July 2020
 
 
 1.1.  Terminology
@@ -165,9 +165,9 @@ Internet-Draft                   BIMI-RG                     August 2019
 
 
 
-Brotman, et al.         Expires February 6, 2020                [Page 3]
+Brotman, et al.         Expires January 31, 2021                [Page 3]
 
-Internet-Draft                   BIMI-RG                     August 2019
+Internet-Draft                   BIMI-RG                       July 2020
 
 
    o  Verified Mark Certificate (VMC)
@@ -221,9 +221,9 @@ Internet-Draft                   BIMI-RG                     August 2019
 
 
 
-Brotman, et al.         Expires February 6, 2020                [Page 4]
+Brotman, et al.         Expires January 31, 2021                [Page 4]
 
-Internet-Draft                   BIMI-RG                     August 2019
+Internet-Draft                   BIMI-RG                       July 2020
 
 
 6.  Validation of a BIMI message
@@ -277,9 +277,9 @@ Internet-Draft                   BIMI-RG                     August 2019
 
 
 
-Brotman, et al.         Expires February 6, 2020                [Page 5]
+Brotman, et al.         Expires January 31, 2021                [Page 5]
 
-Internet-Draft                   BIMI-RG                     August 2019
+Internet-Draft                   BIMI-RG                       July 2020
 
 
       would not accidentally display a BIMI image when the message has
@@ -333,9 +333,9 @@ Internet-Draft                   BIMI-RG                     August 2019
 
 
 
-Brotman, et al.         Expires February 6, 2020                [Page 6]
+Brotman, et al.         Expires January 31, 2021                [Page 6]
 
-Internet-Draft                   BIMI-RG                     August 2019
+Internet-Draft                   BIMI-RG                       July 2020
 
 
 7.2.  TTL of cached images
@@ -389,9 +389,9 @@ Internet-Draft                   BIMI-RG                     August 2019
 
 
 
-Brotman, et al.         Expires February 6, 2020                [Page 7]
+Brotman, et al.         Expires January 31, 2021                [Page 7]
 
-Internet-Draft                   BIMI-RG                     August 2019
+Internet-Draft                   BIMI-RG                       July 2020
 
 
    An in-depth discussion of all the potential privacy leaks with
@@ -445,9 +445,9 @@ Internet-Draft                   BIMI-RG                     August 2019
 
 
 
-Brotman, et al.         Expires February 6, 2020                [Page 8]
+Brotman, et al.         Expires January 31, 2021                [Page 8]
 
-Internet-Draft                   BIMI-RG                     August 2019
+Internet-Draft                   BIMI-RG                       July 2020
 
 
 7.6.  Message Classification
@@ -501,9 +501,9 @@ Internet-Draft                   BIMI-RG                     August 2019
 
 
 
-Brotman, et al.         Expires February 6, 2020                [Page 9]
+Brotman, et al.         Expires January 31, 2021                [Page 9]
 
-Internet-Draft                   BIMI-RG                     August 2019
+Internet-Draft                   BIMI-RG                       July 2020
 
 
    However, for an email receiver, it may be easier to roll up BIMI
@@ -557,9 +557,9 @@ Internet-Draft                   BIMI-RG                     August 2019
 
 
 
-Brotman, et al.         Expires February 6, 2020               [Page 10]
+Brotman, et al.         Expires January 31, 2021               [Page 10]
 
-Internet-Draft                   BIMI-RG                     August 2019
+Internet-Draft                   BIMI-RG                       July 2020
 
 
    o  Failing to extract an Indicator from a validated VMC
@@ -613,9 +613,9 @@ Internet-Draft                   BIMI-RG                     August 2019
 
 
 
-Brotman, et al.         Expires February 6, 2020               [Page 11]
+Brotman, et al.         Expires January 31, 2021               [Page 11]
 
-Internet-Draft                   BIMI-RG                     August 2019
+Internet-Draft                   BIMI-RG                       July 2020
 
 
    user's system.  Ensure your customers have a place that documents
@@ -669,9 +669,9 @@ Internet-Draft                   BIMI-RG                     August 2019
 
 
 
-Brotman, et al.         Expires February 6, 2020               [Page 12]
+Brotman, et al.         Expires January 31, 2021               [Page 12]
 
-Internet-Draft                   BIMI-RG                     August 2019
+Internet-Draft                   BIMI-RG                       July 2020
 
 
    o  MVA - Mark Verifying Authority - An entity that a receiver uses to
@@ -725,9 +725,9 @@ Internet-Draft                   BIMI-RG                     August 2019
 
 
 
-Brotman, et al.         Expires February 6, 2020               [Page 13]
+Brotman, et al.         Expires January 31, 2021               [Page 13]
 
-Internet-Draft                   BIMI-RG                     August 2019
+Internet-Draft                   BIMI-RG                       July 2020
 
 
 14.2.  URIs
@@ -781,4 +781,4 @@ Authors' Addresses
 
 
 
-Brotman, et al.         Expires February 6, 2020               [Page 14]
+Brotman, et al.         Expires January 31, 2021               [Page 14]

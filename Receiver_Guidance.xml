@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE rfc SYSTEM 'rfc2629.dtd' []>
-<rfc ipr="trust200902" category="bcp" docName="draft-ietf-bimi-receiver-guidance">
+<rfc ipr="trust200902" category="bcp" docName="draft-brotman-ietf-bimi-guidance-02">
 <?rfc toc="yes"?>
 <?rfc symrefs="yes"?>
 <?rfc sortrefs="yes"?>
@@ -57,7 +57,7 @@
 <uri></uri>
 </address>
 </author>
-<date year="2019" month="August" day="5"/>
+<date year="2020" month="July" day="30"/>
 
 <area>Applications</area>
 <workgroup></workgroup>
