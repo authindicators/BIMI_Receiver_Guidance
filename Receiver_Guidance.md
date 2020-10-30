@@ -228,6 +228,14 @@ majority of receivers will display them in a square or circular space. Is it rec
 to brands that their Indicators should be constructed to display in a 1:1 aspect ratio, receivers 
 should design the user interface display for BIMI Indicators with this in mind.
 
+## Security Concerns
+
+Receivers should consider the impact of XML bomb or "billion laughs" Denial of Service attacks when
+handling XML documents such as when validating SVG documents.
+
+When validating XML documents, receivers should consider the security and privary implications of
+retreiving external entiries referenced in those documents.
+
 ## Privacy Concerns
 
 There is some concern that the retrieval of the iconography could result in a privacy leak.  
