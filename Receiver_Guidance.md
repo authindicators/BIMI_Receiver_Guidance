@@ -208,6 +208,14 @@ for example:
   be used as the BIMI resource address in the headers of a BIMI-approved message in a 
   sort of proxy configuration.
 
+## Limited use of HTTP Redirects
+
+* Receivers may choose not to follow HTTP redirects when retrieving images, or may choose 
+  to follow only a limited number of redirects.
+
+* When setting up BIMI, senders should eliminate, or limit the use of HTTP redirects to 
+  avoid images being unretrievable by receivers who either do not support the use of 
+  HTTP redirection, or have limited its use.
 
 ## TTL of cached images
 
