@@ -232,6 +232,7 @@ should design the user interface display for BIMI Indicators with this in mind.
 
 Receivers should consider the impact of XML bomb or "billion laughs" Denial of Service attacks when
 handling XML documents such as when validating SVG documents.
+[CVE-2003-1564](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2003-1564) is an example of this attack.
 
 When validating XML documents, receivers should consider the security and privary implications of
 retreiving external entiries referenced in those documents.
