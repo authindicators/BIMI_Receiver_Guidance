@@ -77,22 +77,23 @@ Table of Contents
      7.1.  Image Retrieval . . . . . . . . . . . . . . . . . . . . .   6
      7.2.  TTL of cached images  . . . . . . . . . . . . . . . . . .   7
      7.3.  Image Display . . . . . . . . . . . . . . . . . . . . . .   7
-     7.4.  Privacy Concerns  . . . . . . . . . . . . . . . . . . . .   7
-     7.5.  Basic flow example  . . . . . . . . . . . . . . . . . . .   8
-     7.6.  Message Classification  . . . . . . . . . . . . . . . . .   9
+     7.4.  Security Concerns . . . . . . . . . . . . . . . . . . . .   7
+     7.5.  Privacy Concerns  . . . . . . . . . . . . . . . . . . . .   7
+     7.6.  Basic flow example  . . . . . . . . . . . . . . . . . . .   8
+     7.7.  Message Classification  . . . . . . . . . . . . . . . . .   9
    8.  Domain Reputation . . . . . . . . . . . . . . . . . . . . . .   9
-     8.1.  Rolling up based upon domain vs organizational domain . .   9
-     8.2.  VMC Root of Trust . . . . . . . . . . . . . . . . . . . .  10
-   9.  BIMI Playbook Checklist . . . . . . . . . . . . . . . . . . .  10
+     8.1.  Rolling up based upon domain vs organizational domain . .  10
+     8.2.  VMC Root of Trust . . . . . . . . . . . . . . . . . . . .  11
+   9.  BIMI Playbook Checklist . . . . . . . . . . . . . . . . . . .  11
    10. Public documentation  . . . . . . . . . . . . . . . . . . . .  11
      10.1.  Documentation For Brands:  . . . . . . . . . . . . . . .  11
-     10.2.  Documentation For Users: . . . . . . . . . . . . . . . .  11
+     10.2.  Documentation For Users: . . . . . . . . . . . . . . . .  12
    11. Appendix  . . . . . . . . . . . . . . . . . . . . . . . . . .  12
      11.1.  Glossary . . . . . . . . . . . . . . . . . . . . . . . .  12
    12. Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  13
    13. References  . . . . . . . . . . . . . . . . . . . . . . . . .  13
-   14. References  . . . . . . . . . . . . . . . . . . . . . . . . .  13
-     14.1.  Normative References . . . . . . . . . . . . . . . . . .  13
+   14. References  . . . . . . . . . . . . . . . . . . . . . . . . .  14
+     14.1.  Normative References . . . . . . . . . . . . . . . . . .  14
      14.2.  URIs . . . . . . . . . . . . . . . . . . . . . . . . . .  14
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  14
 
@@ -104,8 +105,7 @@ Table of Contents
    cryptographic methods to ensure the identity of a sender.  If the
    identity is ensured, the MUA can then retrieve sender-selected
    iconography to display within the MUA.  This displayed iconography
-   grants the sender brand impressions via the BIMI-capable MUA, and
-   should be a driving factor for the adoption of authenticated email.
+
 
 
 
@@ -113,6 +113,9 @@ Brotman, et al.         Expires January 31, 2021                [Page 2]
 
 Internet-Draft                   BIMI-RG                       July 2020
 
+
+   grants the sender brand impressions via the BIMI-capable MUA, and
+   should be a driving factor for the adoption of authenticated email.
 
 1.1.  Terminology
 
@@ -160,15 +163,14 @@ Internet-Draft                   BIMI-RG                       July 2020
 
    o  DMARC
 
-   o  Alignment
-
-
 
 
 Brotman, et al.         Expires January 31, 2021                [Page 3]
 
 Internet-Draft                   BIMI-RG                       July 2020
 
+
+   o  Alignment
 
    o  Verified Mark Certificate (VMC)
 
@@ -216,8 +218,6 @@ Internet-Draft                   BIMI-RG                       July 2020
    MUA to display the image fetched from a URI within the message
    headers.  This URI is created after the MTA authenticates a message,
    and is also able to authenticate the VMC associated with the sending
-   domain.  Discussion of these trust mechanisms is beyond the scope of
-   this document.
 
 
 
@@ -225,6 +225,9 @@ Brotman, et al.         Expires January 31, 2021                [Page 4]
 
 Internet-Draft                   BIMI-RG                       July 2020
 
+
+   domain.  Discussion of these trust mechanisms is beyond the scope of
+   this document.
 
 6.  Validation of a BIMI message
 
@@ -272,9 +275,6 @@ Internet-Draft                   BIMI-RG                       July 2020
    o  It may be useful to have messages exiting a site to have those
       BIMI-* headers removed as well.
 
-   o  It is useful for a site that has not implemented BIMI to remove
-      those headers so that an MUA that does make use of those headers
-
 
 
 Brotman, et al.         Expires January 31, 2021                [Page 5]
@@ -282,6 +282,8 @@ Brotman, et al.         Expires January 31, 2021                [Page 5]
 Internet-Draft                   BIMI-RG                       July 2020
 
 
+   o  It is useful for a site that has not implemented BIMI to remove
+      those headers so that an MUA that does make use of those headers
       would not accidentally display a BIMI image when the message has
       not been properly authenticated by the email receiver (even though
       an MUA should not make use of BIMI headers and instead rely upon
@@ -327,8 +329,6 @@ Internet-Draft                   BIMI-RG                       July 2020
 
    o  Other providers may choose to cache the associated images in a
       local store which could be used as the BIMI resource address in
-      the headers of a BIMI-approved message in a sort of proxy
-      configuration.
 
 
 
@@ -337,6 +337,9 @@ Brotman, et al.         Expires January 31, 2021                [Page 6]
 
 Internet-Draft                   BIMI-RG                       July 2020
 
+
+      the headers of a BIMI-approved message in a sort of proxy
+      configuration.
 
 7.2.  TTL of cached images
 
@@ -361,7 +364,17 @@ Internet-Draft                   BIMI-RG                       July 2020
    receivers should design the user interface display for BIMI
    Indicators with this in mind.
 
-7.4.  Privacy Concerns
+7.4.  Security Concerns
+
+   Receivers should consider the impact of XML bomb or "billion laughs"
+   Denial of Service attacks when handling XML documents such as when
+   validating SVG documents.
+
+   When validating XML documents, receivers should consider the security
+   and privary implications of retreiving external entiries referenced
+   in those documents.
+
+7.5.  Privacy Concerns
 
    There is some concern that the retrieval of the iconography could
    result in a privacy leak.
@@ -371,6 +384,15 @@ Internet-Draft                   BIMI-RG                       July 2020
    example, a sender could include a singular selector for a single
    recipient, or a provider could append a tracking string to the image
    URI in the header.
+
+
+
+
+
+Brotman, et al.         Expires January 31, 2021                [Page 7]
+
+Internet-Draft                   BIMI-RG                       July 2020
+
 
    A receiver may choose to track the number of selectors an
    organizational domain is permitted to use and deny processing if this
@@ -387,18 +409,11 @@ Internet-Draft                   BIMI-RG                       July 2020
    elements, this removes the risk of tracking when an Indicator is
    shown in the client.
 
-
-
-Brotman, et al.         Expires January 31, 2021                [Page 7]
-
-Internet-Draft                   BIMI-RG                       July 2020
-
-
    An in-depth discussion of all the potential privacy leaks with
    respect to loading or embedding images is outside the scope of this
    document.
 
-7.5.  Basic flow example
+7.6.  Basic flow example
 
    One sample implementation of BIMI by a receiver, who does everything
    on-the-fly, is as following:
@@ -426,8 +441,17 @@ Internet-Draft                   BIMI-RG                       July 2020
       the MUA to show a BIMI image.  The MUA MAY show a default image
       such as a set of initials, or unidentified sender.
 
+
+
+
+
+Brotman, et al.         Expires January 31, 2021                [Page 8]
+
+Internet-Draft                   BIMI-RG                       July 2020
+
+
    o  The email receiver then does the rest of its anti-spam, anti-
-      malware, and anti-phishing checks as discussed in Section 7.6
+      malware, and anti-phishing checks as discussed in Section 7.7
       below.
 
    o  The email receiver then adds the relevant Authentication-Results
@@ -440,17 +464,7 @@ Internet-Draft                   BIMI-RG                       July 2020
       (or however else it chooses to render the BIMI logo in conjunction
       with the message).
 
-
-
-
-
-
-Brotman, et al.         Expires January 31, 2021                [Page 8]
-
-Internet-Draft                   BIMI-RG                       July 2020
-
-
-7.6.  Message Classification
+7.7.  Message Classification
 
    The successful validation of BIMI does NOT indicate that a message is
    not spam, malware, or phishing.
@@ -484,6 +498,14 @@ Internet-Draft                   BIMI-RG                       July 2020
 
    One source of additional reputation intelligence could be a platform
    that the email provider has created to calculate domain trust based
+
+
+
+Brotman, et al.         Expires January 31, 2021                [Page 9]
+
+Internet-Draft                   BIMI-RG                       July 2020
+
+
    on historical traffic; another is an explicit list of trusted domains
    that has been curated by an individual provider; a third is a list
    that is purchased from a vendor that might be a pass/fail or a scored
@@ -497,14 +519,6 @@ Internet-Draft                   BIMI-RG                       July 2020
    that they can choose the image they want the user to see depending
    upon various conditions (e.g., seasonal images, regional images,
    etc.).
-
-
-
-
-Brotman, et al.         Expires January 31, 2021                [Page 9]
-
-Internet-Draft                   BIMI-RG                       July 2020
-
 
    However, for an email receiver, it may be easier to roll up BIMI
    logos on an organizational domain basis.  One reason may be for the
@@ -538,6 +552,16 @@ Internet-Draft                   BIMI-RG                       July 2020
    enforcement. ie, a p=quarantine policy with an effective pct=100, or
    a p=reject policy.
 
+
+
+
+
+
+Brotman, et al.         Expires January 31, 2021               [Page 10]
+
+Internet-Draft                   BIMI-RG                       July 2020
+
+
 8.2.  VMC Root of Trust
 
    VMCs are verified back to their issuing Certificate Authority (CA).
@@ -553,14 +577,6 @@ Internet-Draft                   BIMI-RG                       July 2020
    that can go wrong; below are a handful of considerations:
 
    o  Failing to verify a VMC
-
-
-
-
-Brotman, et al.         Expires January 31, 2021               [Page 10]
-
-Internet-Draft                   BIMI-RG                       July 2020
-
 
    o  Failing to extract an Indicator from a validated VMC
 
@@ -594,6 +610,14 @@ Internet-Draft                   BIMI-RG                       July 2020
    determine when BIMI will be displayed.  It is fine to say that you
    use some internal domain reputation metrics as additional criteria to
    determine whether or not a logo should be displayed, and it isn't
+
+
+
+Brotman, et al.         Expires January 31, 2021               [Page 11]
+
+Internet-Draft                   BIMI-RG                       July 2020
+
+
    necessary to give away the exact nature of the algorithm other than
    to say "You must maintain good sending practices."
 
@@ -610,14 +634,6 @@ Internet-Draft                   BIMI-RG                       July 2020
    action regarding the message should still be individually evaluated.
    It's possible for a site that has a high trust value to become
    compromised and send fraudulent messages that could compromise a
-
-
-
-Brotman, et al.         Expires January 31, 2021               [Page 11]
-
-Internet-Draft                   BIMI-RG                       July 2020
-
-
    user's system.  Ensure your customers have a place that documents
    BIMI and demonstrates how to check messages for fraud.
 
@@ -650,6 +666,14 @@ Internet-Draft                   BIMI-RG                       July 2020
 
    o  DMARC - Domain-based Message Authentication, Reporting, and
       Conformance [3] - DMARC is a message authentication mechanism that
+
+
+
+Brotman, et al.         Expires January 31, 2021               [Page 12]
+
+Internet-Draft                   BIMI-RG                       July 2020
+
+
       works with SPF and DKIM.  The BIMI specification requires that a
       message passes DMARC.  In order for a message to pass DMARC, one
       of SPF or DKIM must successfully validate, and the domain in the
@@ -663,16 +687,6 @@ Internet-Draft                   BIMI-RG                       July 2020
       of example.com.  It aligns with org.example.com, because both have
       the same organizational domain.  A definition of organizational
       domain and methods of discovery may be found in the DMARC [4] RFC.
-
-
-
-
-
-
-Brotman, et al.         Expires January 31, 2021               [Page 12]
-
-Internet-Draft                   BIMI-RG                       July 2020
-
 
    o  MVA - Mark Verifying Authority - An entity that a receiver uses to
       certify that the iconography that they intend to use with BIMI is
@@ -705,6 +719,17 @@ Internet-Draft                   BIMI-RG                       July 2020
    Verified Mark Certificates Usage: <https://docs.google.com/document/
    d/1OzL9FqexZpZJQuoqAK2E3sXjOwEcLNCvXW7e88Olt2I/edit>
 
+
+
+
+
+
+
+Brotman, et al.         Expires January 31, 2021               [Page 13]
+
+Internet-Draft                   BIMI-RG                       July 2020
+
+
 14.  References
 
 14.1.  Normative References
@@ -717,18 +742,6 @@ Internet-Draft                   BIMI-RG                       July 2020
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
-
-
-
-
-
-
-
-
-Brotman, et al.         Expires January 31, 2021               [Page 13]
-
-Internet-Draft                   BIMI-RG                       July 2020
-
 
 14.2.  URIs
 
@@ -758,19 +771,6 @@ Authors' Addresses
    Fastmail
 
    Email: marc@fastmailteam.com
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
