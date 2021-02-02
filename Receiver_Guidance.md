@@ -3,7 +3,7 @@
    Title = "Receivers Guidance for Implementing Branded Indicators for Message Identification (BIMI)"
    abbrev = "BIMI-RG"
    category = "bcp"
-   docName = "draft-brotman-ietf-bimi-guidance-02"
+   docName = "draft-brotman-ietf-bimi-guidance-03"
    ipr = "trust200902"
    area = "Applications"
    workgroup = ""
