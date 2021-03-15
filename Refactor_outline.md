@@ -5,6 +5,7 @@ Goal: Refactor the "Receiver Guidance" to be more general purpose.  This documen
 * Introduction
 * Terms
 * Sections covered below (definitions of each group)
+
 ** Receivers
 ** Senders/ESPs
 ** Brands
