@@ -8,6 +8,8 @@ Goal: Refactor the "Receiver Guidance" to be more general purpose.  This documen
 ## Receivers
 ## Senders/ESPs
 ## Brands
+### Logo Hosting Considerations
+#### CDN Considerations
 ## MVAs
 ## Logo Designers
 ## MUA Creators
