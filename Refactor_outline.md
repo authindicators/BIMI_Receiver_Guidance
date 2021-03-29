@@ -12,6 +12,9 @@ Goal: Refactor the "Receiver Guidance" to be more general purpose.  This documen
 #### CDN Considerations
 ## MVAs
 ## Logo Designers
+### Known Issues
+### Adherence to SVG P/S
+### Tools and Caveats
 ## MUA Creators
 # FAQ
 
