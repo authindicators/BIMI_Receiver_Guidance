@@ -21,6 +21,26 @@
 
 %%%
 
+
+# Abstract
+# Introduction
+# Terms
+# Sections covered below (definitions of each group)
+## Receivers
+## Senders/ESPs
+## Brands
+### Logo Hosting Considerations
+#### CDN Considerations
+## MVAs
+## Logo Designers
+### Known Issues
+### Adherence to SVG P/S
+### Tools and Caveats
+## MUA Creators
+# FAQ
+
+
+
 .# Abstract
 
 This document is meant to provide guidance to various entities so
@@ -86,6 +106,7 @@ However, also note that BIMI may not be for every domain. For example, it seems
 unlikely that a domain would want to implement BIMI for person-to-person 
 correspondance. Or if a domain is not meant to send email, the domain holder may
 want to explicitly ensure the domain is exempted from BIMI via the BIMI DNS record.
+
 
 ## Receiver
 
@@ -426,6 +447,41 @@ this known to your users. All messages, even those with logos, should still be t
 It’s possible for a site that has a high trust value to become compromised and send fraudulent 
 messages that could compromise a user’s system. Ensure your customers have a place that documents 
 BIMI and demonstrates how to check messages for fraud.
+
+# Brands
+
+## Logo Hosting Considerations
+
+The logo you wish to associate with your brand can be hosted anywhere, not necessarily within the
+domain that will be used to send the messages.  Doing so may make it easier to associate during 
+inspection, though it is understood that not all entities have a webserver at the domain associated
+with their email messages.
+
+## CDN Considerations
+
+If the logo is behind a CDN (Content Delivery Network) this may prevent automated systems from
+reaching the resource.  The automated systems may not appear to be a proper browser experience, 
+and would not be able to correctly respond to a challenge that the CDN may use to protect a
+site, and therefore unable to retrieve the logo file.  If possible, those BIMI logos/resoureces 
+should be marked as unprotected, allowing any who request the resource to do so without possibility
+of a challenge.
+
+# Logo Designers
+
+## Known Issues
+
+## Adherence to SVG P/S
+
+There may be a few issues that designers may experience when trying to adhere to SVG P/S. 
+
+* SVG P/S is based on SVG Tiny 1.2, which does not allow for certain types of gradients.  When trying
+  to convert/save as SVG Tiny 1.2, it will typically result in an embedded raster file. This is not
+  compliant with SVG P/S, and could result in display issues.
+* When exporting to SVG Tiny 1.2 with Adobe Illustrator, the application will insert `x` and `y`
+  attributes within the `svg` element.  These need to be removed to comply with SVG P/S.
+
+# MUA Developers
+
 
 
 # Appendix
