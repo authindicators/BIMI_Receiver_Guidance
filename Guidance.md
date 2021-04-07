@@ -18,6 +18,19 @@
    organization="Comcast"
      [author.address]
      email="alex_brotman@comcast.com"
+   initials="T."
+   surname="Zink"
+   fullname="Terry Zink"
+   organization="Zink Magical Contraptions"
+     [author.address]
+     email="tzink@terryzink.com"
+     [[author]]
+   initials="M."
+   surname="Bradshaw"
+   fullname="Marc Bradshaw"
+   organization="Fastmail"
+     [author.address]
+     email="marc@fastmailteam.com"
 
 %%%
 
