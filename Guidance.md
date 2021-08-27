@@ -6,16 +6,10 @@
    docName = "draft-brotman-ietf-bimi-guidance-03"
    ipr = "trust200902"
    area = "Applications"
-<<<<<<< HEAD
-   keyword = [""]
-
-   date = 2021-08-27T00:00:00Z
-=======
    workgroup = ""
    keyword = [""]
 
-   date = 2020-07-30T00:00:00Z
->>>>>>> 3555b4b0c08885d62f1e2306927830892fdd6c2e
+   date = 2021-08-27T00:00:00Z
 
    [[author]]
    initials="A."
@@ -24,21 +18,14 @@
    organization="Comcast"
      [author.address]
      email="alex_brotman@comcast.com"
-<<<<<<< HEAD
    [[author]]
-=======
->>>>>>> 3555b4b0c08885d62f1e2306927830892fdd6c2e
    initials="T."
    surname="Zink"
    fullname="Terry Zink"
    organization="Zink Magical Contraptions"
      [author.address]
      email="tzink@terryzink.com"
-<<<<<<< HEAD
    [[author]]
-=======
-     [[author]]
->>>>>>> 3555b4b0c08885d62f1e2306927830892fdd6c2e
    initials="M."
    surname="Bradshaw"
    fullname="Marc Bradshaw"
@@ -47,29 +34,6 @@
      email="marc@fastmailteam.com"
 
 %%%
-
-
-<<<<<<< HEAD
-=======
-# Abstract
-# Introduction
-# Terms
-# Sections covered below (definitions of each group)
-## Receivers
-## Senders/ESPs
-## Brands
-### Logo Hosting Considerations
-#### CDN Considerations
-## MVAs
-## Logo Designers
-### Known Issues
-### Adherence to SVG P/S
-### Tools and Caveats
-## MUA Creators
-# FAQ
-
->>>>>>> 3555b4b0c08885d62f1e2306927830892fdd6c2e
-
 
 .# Abstract
 
@@ -104,22 +68,15 @@ As stated in other BIMI drafts, BIMI intends to advance email authentication
 by granting a sending party brand impressions as long as the message 
 passes authentication mechanisms and meets other receiver qualifications 
 (reputation, encryption, allow listing, et cetera). DMARC currently has wide 
-adoption by some of the Internetâ€™s larger brands, but there is still a long 
+adoption by some of the InternetÃ¢â‚¬â„¢s larger brands, but there is still a long 
 tail of small-to-medium size brands (and many large ones) that do not have it. 
-<<<<<<< HEAD
-Futhermore, many domains are not employing DMARC enforcement via quarantine 
+Furthermore, many domains are not employing DMARC enforcement via quarantine 
 or reject policy, which may allow domain impersonation to continue.
-=======
->>>>>>> 3555b4b0c08885d62f1e2306927830892fdd6c2e
 Because BIMI provides a visual presence in the inbox, and because visual 
 impressions are desirable for brands, BIMI provides an incentive for marketers 
 to spur DMARC adoption, whereas a concern purely from security may not.
 
-<<<<<<< HEAD
 # Who should implement BIMI?
-=======
-# Should your site implement BIMI?
->>>>>>> 3555b4b0c08885d62f1e2306927830892fdd6c2e
 
 ## Brands
 
@@ -128,13 +85,8 @@ brand.  By implementing BIMI, and creating additional impressions, an organizati
 can foster a stronger tie with customers.  In exchange for positive
 authentication, and strong DMARC policies, the MBP and MUA may show the associated
 logos with those messages.  It should be noted that the domain holder must
-<<<<<<< HEAD
 implement those strong policy on not just a sub-domain, but also the Organizational
 Domain.
-=======
-implement those strong policy on not just a sub-domain, but also the organizational
-domain, or apex domain.
->>>>>>> 3555b4b0c08885d62f1e2306927830892fdd6c2e
 
 As a Brand holder, you may need to satisfy these requirements:
 
@@ -148,16 +100,9 @@ As a Brand holder, you may need to satisfy these requirements:
 
 However, also note that BIMI may not be for every domain. For example, it seems 
 unlikely that a domain would want to implement BIMI for person-to-person 
-<<<<<<< HEAD
 correspondence. Or if a domain is not meant to send email, the domain holder may
 want to explicitly ensure the domain is exempted from BIMI via the BIMI DNS record.
 
-=======
-correspondance. Or if a domain is not meant to send email, the domain holder may
-want to explicitly ensure the domain is exempted from BIMI via the BIMI DNS record.
-
-
->>>>>>> 3555b4b0c08885d62f1e2306927830892fdd6c2e
 ## Receiver
 
 If your site satisfies the [requirements](#bimi-site-requirements), this is likely a "yes".
@@ -168,7 +113,6 @@ of it. BIMI provides an incentive for brands to send email more securely
 because the desired behavior - a visual imprint in the inbox - first requires 
 DMARC adoption. 
 
-<<<<<<< HEAD
 ## MUA Authors
 
 The Mail User Agent (MUA) is ultimately responsible for displaying BIMI logos.  This could
@@ -181,8 +125,6 @@ logo display.
 
 ...
 
-=======
->>>>>>> 3555b4b0c08885d62f1e2306927830892fdd6c2e
 # Terminology
 
 The following terms are used throughout this document. 
@@ -201,14 +143,9 @@ The following terms are used throughout this document.
 
 For definitions of these terms, see the Appendix.
 
-<<<<<<< HEAD
-
 # Receivers
 
 ## Site implementations
-=======
-# Site implementations
->>>>>>> 3555b4b0c08885d62f1e2306927830892fdd6c2e
 
 In order for a site to correctly implement BIMI, the receiver must be able 
 to perform the following:
@@ -232,21 +169,12 @@ A site may wish to implement URI alteration and image caching for hosted recipie
 By implementing BIMI, a site agrees that through some combination of trust mechanisms, 
 it will instruct a BIMI-capable MUA to display the image fetched from a URI within the 
 message headers. This URI is created after the MTA authenticates a message, and is also 
-<<<<<<< HEAD
 (optionally) able to authenticate the VMC associated with the sending domain.
 Discussion of these trust mechanisms is beyond the scope of this document.
 
 ## Validation of a BIMI message
 
 ### BIMI processing requirements
-=======
-able to authenticate the VMC associated with the sending domain.
-Discussion of these trust mechanisms is beyond the scope of this document.
-
-# Validation of a BIMI message
-
-## BIMI Site Requirements{#bimi-site-requirements}
->>>>>>> 3555b4b0c08885d62f1e2306927830892fdd6c2e
 
 In the BIMI specification, a message MUST be authenticated via DMARC. As stated 
 in the DMARC draft, this requires that only one of DKIM or SPF must successfully 
@@ -286,19 +214,11 @@ Additionally:
   the mailstore, it is possible that some MUAs will nevertheless use headers 
   without taking appropriate precautions).
 
-<<<<<<< HEAD
 ### Verified Mark Certificate (VMC) Validation
 
 (Currently, see document in Reference below)
 
 ## Communicating BIMI results between the MTA and the MUA
-=======
-## Verified Mark Certificate (VMC) Validation
-
-(Currently, see document in Reference below)
-
-# Communicating BIMI results between the MTA and the MUA
->>>>>>> 3555b4b0c08885d62f1e2306927830892fdd6c2e
 
 In order for a receiver that has implemented BIMI to notify an MUA that it should 
 display the images:
@@ -325,13 +245,9 @@ for example:
 * A BIMI capable MTA will add a header containing the Base64 encoded SVG of the image file. 
   The MUA can use this header to retrieve the already validated image file for display. This 
   is the recommended method of image retrieval as the work of retrieval and validation has 
-<<<<<<< HEAD
   already been done by the MTA.  A consideration for this method may be the additional
   storage requirements for adding a base64-encoded version of the SVG, where the original
   file could be between 1 and 30 kilobytes, and encoding may add 35% to that size.
-=======
-  already been done by the MTA.
->>>>>>> 3555b4b0c08885d62f1e2306927830892fdd6c2e
 
 * Other providers may choose to cache the associated images in a local store which could 
   be used as the BIMI resource address in the headers of a BIMI-approved message in a 
@@ -339,13 +255,8 @@ for example:
 
 ## Limited use of HTTP Redirects
 
-<<<<<<< HEAD
 * Receivers may choose not to follow HTTP redirects when retrieving images or evidence 
   documents, or may choose to follow only a limited number of redirects.
-=======
-* Receivers may choose not to follow HTTP redirects when retrieving images, or may choose 
-  to follow only a limited number of redirects.
->>>>>>> 3555b4b0c08885d62f1e2306927830892fdd6c2e
 
 * When setting up BIMI, senders should eliminate, or limit the use of HTTP redirects to 
   avoid images being unretrievable by receivers who either do not support the use of 
@@ -363,11 +274,8 @@ the same as the expiration period in the VMC that contains the BIMI image. The
 downside is that the caching mechanism might need to check for certificate revocation, and 
 then re-fetch images.
 
-<<<<<<< HEAD
 # MUA Authors
 
-=======
->>>>>>> 3555b4b0c08885d62f1e2306927830892fdd6c2e
 ## Image Display
 
 Although BIMI does not define an aspect ratio for Brand Indicators it is expected that the 
@@ -381,13 +289,8 @@ Receivers should consider the impact of XML bomb or "billion laughs" Denial of S
 handling XML documents such as when validating SVG documents.
 [CVE-2003-1564](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2003-1564) is an example of this attack.
 
-<<<<<<< HEAD
 When validating XML documents, receivers should consider the security and privacy implications of
 retrieving external entries referenced in those documents.
-=======
-When validating XML documents, receivers should consider the security and privary implications of
-retreiving external entiries referenced in those documents.
->>>>>>> 3555b4b0c08885d62f1e2306927830892fdd6c2e
 
 ## Privacy Concerns
 
@@ -411,7 +314,6 @@ this removes the risk of tracking when an Indicator is shown in the client.
 An in-depth discussion of all the potential privacy leaks with respect to loading or embedding 
 images is outside the scope of this document.
 
-<<<<<<< HEAD
 # Brands
 
 ## Logo Hosting Considerations
@@ -458,11 +360,7 @@ There may be a few issues that designers may experience when trying to adhere to
 ## Caveats
 
 
-
 # Basic flow example
-=======
-## Basic flow example
->>>>>>> 3555b4b0c08885d62f1e2306927830892fdd6c2e
 
 One sample implementation of BIMI by a receiver, who does everything on-the-fly, is as following:
 
@@ -504,11 +402,7 @@ It is expected that receivers undertake their usual message filtering and classi
 take the results of these checks into consideration when deciding if a BIMI Indicator should be 
 shown to the user.
 
-<<<<<<< HEAD
 If classification is performed before BIMI is evaluated then a receiver MAY CHOOSE to skip BIMI 
-=======
-If classification is preformed before BIMI is evaluated then a receiver MAY CHOOSE to skip BIMI 
->>>>>>> 3555b4b0c08885d62f1e2306927830892fdd6c2e
 processing for that message, in this case they SHOULD add a bimi=skipped entry to the Authentication-Results 
 header for that message, and SHOULD add a comment stating the reasons for skipping BIMI processing.
 
@@ -564,11 +458,7 @@ an effective pct=100, or a p=reject policy.
 
 ## VMC Root of Trust
 
-<<<<<<< HEAD
 VMCs are verified back to their issuing Mark Verifying Authority (MVA). Receivers may wish to maintain their 
-=======
-VMCs are verified back to their issuing Certificate Authority (CA). Receivers may wish to maintain their 
->>>>>>> 3555b4b0c08885d62f1e2306927830892fdd6c2e
 own list of trusted CAs for BIMI rather than relying on a generally available bundle of trusted Root 
 Certificates such as those distributed with browsers or operating systems. The Authindicators Working Group 
 will maintain a list of known VMC Root CA Certificates to help bootstrap such a list.
@@ -600,7 +490,7 @@ to multiple escalation channels) is important for investigation.
 
 It is ideal to publish the criteria that is used by your site to determine when BIMI will 
 be displayed. It is fine to say that you use some internal domain reputation metrics as 
-additional criteria to determine whether or not a logo should be displayed, and it isnâ€™t 
+additional criteria to determine whether or not a logo should be displayed, and it isnÃ¢â‚¬â„¢t 
 necessary to give away the exact nature of the algorithm other than to say "You must maintain 
 good sending practices."
 
@@ -613,48 +503,9 @@ activity will revoke the decision to display logos previously approved.
 BIMI is not meant to instill additional trust in messages, and it is important to make 
 this known to your users. All messages, even those with logos, should still be treated with 
 (mild) skepticism, and any action regarding the message should still be individually evaluated. 
-Itâ€™s possible for a site that has a high trust value to become compromised and send fraudulent 
-messages that could compromise a userâ€™s system. Ensure your customers have a place that documents 
+ItÃ¢â‚¬â„¢s possible for a site that has a high trust value to become compromised and send fraudulent 
+messages that could compromise a userÃ¢â‚¬â„¢s system. Ensure your customers have a place that documents 
 BIMI and demonstrates how to check messages for fraud.
-
-<<<<<<< HEAD
-=======
-# Brands
-
-## Logo Hosting Considerations
-
-The logo you wish to associate with your brand can be hosted anywhere, not necessarily within the
-domain that will be used to send the messages.  Doing so may make it easier to associate during 
-inspection, though it is understood that not all entities have a webserver at the domain associated
-with their email messages.
-
-## CDN Considerations
-
-If the logo is behind a CDN (Content Delivery Network) this may prevent automated systems from
-reaching the resource.  The automated systems may not appear to be a proper browser experience, 
-and would not be able to correctly respond to a challenge that the CDN may use to protect a
-site, and therefore unable to retrieve the logo file.  If possible, those BIMI logos/resoureces 
-should be marked as unprotected, allowing any who request the resource to do so without possibility
-of a challenge.
-
-# Logo Designers
-
-## Known Issues
-
-## Adherence to SVG P/S
-
-There may be a few issues that designers may experience when trying to adhere to SVG P/S. 
-
-* SVG P/S is based on SVG Tiny 1.2, which does not allow for certain types of gradients.  When trying
-  to convert/save as SVG Tiny 1.2, it will typically result in an embedded raster file. This is not
-  compliant with SVG P/S, and could result in display issues.
-* When exporting to SVG Tiny 1.2 with Adobe Illustrator, the application will insert `x` and `y`
-  attributes within the `svg` element.  These need to be removed to comply with SVG P/S.
-
-# MUA Developers
-
-
->>>>>>> 3555b4b0c08885d62f1e2306927830892fdd6c2e
 
 # Appendix
 
@@ -716,32 +567,7 @@ The full BIMI verification spec can be found at:
   https://github.com/authindicators/rfc-brand-indicators-for-message-identification
 
 Verified Mark Certificates Usage:
-<<<<<<< HEAD
+
 http://bimigroup.org/resources/VMC_Guidelines_latest.pdf
 
 {backmatter}
-
-
-
-# Abstract
-# Introduction
-# Terms
-# Sections covered below (definitions of each group)
-## Receivers
-## Senders/ESPs
-## Brands
-### Logo Hosting Considerations
-#### CDN Considerations
-## MVAs
-## Logo Designers
-### Known Issues
-### Adherence to SVG P/S
-### Tools and Caveats
-## MUA Creators
-# FAQ
-
-=======
-  https://docs.google.com/document/d/1OzL9FqexZpZJQuoqAK2E3sXjOwEcLNCvXW7e88Olt2I/edit
-
-{backmatter}
->>>>>>> 3555b4b0c08885d62f1e2306927830892fdd6c2e
