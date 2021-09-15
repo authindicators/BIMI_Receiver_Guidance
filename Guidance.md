@@ -9,7 +9,13 @@
    workgroup = ""
    keyword = [""]
 
-   date = 2021-08-27T00:00:00Z
+   date = 2021-09-15T00:00:00Z
+
+   [seriesInfo]
+   name="RFC"
+   value="TBD"
+   stream="IETF"
+   status="bcp"
 
    [[author]]
    initials="A."
@@ -92,8 +98,8 @@ As a Brand holder, you may need to satisfy these requirements:
 
 * Ability to alter DNS to host a new TXT record
 * A webserver to host one or two files, depending on your implementation
-* If you choose to obtain a VMC, you will need a person to act as a representative
-  for your company
+* If you choose to obtain an evidence document, you will need a person to act as 
+  a representative for your company
 * The desire to have DMARC enforcement (quarantine/reject) policies on both the
   organizational and sub-domains. (ex., example.com and sub.example.com)
 * In the DMARC record, pct must be absent or 100%
@@ -123,7 +129,12 @@ logo display.
 
 ## MTA Authors
 
-...
+The receiving MTA at the destination is the system that is best suited to evaluate message
+authentication, as well as the DMARC and BIMI policies.  The MTA would also be responsible
+for creating the additional headers that the MUA is meant to utilize.  In an ideal world,
+all MTAs would support BIMI and allow the individual MBPs on deploying BIMI. The MTA would 
+also ideally allow the MBP to alternately utilize a proxy instead of the direct URL 
+retrieved from the BIMI record or evidence document.
 
 # Terminology
 
@@ -158,18 +169,18 @@ to perform the following:
 * Validate a SVG using a profile
 * Add Authentication-Results and BIMI-* Headers to a message
 
-Optionally, for a site to correctly implement BIMI Verified Mark Certificate (VMC) 
-verification, the receiver must be able to perform the following:
+Optionally, for a site to correctly implement BIMI evidence document (VMC is one 
+example) verification, the receiver must be able to perform the following:
 
-* Fetch a VMC using HTTPS
-* Validate a VMC (a new kind of Extended Validation (EV) certificate)
-* Extract a SVG from a VMC
+* Fetch the document using HTTPS
+* Validate the evidence document
+* Extract a SVG from the evidence document
 
 A site may wish to implement URI alteration and image caching for hosted recipients. 
 By implementing BIMI, a site agrees that through some combination of trust mechanisms, 
 it will instruct a BIMI-capable MUA to display the image fetched from a URI within the 
 message headers. This URI is created after the MTA authenticates a message, and is also 
-(optionally) able to authenticate the VMC associated with the sending domain.
+(optionally) able to authenticate the evidence document associated with the sending domain.
 Discussion of these trust mechanisms is beyond the scope of this document.
 
 ## Validation of a BIMI message
@@ -270,7 +281,7 @@ in an unreasonably short period of time. In this case, a receiver may want to se
 own TTL. 
 
 One option is to set it to several hours, or a day; another option is to set the TTL to 
-the same as the expiration period in the VMC that contains the BIMI image. The 
+the same as the expiration period in the evidence document that contains the BIMI image. The 
 downside is that the caching mechanism might need to check for certificate revocation, and 
 then re-fetch images.
 
@@ -304,7 +315,7 @@ A receiver may choose to track the number of selectors an organizational domain 
 use and deny processing if this exceeds a defined limit. Similarly, a receiver may choose to 
 track and limit distinct Indicator URLs.
 
-MTAs are encouraged to cache BIMI Records, VMCs, and Indicators to limit tracking. 
+MTAs are encouraged to cache BIMI Records, evidence documents, and Indicators to limit tracking. 
 
 MUAs are encouraged to extract Indicators from the BIMI-Indicator header rather than retrieving 
 them directly from the source, as doing so will limit any data exposure to the MTA processing 
@@ -332,14 +343,17 @@ site, and therefore unable to retrieve the logo file.  If possible, those BIMI l
 should be marked as unprotected, allowing any who request the resource to do so without possibility
 of a challenge.
 
-## Domains listed in your VMC
+## Domains listed in your evidence document
 
-While obtaining a VMC, an entity is expected to provide at least one domain name.  There exists the
-opportunity to list additional domains in the "SAN" field of the certificate.  These domains may or
-may not match the 5322.From domain, but must match the domain being used in the BIMI assertion
-record.  When using the organzational domain, other third-level domains can take advantage of the
-VMC as well.  Within the core specification, it is discussed how the evaluator should look at the
-original domain being used, as well as the Organizational Domain.
+While obtaining an evidence document, an entity is expected to provide 
+at least one domain name.  There exists the opportunity to list additional 
+domains in the "SAN" field of the certificate.  These domains may or may 
+not match the 5322.From domain, but must match the domain being used in 
+the BIMI assertion record.  When using the organzational domain, other 
+third-level domains can take advantage of the evidence document as well.  
+Within the core specification, it is discussed how the evaluator should 
+look at the original domain being used, as well as the Organizational 
+Domain.
 
 # Logo Designers
 
