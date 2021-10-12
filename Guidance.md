@@ -3,17 +3,17 @@
    Title = "General Guidance for Implementing Branded Indicators for Message Identification (BIMI)"
    abbrev = "BIMI-GG"
    category = "bcp"
-   docName = "draft-brotman-ietf-bimi-guidance-03"
+   docName = "draft-brotman-ietf-bimi-guidance-04"
    ipr = "trust200902"
    area = "Applications"
    workgroup = ""
    keyword = [""]
 
-   date = 2021-09-15T00:00:00Z
+   date = 2021-10-11T00:00:00Z
 
    [seriesInfo]
    name="RFC"
-   value="TBD"
+   value="draft-brotman-ietf-bimi-guidance-04"
    stream="IETF"
    status="bcp"
 
@@ -74,7 +74,7 @@ As stated in other BIMI drafts, BIMI intends to advance email authentication
 by granting a sending party brand impressions as long as the message 
 passes authentication mechanisms and meets other receiver qualifications 
 (reputation, encryption, allow listing, et cetera). DMARC currently has wide 
-adoption by some of the InternetÃ¢â‚¬â„¢s larger brands, but there is still a long 
+adoption by some of the Internet's larger brands, but there is still a long 
 tail of small-to-medium size brands (and many large ones) that do not have it. 
 Furthermore, many domains are not employing DMARC enforcement via quarantine 
 or reject policy, which may allow domain impersonation to continue.
@@ -97,7 +97,7 @@ Domain.
 As a Brand holder, you may need to satisfy these requirements:
 
 * Ability to alter DNS to host a new TXT record
-* A webserver to host one or two files, depending on your implementation
+* A web server to host one or two files, depending on your implementation
 * If you choose to obtain an evidence document, you will need a person to act as 
   a representative for your company
 * The desire to have DMARC enforcement (quarantine/reject) policies on both the
@@ -222,7 +222,7 @@ Additionally:
   that an MUA that does make use of those headers would not accidentally display a BIMI 
   image when the message has not been properly authenticated by the email receiver (even 
   though an MUA should not make use of BIMI headers and instead rely upon settings from 
-  the mailstore, it is possible that some MUAs will nevertheless use headers 
+  the mail store, it is possible that some MUAs will nevertheless use headers 
   without taking appropriate precautions).
 
 ### Verified Mark Certificate (VMC) Validation
@@ -331,7 +331,7 @@ images is outside the scope of this document.
 
 The logo you wish to associate with your brand can be hosted anywhere, not necessarily within the
 domain that will be used to send the messages.  Doing so may make it easier to associate during 
-inspection, though it is understood that not all entities have a webserver at the domain associated
+inspection, though it is understood that not all entities have a web server at the domain associated
 with their email messages.
 
 ## CDN Considerations
@@ -349,7 +349,7 @@ While obtaining an evidence document, an entity is expected to provide
 at least one domain name.  There exists the opportunity to list additional 
 domains in the "SAN" field of the certificate.  These domains may or may 
 not match the 5322.From domain, but must match the domain being used in 
-the BIMI assertion record.  When using the organzational domain, other 
+the BIMI assertion record.  When using the organizational domain, other 
 third-level domains can take advantage of the evidence document as well.  
 Within the core specification, it is discussed how the evaluator should 
 look at the original domain being used, as well as the Organizational 
@@ -457,24 +457,24 @@ the way it works at the site.
 
 If rolling up by organizational domain, then it may make sense to use a "lowest common denominator" 
 approach. That is, an organizational domain must meet all the requirements for BIMI, rather than only 
-a subdomain. The reason for this is that if sub.brand.com gets an image due to having strong authentication 
+a sub-domain. The reason for this is that if sub.brand.com gets an image due to having strong authentication 
 policies, but brand.com does not, then this may cause confusion because a user may learn to associate 
 sub.brand.com and its image with brand.com; and if brand.com can be spoofed even though sub.brand.com cannot, 
 that can lead to users becoming more susceptible to phishing from brand.com.
 
 To alleviate this, receivers may wish to show logos only for domains that have organizational domains with 
-strong DMARC policies. Or, if an organizational domain does not have a strong DMARC policy but a subdomain 
+strong DMARC policies. Or, if an organizational domain does not have a strong DMARC policy but a sub-domain 
 does, then it may treat the organizational domain as if it does have a strong DMARC policy so as to prevent 
-a phisher or spammer from impersonating the brand or any of its subdomains. 
+a phisher or spammer from impersonating the brand or any of its sub-domains. 
 
-A strong DMARC policy may be defined as one which has some level of enforcement. ie, a p=quarantine policy with 
-an effective pct=100, or a p=reject policy. 
+A strong DMARC policy may be defined as one which has some level of enforcement. For example, a 
+p=quarantine policy with an effective pct=100, or a p=reject policy. 
 
 ## VMC Root of Trust
 
 VMCs are verified back to their issuing Mark Verifying Authority (MVA). Receivers may wish to maintain their 
 own list of trusted CAs for BIMI rather than relying on a generally available bundle of trusted Root 
-Certificates such as those distributed with browsers or operating systems. The Authindicators Working Group 
+Certificates such as those distributed with browsers or operating systems. The AuthIndicators Working Group 
 will maintain a list of known VMC Root CA Certificates to help bootstrap such a list.
 
 # BIMI Playbook Checklist
@@ -504,7 +504,7 @@ to multiple escalation channels) is important for investigation.
 
 It is ideal to publish the criteria that is used by your site to determine when BIMI will 
 be displayed. It is fine to say that you use some internal domain reputation metrics as 
-additional criteria to determine whether or not a logo should be displayed, and it isnÃ¢â‚¬â„¢t 
+additional criteria to determine whether or not a logo should be displayed, and it isn't 
 necessary to give away the exact nature of the algorithm other than to say "You must maintain 
 good sending practices."
 
@@ -517,8 +517,8 @@ activity will revoke the decision to display logos previously approved.
 BIMI is not meant to instill additional trust in messages, and it is important to make 
 this known to your users. All messages, even those with logos, should still be treated with 
 (mild) skepticism, and any action regarding the message should still be individually evaluated. 
-ItÃ¢â‚¬â„¢s possible for a site that has a high trust value to become compromised and send fraudulent 
-messages that could compromise a userÃ¢â‚¬â„¢s system. Ensure your customers have a place that documents 
+It's possible for a site that has a high trust value to become compromised and send fraudulent 
+messages that could compromise a user's system. Ensure your customers have a place that documents 
 BIMI and demonstrates how to check messages for fraud.
 
 # Appendix
