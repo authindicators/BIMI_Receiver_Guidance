@@ -1,14 +1,15 @@
-MMARK=mmark
-XML2RFC=xml2rfc
-SOURCES=Receiver_Guidance.md
+MMARK=/usr/local/bin/mmark
+#XML2RFC=xml2rfc
+XML2RFC=/usr/bin/xml2rfc
+SOURCES=Guidance.md
 XML=$(SOURCES:.md=.xml)
 HTML=$(SOURCES:.md=.html)
 TXT=$(SOURCES:.md=.txt)
 
-all: $(XML) $(HTML) $(TXT)
+all: $(XML) $(TXT)
 
 %.xml : %.md
-	$(MMARK) -xml2 -page $< > $@
+	$(MMARK) $< > $@
 
 %.html : %.xml
 	$(XML2RFC) $< --html $@
@@ -17,6 +18,5 @@ all: $(XML) $(HTML) $(TXT)
 	$(XML2RFC) $< --text $@
 
 clean:
-	rm $(HTML)
 	rm $(TXT)
 	rm $(XML)
