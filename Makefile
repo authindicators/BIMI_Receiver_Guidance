@@ -1,4 +1,4 @@
-MMARK=/usr/local/bin/mmark
+MMARK=/usr/bin/mmark
 #XML2RFC=xml2rfc
 XML2RFC=/usr/bin/xml2rfc
 SOURCES=Guidance.md
@@ -15,7 +15,7 @@ all: $(XML) $(TXT)
 	$(XML2RFC) $< --html $@
 
 %.txt : %.xml
-	$(XML2RFC) $< --text $@
+	$(XML2RFC) $< 
 
 clean:
 	rm $(TXT)

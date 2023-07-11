@@ -3,17 +3,17 @@
    Title = "General Guidance for Implementing Branded Indicators for Message Identification (BIMI)"
    abbrev = "BIMI-GG"
    category = "bcp"
-   docName = "draft-brotman-ietf-bimi-guidance-07"
+   docName = "draft-brotman-ietf-bimi-guidance-08"
    ipr = "trust200902"
    area = "Applications"
    workgroup = ""
    keyword = [""]
 
-   date = 2023-04-06T00:00:00Z
+   date = 2023-07-11T00:00:00Z
 
    [seriesInfo]
    name="RFC"
-   value="draft-brotman-ietf-bimi-guidance-07"
+   value="draft-brotman-ietf-bimi-guidance-08"
    stream="IETF"
    status="bcp"
 
@@ -198,7 +198,7 @@ This may include, but is not limited to:
 
 * Requiring both DKIM and SPF to validate and align with the organizational domain 
   in the From: address (whereas DMARC only requires one of SPF or DKIM to align with 
-  the From: domain)
+  the From: domain).  See below for some Security Concerns.
 * SPF "strength" requirements (e.g., requiring "-all", disallowing usage of "?all" 
   or not allowing inclusion of overly large address spaces)
 * SMTP delivery via TLS
@@ -476,6 +476,52 @@ VMCs are verified back to their issuing Mark Verifying Authority (MVA). Receiver
 own list of trusted CAs for BIMI rather than relying on a generally available bundle of trusted Root 
 Certificates such as those distributed with browsers or operating systems. The AuthIndicators Working Group 
 will maintain a list of known VMC Root CA Certificates to help bootstrap such a list.
+
+# Security Concerns Relating to Message Authentication
+
+BIMI relies upon the foundations of existing messsage authentication
+mechanisms. As of the writing of this document, those are DMARC, SPF, and
+DKIM. Each of these were created several years ago, and with time, some issues
+have been found, most specifically with SPF and DKIM. The items below are not
+specific to BIMI, and the referenced documents have more information.
+
+## SPF Concerns
+
+SPF [@?RFC7208] is used to denote from where a message should be arriving,
+typically based on IP.  SPF will only provide authentication for the first
+hop when sending from the originator to another internet mail site.  There 
+are some mechanisms within the SPF that could be misused in a number of 
+ways:
+
+* SPF allows for a +all mechanism.  This effectively allows all hosts on the
+internet to be authenticated as this domain
+* Some domains publish domains with a includes that result in a large
+number of IPs that can be used by any number of other senders
+* A sender could typo a CIDR from an ip4/ip6 statement
+* A platform may not properly validate users are attached to a specified
+domain when sending
+* A platform may allow for some loose rules relating to forwards, which
+could permit an attacker to misuse a domain
+
+It's suggested that a receiver should be extremely careful when allowing a
+message to be authenticated solely on SPF.  Similarly, a sender should do
+as much as they can to utilize both SPF and DKIM, properly aligned.
+
+## DKIM Concerns
+
+DKIM [@?RFC6376] is a cryptographic signature meant to protect against
+tampering with a message. This method is the most likely to survive forwarding
+to another internet site.
+
+* DKIM Replay is a method by which an attacker attempts to subvert a previously
+sent message, and use the signature to send something different. 
+See [draft-chuang-dkim-replay-problem] for additional information.
+* Poor selection for signature algorithm, the key length, or the length
+which a key has been in use
+* Oversigning of headers (RFC6376, Section 8.15) is considered a partial
+protection against DKIM Replay, and should be considered by senders
+implementing BIMI
+* Expiration of signatures utilizing the `-x` option while signing
 
 # BIMI Playbook Checklist
 
