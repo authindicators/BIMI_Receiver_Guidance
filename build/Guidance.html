@@ -1,0 +1,2307 @@
+<!DOCTYPE html>
+<html lang="en" class="RFC">
+<head>
+<meta charset="utf-8">
+<meta content="Common,Latin" name="scripts">
+<meta content="initial-scale=1.0" name="viewport">
+<title>General Guidance for Implementing Branded Indicators for Message Identification (BIMI)</title>
+<meta content="Alex Brotman" name="author">
+<meta content="Terry Zink" name="author">
+<meta content="Marc Bradshaw" name="author">
+<meta content="
+       This document is meant to provide guidance to various entities so
+that they may implement Brand Indicators for Message Identification
+(BIMI).  This document is a companion to various other BIMI drafts,
+which should first be consulted. 
+    " name="description">
+<meta content="xml2rfc 2.40.0" name="generator">
+<meta content="draft-brotman-ietf-bimi-guidance-08" name="ietf.draft">
+<link href="build/Guidance.xml" rel="alternate" type="application/rfc+xml">
+<link href="#copyright" rel="license">
+<style type="text/css">/*
+
+  NOTE: Changes at the bottom of this file overrides some earlier settings.
+
+  Once the style has stabilized and has been adopted as an official RFC style,
+  this can be consolidated so that style settings occur only in one place, but
+  for now the contents of this file consists first of the initial CSS work as
+  provided to the RFC Formatter (xml2rfc) work, followed by itemized and
+  commented changes found necssary during the development of the v3
+  formatters.
+
+*/
+
+/* fonts */
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans'); /* Sans-serif */
+@import url('https://fonts.googleapis.com/css?family=Noto+Serif'); /* Serif (print) */
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono'); /* Monospace */
+
+@viewport {
+  zoom: 1.0;
+  width: extend-to-zoom;
+}
+@-ms-viewport {
+  width: extend-to-zoom;
+  zoom: 1.0;
+}
+/* general and mobile first */
+html {
+}
+body {
+  max-width: 90%;
+  margin: 1.5em auto;
+  color: #222;
+  background-color: #fff;
+  font-size: 14px;
+  font-family: 'Noto Sans', Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+  scroll-behavior: smooth;
+}
+.ears {
+  display: none;
+}
+
+/* headings */
+#title, h1, h2, h3, h4, h5, h6 {
+  margin: 1em 0 0.5em;
+  font-weight: bold;
+  line-height: 1.3;
+}
+#title {
+  clear: both;
+  border-bottom: 1px solid #ddd;
+  margin: 0 0 0.5em 0;
+  padding: 1em 0 0.5em;
+}
+.author {
+  padding-bottom: 4px;
+}
+h1 {
+  font-size: 26px;
+  margin: 1em 0;
+}
+h2 {
+  font-size: 22px;
+  margin-top: -20px;  /* provide offset for in-page anchors */
+  padding-top: 33px;
+}
+h3 {
+  font-size: 18px;
+  margin-top: -36px;  /* provide offset for in-page anchors */
+  padding-top: 42px;
+}
+h4 {
+  font-size: 16px;
+  margin-top: -36px;  /* provide offset for in-page anchors */
+  padding-top: 42px;
+}
+h5, h6 {
+  font-size: 14px;
+}
+#n-copyright-notice {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+}
+/* general structure */
+p {
+  padding: 0;
+  margin: 0 0 1em 0;
+  text-align: left;
+}
+div, span {
+  position: relative;
+}
+div {
+  margin: 0;
+}
+.alignRight.art-text {
+  background-color: #f9f9f9;
+  border: 1px solid #eee;
+  border-radius: 3px;
+  padding: 1em 1em 0;
+  margin-bottom: 1.5em;
+}
+.alignRight.art-text pre {
+  padding: 0;
+}
+.alignRight {
+  margin: 1em 0;
+}
+.alignRight > *:first-child {
+  border: none;
+  margin: 0;
+  float: right;
+  clear: both;
+}
+.alignRight > *:nth-child(2) {
+  clear: both;
+  display: block;
+  border: none;
+}
+svg {
+  display: block;
+}
+.alignCenter.art-text {
+  background-color: #f9f9f9;
+  border: 1px solid #eee;
+  border-radius: 3px;
+  padding: 1em 1em 0;
+  margin-bottom: 1.5em;
+}
+.alignCenter.art-text pre {
+  padding: 0;
+}
+.alignCenter {
+  margin: 1em 0;
+}
+.alignCenter > *:first-child {
+  border: none;
+  /* this isn't optimal, but it's an existence proof.  PrinceXML doesn't
+     support flexbox yet.
+  */
+  display: table;
+  margin: 0 auto;
+}
+
+/* lists */
+ol, ul {
+  padding: 0;
+  margin: 0 0 1em 2em;
+}
+ol ol, ul ul, ol ul, ul ol {
+  margin-left: 1em;
+}
+li {
+  margin: 0 0 0.25em 0;
+}
+.ulCompact li {
+  margin: 0;
+}
+ul.empty, .ulEmpty {
+  list-style-type: none;
+}
+ul.empty li, .ulEmpty li {
+  margin-top: 0.5em;
+}
+ul.compact, .ulCompact,
+ol.compact, .olCompact {
+  line-height: 100%;
+  margin: 0 0 0 2em;
+}
+
+/* definition lists */
+dl {
+}
+dl > dt {
+  float: left;
+  margin-right: 1em;
+}
+/* 
+dl.nohang > dt {
+  float: none;
+}
+*/
+dl > dd {
+  margin-bottom: .8em;
+  min-height: 1.3em;
+}
+dl.compact > dd, .dlCompact > dd {
+  margin-bottom: 0em;
+}
+dl > dd > dl {
+  margin-top: 0.5em;
+  margin-bottom: 0em;
+}
+
+/* links */
+a {
+  text-decoration: none;
+}
+a[href] {
+  color: #22e; /* Arlen: WCAG 2019 */
+}
+a[href]:hover {
+  background-color: #f2f2f2;
+}
+figcaption a[href],
+a[href].selfRef {
+  color: #222;
+}
+/* XXX probably not this:
+a.selfRef:hover {
+  background-color: transparent;
+  cursor: default;
+} */
+
+/* Figures */
+tt, code, pre, code {
+  background-color: #f9f9f9;
+  font-family: 'Roboto Mono', monospace;
+}
+pre {
+  border: 1px solid #eee;
+  margin: 0;
+  padding: 1em;
+}
+img {
+  max-width: 100%;
+}
+figure {
+  margin: 0;
+}
+figure blockquote {
+  margin: 0.8em 0.4em 0.4em;
+}
+figcaption {
+  font-style: italic;
+  margin: 0 0 1em 0;
+}
+@media screen {
+  pre {
+    overflow-x: auto;
+    max-width: 100%;
+    max-width: calc(100% - 22px);
+  }
+}
+
+/* aside, blockquote */
+aside, blockquote {
+  margin-left: 0;
+  padding: 1.2em 2em;
+}
+blockquote {
+  background-color: #f9f9f9;
+  color: #111; /* Arlen: WCAG 2019 */
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  margin: 1em 0;
+}
+cite {
+  display: block;
+  text-align: right;
+  font-style: italic;
+}
+
+/* tables */
+table {
+  width: 100%;
+  margin: 0 0 1em;
+  border-collapse: collapse;
+  border: 1px solid #eee;
+}
+th, td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.5em 0.75em;
+}
+th {
+  text-align: left;
+  background-color: #e9e9e9;
+}
+tr:nth-child(2n+1) > td {
+  background-color: #f5f5f5;
+}
+table caption {
+  font-style: italic;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+table p {
+  /* XXX to avoid bottom margin on table row signifiers. If paragraphs should
+     be allowed within tables more generally, it would be far better to select on a class. */
+  margin: 0;
+}
+
+/* pilcrow */
+a.pilcrow {
+  color: #666; /* Arlen: AHDJ 2019 */
+  text-decoration: none;
+  visibility: hidden;
+  user-select: none;
+  -ms-user-select: none;
+  -o-user-select:none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+@media screen {
+  aside:hover > a.pilcrow,
+  p:hover > a.pilcrow,
+  blockquote:hover > a.pilcrow,
+  div:hover > a.pilcrow,
+  li:hover > a.pilcrow,
+  pre:hover > a.pilcrow {
+    visibility: visible;
+  }
+  a.pilcrow:hover {
+    background-color: transparent;
+  }
+}
+
+/* misc */
+hr {
+  border: 0;
+  border-top: 1px solid #eee;
+}
+.bcp14 {
+  font-variant: small-caps;
+}
+
+.role {
+  font-variant: all-small-caps;
+}
+
+/* info block */
+#identifiers {
+  margin: 0;
+  font-size: 0.9em;
+}
+#identifiers dt {
+  width: 3em;
+  clear: left;
+}
+#identifiers dd {
+  float: left;
+  margin-bottom: 0;
+}
+#identifiers .authors .author {
+  display: inline-block;
+  margin-right: 1.5em;
+}
+#identifiers .authors .org {
+  font-style: italic;
+}
+
+/* The prepared/rendered info at the very bottom of the page */
+.docInfo {
+  color: #666; /* Arlen: WCAG 2019 */
+  font-size: 0.9em;
+  font-style: italic;
+  margin-top: 2em;
+}
+.docInfo .prepared {
+  float: left;
+}
+.docInfo .prepared {
+  float: right;
+}
+
+/* table of contents */
+#toc  {
+  padding: 0.75em 0 2em 0;
+  margin-bottom: 1em;
+}
+nav.toc ul {
+  margin: 0 0.5em 0 0;
+  padding: 0;
+  list-style: none;
+}
+nav.toc li {
+  line-height: 1.3em;
+  margin: 0.75em 0;
+  padding-left: 1.2em;
+  text-indent: -1.2em;
+}
+/* references */
+.references dt {
+  text-align: right;
+  font-weight: bold;
+  min-width: 7em;
+}
+.references dd {
+  margin-left: 8em;
+  overflow: auto;
+}
+
+.refInstance {
+  margin-bottom: 1.25em;
+}
+
+.references .ascii {
+  margin-bottom: 0.25em;
+}
+
+/* index */
+.index ul {
+  margin: 0 0 0 1em;
+  padding: 0;
+  list-style: none;
+}
+.index ul ul {
+  margin: 0;
+}
+.index li {
+  margin: 0;
+  text-indent: -2em;
+  padding-left: 2em;
+  padding-bottom: 5px;
+}
+.indexIndex {
+  margin: 0.5em 0 1em;
+}
+.index a {
+  font-weight: 700;
+}
+/* make the index two-column on all but the smallest screens */
+@media (min-width: 600px) {
+  .index ul {
+    -moz-column-count: 2;
+    -moz-column-gap: 20px;
+  }
+  .index ul ul {
+    -moz-column-count: 1;
+    -moz-column-gap: 0;
+  }
+}
+
+/* authors */
+address.vcard {
+  font-style: normal;
+  margin: 1em 0;
+}
+
+address.vcard .nameRole {
+  font-weight: 700;
+  margin-left: 0;
+}
+address.vcard .label {
+  font-family: "Noto Sans",Arial,Helvetica,sans-serif;
+  margin: 0.5em 0;
+}
+address.vcard .type {
+  display: none;
+}
+.alternative-contact {
+  margin: 1.5em 0 1em;
+}
+hr.addr {
+  border-top: 1px dashed;
+  margin: 0;
+  color: #ddd;
+  max-width: calc(100% - 16px);
+}
+
+/* temporary notes */
+.rfcEditorRemove::before {
+  position: absolute;
+  top: 0.2em;
+  right: 0.2em;
+  padding: 0.2em;
+  content: "The RFC Editor will remove this note";
+  color: #9e2a00; /* Arlen: WCAG 2019 */
+  background-color: #ffd; /* Arlen: WCAG 2019 */
+}
+.rfcEditorRemove {
+  position: relative;
+  padding-top: 1.8em;
+  background-color: #ffd; /* Arlen: WCAG 2019 */
+  border-radius: 3px;
+}
+.cref {
+  background-color: #ffd; /* Arlen: WCAG 2019 */
+  padding: 2px 4px;
+}
+.crefSource {
+  font-style: italic;
+}
+/* alternative layout for smaller screens */
+@media screen and (max-width: 1023px) {
+  body {
+    padding-top: 2em;
+  }
+  #title {
+    padding: 1em 0;
+  }
+  h1 {
+    font-size: 24px;
+  }
+  h2 {
+    font-size: 20px;
+    margin-top: -18px;  /* provide offset for in-page anchors */
+    padding-top: 38px;
+  }
+  #identifiers dd {
+    max-width: 60%;
+  }
+  #toc {
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    padding: 0;
+    margin: 0;
+    background-color: inherit;
+    border-bottom: 1px solid #ccc;
+  }
+  #toc h2 {
+    margin: -1px 0 0 0;
+    padding: 4px 0 4px 6px;
+    padding-right: 1em;
+    min-width: 190px;
+    font-size: 1.1em;
+    text-align: right;
+    background-color: #444;
+    color: white;
+    cursor: pointer;
+  }
+  #toc h2::before { /* css hamburger */
+    float: right;
+    position: relative;
+    width: 1em;
+    height: 1px;
+    left: -164px;
+    margin: 6px 0 0 0;
+    background: white none repeat scroll 0 0;
+    box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
+    content: "";
+  }
+  #toc nav {
+    display: none;
+    padding: 0.5em 1em 1em;
+    overflow: auto;
+    height: calc(100vh - 48px);
+    border-left: 1px solid #ddd;
+  }
+}
+
+/* alternative layout for wide screens */
+@media screen and (min-width: 1024px) {
+  body {
+    max-width: 724px;
+    margin: 42px auto;
+    padding-left: 1.5em;
+    padding-right: 29em;
+  }
+  #toc {
+    position: fixed;
+    top: 42px;
+    right: 42px;
+    width: 25%;
+    margin: 0;
+    padding: 0 1em;
+    z-index: 1;
+  }
+  #toc h2 {
+    border-top: none;
+    border-bottom: 1px solid #ddd;
+    font-size: 1em;
+    font-weight: normal;
+    margin: 0;
+    padding: 0.25em 1em 1em 0;
+  }
+  #toc nav {
+    display: block;
+    height: calc(90vh - 84px);
+    bottom: 0;
+    padding: 0.5em 0 0;
+    overflow: auto;
+  }
+  img { /* future proofing */
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* pagination */
+@media print {
+  body {
+
+    width: 100%;
+  }
+  p {
+    orphans: 3;
+    widows: 3;
+  }
+  #n-copyright-notice {
+    border-bottom: none;
+  }
+  #toc, #n-introduction {
+    page-break-before: always;
+  }
+  #toc {
+    border-top: none;
+    padding-top: 0;
+  }
+  figure, pre {
+    page-break-inside: avoid;
+  }
+  figure {
+    overflow: scroll;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+  }
+  h2+*, h3+*, h4+*, h5+*, h6+* {
+    page-break-before: avoid;
+  }
+  pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 10pt;
+  }
+  table {
+    border: 1px solid #ddd;
+  }
+  td {
+    border-top: 1px solid #ddd;
+  }
+}
+
+/* This is commented out here, as the string-set: doesn't
+   pass W3C validation currently */
+/*
+.ears thead .left {
+  string-set: ears-top-left content();
+}
+
+.ears thead .center {
+  string-set: ears-top-center content();
+}
+
+.ears thead .right {
+  string-set: ears-top-right content();
+}
+
+.ears tfoot .left {
+  string-set: ears-bottom-left content();
+}
+
+.ears tfoot .center {
+  string-set: ears-bottom-center content();
+}
+
+.ears tfoot .right {
+  string-set: ears-bottom-right content();
+}
+*/
+
+@page :first {
+  padding-top: 0;
+  @top-left {
+    content: normal;
+    border: none;
+  }
+  @top-center {
+    content: normal;
+    border: none;
+  }
+  @top-right {
+    content: normal;
+    border: none;
+  }
+}
+
+@page {
+  size: A4;
+  margin-bottom: 45mm;
+  padding-top: 20px;
+  /* The follwing is commented out here, but set appropriately by in code, as
+     the content depends on the document */
+  /*
+  @top-left {
+    content: 'Internet-Draft';
+    vertical-align: bottom;
+    border-bottom: solid 1px #ccc;
+  }
+  @top-left {
+    content: string(ears-top-left);
+    vertical-align: bottom;
+    border-bottom: solid 1px #ccc;
+  }
+  @top-center {
+    content: string(ears-top-center);
+    vertical-align: bottom;
+    border-bottom: solid 1px #ccc;
+  }
+  @top-right {
+    content: string(ears-top-right);
+    vertical-align: bottom;
+    border-bottom: solid 1px #ccc;
+  }
+  @bottom-left {
+    content: string(ears-bottom-left);
+    vertical-align: top;
+    border-top: solid 1px #ccc;
+  }
+  @bottom-center {
+    content: string(ears-bottom-center);
+    vertical-align: top;
+    border-top: solid 1px #ccc;
+  }
+  @bottom-right {
+      content: '[Page ' counter(page) ']';
+      vertical-align: top;
+      border-top: solid 1px #ccc;
+  }
+  */
+
+}
+
+/* Changes introduced to fix issues found during implementation */
+/* Make sure links are clickable even if overlapped by following H* */
+a {
+  z-index: 2;
+}
+/* Separate body from document info even without intervening H1 */
+section {
+  clear: both;
+}
+
+
+/* Top align author divs, to avoid names without organization dropping level with org names */
+.author {
+  vertical-align: top;
+}
+
+/* Leave room in document info to show Internet-Draft on one line */
+#identifiers dt {
+  width: 8em;
+}
+
+/* Don't waste quite as much whitespace between label and value in doc info */
+#identifiers dd {
+  margin-left: 1em;
+}
+
+/* Give floating toc a background color (needed when it's a div inside section */
+#toc {
+  background-color: white;
+}
+
+/* Make the collapsed ToC header render white on gray also when it's a link */
+@media screen and (max-width: 1023px) {
+  #toc h2 a,
+  #toc h2 a:link,
+  #toc h2 a:focus,
+  #toc h2 a:hover,
+  #toc a.toplink,
+  #toc a.toplink:hover {
+    color: white;
+    background-color: #444;
+    text-decoration: none;
+  }
+}
+
+/* Give the bottom of the ToC some whitespace */
+@media screen and (min-width: 1024px) {
+  #toc {
+    padding: 0 0 1em 1em;
+  }
+}
+
+/* Style section numbers with more space between number and title */
+.section-number {
+  padding-right: 0.5em;
+}
+
+/* prevent monospace from becoming overly large */
+tt, code, pre, code {
+  font-size: 95%;
+}
+
+/* Fix the height/width aspect for ascii art*/
+pre.sourcecode,
+.art-text pre {
+  line-height: 1.12;
+}
+
+
+/* Add styling for a link in the ToC that points to the top of the document */
+a.toplink {
+  float: right;
+  margin-right: 0.5em;
+}
+
+/* Fix the dl styling to match the RFC 7992 attributes */
+dl > dt,
+dl.dlParallel > dt {
+  float: left;
+  margin-right: 1em;
+}
+dl.dlNewline > dt {
+  float: none;
+}
+
+/* Provide styling for table cell text alignment */
+table td.text-left,
+table th.text-left {
+  text-align: left;
+}
+table td.text-center,
+table th.text-center {
+  text-align: center;
+}
+table td.text-right,
+table th.text-right {
+  text-align: right;
+}
+
+/* Make the alternative author contact informatio look less like just another
+   author, and group it closer with the primary author contact information */
+.alternative-contact {
+  margin: 0.5em 0 0.25em 0;
+}
+address .non-ascii {
+  margin: 0 0 0 2em;
+}
+
+/* With it being possible to set tables with alignment
+  left, center, and right, { width: 100%; } does not make sense */
+table {
+  width: auto;
+}
+
+/* Avoid reference text that sits in a block with very wide left margin,
+   because of a long floating dt label.*/
+.references dd {
+  overflow: visible;
+}
+
+/* Control caption placement */
+caption {
+  caption-side: bottom;
+}
+
+/* Limit the width of the author address vcard, so names in right-to-left
+   script don't end up on the other side of the page. */
+
+address.vcard {
+  max-width: 30em;
+  margin-right: auto;
+}
+
+/* For address alignment dependent on LTR or RTL scripts */
+address div.left {
+  text-align: left;
+}
+address div.right {
+  text-align: right;
+}
+
+/* Provide table alignment support.  We can't use the alignX classes above
+   since they do unwanted things with caption and other styling. */
+table.right {
+ margin-left: auto;
+ margin-right: 0;
+}
+table.center {
+ margin-left: auto;
+ margin-right: auto;
+}
+table.left {
+ margin-left: 0;
+ margin-right: auto;
+}
+
+/* Give the table caption label the same styling as the figcaption */
+caption a[href] {
+  color: #222;
+}
+
+@media print {
+  .toplink {
+    display: none;
+  }
+
+  /* avoid overwriting the top border line with the ToC header */
+  #toc {
+    padding-top: 1px;
+  }
+
+  /* Avoid page breaks inside dl and author address entries */
+  .vcard {
+    page-break-inside: avoid;
+  }
+
+}
+/* Avoid wrapping of URLs in references */
+@media screen {
+  .references a {
+    white-space: nowrap;
+  }
+}
+/* Tweak the bcp14 keyword presentation */
+.bcp14 {
+  font-variant: small-caps;
+  font-weight: bold;
+  font-size: 0.9em;
+}
+/* Tweak the invisible space above H* in order not to overlay links in text above */
+ h2 {
+  margin-top: -18px;  /* provide offset for in-page anchors */
+  padding-top: 31px;
+ }
+ h3 {
+  margin-top: -18px;  /* provide offset for in-page anchors */
+  padding-top: 24px;
+ }
+ h4 {
+  margin-top: -18px;  /* provide offset for in-page anchors */
+  padding-top: 24px;
+ }
+/* Float artwork pilcrow to the right */
+@media screen {
+  .artwork a.pilcrow {
+    display: block;
+    line-height: 0.7;
+    margin-top: 0.15em;
+  }
+}
+/* Make pilcrows on dd visible */
+@media screen {
+  dd:hover > a.pilcrow {
+    visibility: visible;
+  }
+}
+/* Make the placement of figcaption match that of a table's caption
+   by removing the figure's added bottom margin */
+.alignLeft.art-text,
+.alignCenter.art-text,
+.alignRight.art-text {
+   margin-bottom: 0;
+}
+.alignLeft,
+.alignCenter,
+.alignRight {
+  margin: 1em 0 0 0;
+}
+/* In print, the pilcrow won't show on hover, so prevent it from taking up space,
+   possibly even requiring a new line */
+@media print {
+  a.pilcrow {
+    display: none;
+  }
+}
+/* Styling for the external metadata */
+div#external-metadata {
+  background-color: #eee;
+  padding: 0.5em;
+  margin-bottom: 0.5em;
+  display: none;
+}
+div#internal-metadata {
+  padding: 0.5em;                       /* to match the external-metadata padding */
+}
+/* Styling for title RFC Number */
+h1#rfcnum {
+  clear: both;
+  margin: 0 0 -1em;
+  padding: 1em 0 0 0;
+}
+/* Make .olPercent look the same as <ol><li> */
+dl.olPercent > dd {
+  margin: 0 0 0.25em 0;
+  min-height: initial;
+}
+/* Give aside some styling to set it apart */
+aside {
+  border-left: 1px solid #ddd;
+  margin: 1em 0 1em 2em;
+  padding: 0.2em 2em;
+}
+aside > dl,
+aside > ol,
+aside > ul,
+aside > table,
+aside > p {
+  margin-bottom: 0.5em;
+}
+/* Additional page break settings */
+@media print {
+  figcaption, table caption {
+    page-break-before: avoid;
+  }
+}
+/* Font size adjustments for print */
+@media print {
+  body  { font-size: 10pt;      line-height: normal; max-width: 96%; }
+  h1    { font-size: 1.72em;    padding-top: 1.5em; } /* 1*1.2*1.2*1.2 */
+  h2    { font-size: 1.44em;    padding-top: 1.5em; } /* 1*1.2*1.2 */
+  h3    { font-size: 1.2em;     padding-top: 1.5em; } /* 1*1.2 */
+  h4    { font-size: 1em;       padding-top: 1.5em; }
+  h5, h6 { font-size: 1em;      margin: initial; padding: 0.5em 0 0.3em; }
+}
+/* Sourcecode margin in print, when there's no pilcrow */
+@media print {
+  .artwork,
+  .sourcecode {
+    margin-bottom: 1em;
+  }
+}
+/*
+  The margin-left: 0 on <dd> removes all distinction
+  between levels from nested <dl>s.  Undo that.
+*/
+dl.olPercent > dd,
+dd {
+  margin-left: revert;
+}
+/* Avoid narrow tables forcing too narrow table captions, which may render badly */
+table {
+  min-width: 20em;
+}
+/* ol type a */
+ol.type-a { list-style-type: lower-alpha; }
+ol.type-A { list-style-type: upper-alpha; }
+ol.type-i { list-style-type: lower-roman; }
+ol.type-I { list-style-type: lower-roman; }
+</style>
+<link href="rfc-local.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<script src="metadata.min.js"></script>
+<table class="ears">
+<thead><tr>
+<td class="left">RFC draft-brotman-ietf-bimi-guidance-08</td>
+<td class="center">BIMI-GG</td>
+<td class="right">July 2023</td>
+</tr></thead>
+<tfoot><tr>
+<td class="left">Brotman, et al.</td>
+<td class="center">Expires 12 January 2024</td>
+<td class="right">[Page]</td>
+</tr></tfoot>
+</table>
+<div id="external-metadata" class="document-information"></div>
+<div id="internal-metadata" class="document-information">
+<dl id="identifiers">
+<dt class="label-workgroup">Workgroup:</dt>
+<dd class="workgroup">Network Working Group</dd>
+<dt class="label-rfc">RFC:</dt>
+<dd class="rfc">draft-brotman-ietf-bimi-guidance-08</dd>
+<dt class="label-published">Published:</dt>
+<dd class="published">
+<time datetime="2023-07-11" class="published">11 July 2023</time>
+    </dd>
+<dt class="label-intended-status">Intended Status:</dt>
+<dd class="intended-status">Best Current Practice</dd>
+<dt class="label-expires">Expires:</dt>
+<dd class="expires"><time datetime="2024-01-12">12 January 2024</time></dd>
+<dt class="label-authors">Authors:</dt>
+<dd class="authors">
+<div class="author">
+      <div class="author-name">A. Brotman</div>
+<div class="org">Comcast</div>
+</div>
+<div class="author">
+      <div class="author-name">T. Zink</div>
+<div class="org">Zink Magical Contraptions</div>
+</div>
+<div class="author">
+      <div class="author-name">M. Bradshaw</div>
+<div class="org">Fastmail</div>
+</div>
+</dd>
+</dl>
+</div>
+<h1 id="title">General Guidance for Implementing Branded Indicators for Message Identification (BIMI)</h1>
+<section id="section-abstract">
+      <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
+<p id="section-abstract-1">This document is meant to provide guidance to various entities so
+that they may implement Brand Indicators for Message Identification
+(BIMI).  This document is a companion to various other BIMI drafts,
+which should first be consulted.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+</section>
+<div id="status-of-memo">
+<section id="section-boilerplate.1">
+        <h2 id="name-status-of-this-memo">
+<a href="#name-status-of-this-memo" class="section-name selfRef">Status of This Memo</a>
+        </h2>
+<p id="section-boilerplate.1-1">
+        This Internet-Draft is submitted in full conformance with the
+        provisions of BCP 78 and BCP 79.<a href="#section-boilerplate.1-1" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-2">
+        Internet-Drafts are working documents of the Internet Engineering Task
+        Force (IETF). Note that other groups may also distribute working
+        documents as Internet-Drafts. The list of current Internet-Drafts is
+        at <span><a href="https://datatracker.ietf.org/drafts/current/">https://datatracker.ietf.org/drafts/current/</a></span>.<a href="#section-boilerplate.1-2" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-3">
+        Internet-Drafts are draft documents valid for a maximum of six months
+        and may be updated, replaced, or obsoleted by other documents at any
+        time. It is inappropriate to use Internet-Drafts as reference
+        material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-4">
+        This Internet-Draft will expire on 12 January 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="copyright">
+<section id="section-boilerplate.2">
+        <h2 id="name-copyright-notice">
+<a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
+        </h2>
+<p id="section-boilerplate.2-1">
+            Copyright (c) 2023 IETF Trust and the persons identified as the
+            document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.2-2">
+            This document is subject to BCP 78 and the IETF Trust's Legal
+            Provisions Relating to IETF Documents
+            (<span><a href="https://trustee.ietf.org/license-info">https://trustee.ietf.org/license-info</a></span>) in effect on the date of
+            publication of this document. Please review these documents
+            carefully, as they describe your rights and restrictions with
+            respect to this document. Code Components extracted from this
+            document must include Simplified BSD License text as described in
+            Section 4.e of the Trust Legal Provisions and are provided without
+            warranty as described in the Simplified BSD License.<a href="#section-boilerplate.2-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="toc">
+<section id="section-toc.1">
+        <a href="#" onclick="scroll(0,0)" class="toplink">▲</a><h2 id="name-table-of-contents">
+<a href="#name-table-of-contents" class="section-name selfRef">Table of Contents</a>
+        </h2>
+<nav class="toc"><ul class="toc ulEmpty">
+<li class="toc ulEmpty" id="section-toc.1-1.1">
+            <p id="section-toc.1-1.1.1"><a href="#section-1" class="xref">1</a>.  <a href="#name-introduction" class="xref">Introduction</a><a href="#section-toc.1-1.1.1" class="pilcrow">¶</a></p>
+<ul class="toc ulEmpty">
+<li class="toc ulEmpty" id="section-toc.1-1.1.2.1">
+                <p id="section-toc.1-1.1.2.1.1"><a href="#section-1.1" class="xref">1.1</a>.  <a href="#name-terminology" class="xref">Terminology</a><a href="#section-toc.1-1.1.2.1.1" class="pilcrow">¶</a></p>
+</li>
+</ul>
+</li>
+<li class="toc ulEmpty" id="section-toc.1-1.2">
+            <p id="section-toc.1-1.2.1"><a href="#section-2" class="xref">2</a>.  <a href="#name-goals-for-bimi" class="xref">Goals for BIMI</a><a href="#section-toc.1-1.2.1" class="pilcrow">¶</a></p>
+</li>
+<li class="toc ulEmpty" id="section-toc.1-1.3">
+            <p id="section-toc.1-1.3.1"><a href="#section-3" class="xref">3</a>.  <a href="#name-who-should-implement-bimi" class="xref">Who should implement BIMI?</a><a href="#section-toc.1-1.3.1" class="pilcrow">¶</a></p>
+<ul class="toc ulEmpty">
+<li class="toc ulEmpty" id="section-toc.1-1.3.2.1">
+                <p id="section-toc.1-1.3.2.1.1"><a href="#section-3.1" class="xref">3.1</a>.  <a href="#name-brands" class="xref">Brands</a><a href="#section-toc.1-1.3.2.1.1" class="pilcrow">¶</a></p>
+</li>
+<li class="toc ulEmpty" id="section-toc.1-1.3.2.2">
+                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="xref">3.2</a>.  <a href="#name-receiver" class="xref">Receiver</a><a href="#section-toc.1-1.3.2.2.1" class="pilcrow">¶</a></p>
+</li>
+<li class="toc ulEmpty" id="section-toc.1-1.3.2.3">
+                <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="xref">3.3</a>.  <a href="#name-mua-authors" class="xref">MUA Authors</a><a href="#section-toc.1-1.3.2.3.1" class="pilcrow">¶</a></p>
+</li>
+<li class="toc ulEmpty" id="section-toc.1-1.3.2.4">
+                <p id="section-toc.1-1.3.2.4.1"><a href="#section-3.4" class="xref">3.4</a>.  <a href="#name-mta-authors" class="xref">MTA Authors</a><a href="#section-toc.1-1.3.2.4.1" class="pilcrow">¶</a></p>
+</li>
+</ul>
+</li>
+<li class="toc ulEmpty" id="section-toc.1-1.4">
+            <p id="section-toc.1-1.4.1"><a href="#section-4" class="xref">4</a>.  <a href="#name-terminology-2" class="xref">Terminology</a><a href="#section-toc.1-1.4.1" class="pilcrow">¶</a></p>
+</li>
+<li class="toc ulEmpty" id="section-toc.1-1.5">
+            <p id="section-toc.1-1.5.1"><a href="#section-5" class="xref">5</a>.  <a href="#name-receivers" class="xref">Receivers</a><a href="#section-toc.1-1.5.1" class="pilcrow">¶</a></p>
+<ul class="toc ulEmpty">
+<li class="toc ulEmpty" id="section-toc.1-1.5.2.1">
+                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="xref">5.1</a>.  <a href="#name-site-implementations" class="xref">Site implementations</a><a href="#section-toc.1-1.5.2.1.1" class="pilcrow">¶</a></p>
+</li>
+<li class="toc ulEmpty" id="section-toc.1-1.5.2.2">
+                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="xref">5.2</a>.  <a href="#name-validation-of-a-bimi-messag" class="xref">Validation of a BIMI message</a><a href="#section-toc.1-1.5.2.2.1" class="pilcrow">¶</a></p>
+<ul class="toc ulEmpty">
+<li class="toc ulEmpty" id="section-toc.1-1.5.2.2.2.1">
+                    <p id="section-toc.1-1.5.2.2.2.1.1"><a href="#section-5.2.1" class="xref">5.2.1</a>.  <a href="#name-bimi-processing-requirement" class="xref">BIMI processing requirements</a><a href="#section-toc.1-1.5.2.2.2.1.1" class="pilcrow">¶</a></p>
+</li>
+<li class="toc ulEmpty" id="section-toc.1-1.5.2.2.2.2">
+                    <p id="section-toc.1-1.5.2.2.2.2.1"><a href="#section-5.2.2" class="xref">5.2.2</a>.  <a href="#name-verified-mark-certificate-v" class="xref">Verified Mark Certificate (VMC) Validation</a><a href="#section-toc.1-1.5.2.2.2.2.1" class="pilcrow">¶</a></p>
+</li>
+</ul>
+</li>
+<li class="toc ulEmpty" id="section-toc.1-1.5.2.3">
+                <p id="section-toc.1-1.5.2.3.1"><a href="#section-5.3" class="xref">5.3</a>.  <a href="#name-communicating-bimi-results-" class="xref">Communicating BIMI results between the MTA and the MUA</a><a href="#section-toc.1-1.5.2.3.1" class="pilcrow">¶</a></p>
+</li>
+<li class="toc ulEmpty" id="section-toc.1-1.5.2.4">
+                <p id="section-toc.1-1.5.2.4.1"><a href="#section-5.4" class="xref">5.4</a>.  <a href="#name-leveraging-arc-for-mta-mua-" class="xref">Leveraging ARC for MTA MUA communication</a><a href="#section-toc.1-1.5.2.4.1" class="pilcrow">¶</a></p>
+</li>
+<li class="toc ulEmpty" id="section-toc.1-1.5.2.5">
+                <p id="section-toc.1-1.5.2.5.1"><a href="#section-5.5" class="xref">5.5</a>.  <a href="#name-image-retrieval" class="xref">Image Retrieval</a><a href="#section-toc.1-1.5.2.5.1" class="pilcrow">¶</a></p>
+</li>
+<li class="toc ulEmpty" id="section-toc.1-1.5.2.6">
+                <p id="section-toc.1-1.5.2.6.1"><a href="#section-5.6" class="xref">5.6</a>.  <a href="#name-limited-use-of-http-redirec" class="xref">Limited use of HTTP Redirects</a><a href="#section-toc.1-1.5.2.6.1" class="pilcrow">¶</a></p>
+</li>
+<li class="toc ulEmpty" id="section-toc.1-1.5.2.7">
+                <p id="section-toc.1-1.5.2.7.1"><a href="#section-5.7" class="xref">5.7</a>.  <a href="#name-ttl-of-cached-images" class="xref">TTL of cached images</a><a href="#section-toc.1-1.5.2.7.1" class="pilcrow">¶</a></p>
+</li>
+</ul>
+</li>
+<li class="toc ulEmpty" id="section-toc.1-1.6">
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="xref">6</a>.  <a href="#name-mua-authors-2" class="xref">MUA Authors</a><a href="#section-toc.1-1.6.1" class="pilcrow">¶</a></p>
+<ul class="toc ulEmpty">
+<li class="toc ulEmpty" id="section-toc.1-1.6.2.1">
+                <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="xref">6.1</a>.  <a href="#name-image-display" class="xref">Image Display</a><a href="#section-toc.1-1.6.2.1.1" class="pilcrow">¶</a></p>
+</li>
+<li class="toc ulEmpty" id="section-toc.1-1.6.2.2">
+                <p id="section-toc.1-1.6.2.2.1"><a href="#section-6.2" class="xref">6.2</a>.  <a href="#name-security-concerns" class="xref">Security Concerns</a><a href="#section-toc.1-1.6.2.2.1" class="pilcrow">¶</a></p>
+</li>
+<li class="toc ulEmpty" id="section-toc.1-1.6.2.3">
+                <p id="section-toc.1-1.6.2.3.1"><a href="#section-6.3" class="xref">6.3</a>.  <a href="#name-privacy-concerns" class="xref">Privacy Concerns</a><a href="#section-toc.1-1.6.2.3.1" class="pilcrow">¶</a></p>
+</li>
+</ul>
+</li>
+<li class="toc ulEmpty" id="section-toc.1-1.7">
+            <p id="section-toc.1-1.7.1"><a href="#section-7" class="xref">7</a>.  <a href="#name-brands-2" class="xref">Brands</a><a href="#section-toc.1-1.7.1" class="pilcrow">¶</a></p>
+<ul class="toc ulEmpty">
+<li class="toc ulEmpty" id="section-toc.1-1.7.2.1">
+                <p id="section-toc.1-1.7.2.1.1"><a href="#section-7.1" class="xref">7.1</a>.  <a href="#name-logo-hosting-considerations" class="xref">Logo Hosting Considerations</a><a href="#section-toc.1-1.7.2.1.1" class="pilcrow">¶</a></p>
+</li>
+<li class="toc ulEmpty" id="section-toc.1-1.7.2.2">
+                <p id="section-toc.1-1.7.2.2.1"><a href="#section-7.2" class="xref">7.2</a>.  <a href="#name-cdn-considerations" class="xref">CDN Considerations</a><a href="#section-toc.1-1.7.2.2.1" class="pilcrow">¶</a></p>
+</li>
+<li class="toc ulEmpty" id="section-toc.1-1.7.2.3">
+                <p id="section-toc.1-1.7.2.3.1"><a href="#section-7.3" class="xref">7.3</a>.  <a href="#name-domains-listed-in-your-evid" class="xref">Domains listed in your evidence document</a><a href="#section-toc.1-1.7.2.3.1" class="pilcrow">¶</a></p>
+</li>
+</ul>
+</li>
+<li class="toc ulEmpty" id="section-toc.1-1.8">
+            <p id="section-toc.1-1.8.1"><a href="#section-8" class="xref">8</a>.  <a href="#name-logo-designers" class="xref">Logo Designers</a><a href="#section-toc.1-1.8.1" class="pilcrow">¶</a></p>
+<ul class="toc ulEmpty">
+<li class="toc ulEmpty" id="section-toc.1-1.8.2.1">
+                <p id="section-toc.1-1.8.2.1.1"><a href="#section-8.1" class="xref">8.1</a>.  <a href="#name-known-issues" class="xref">Known Issues</a><a href="#section-toc.1-1.8.2.1.1" class="pilcrow">¶</a></p>
+</li>
+<li class="toc ulEmpty" id="section-toc.1-1.8.2.2">
+                <p id="section-toc.1-1.8.2.2.1"><a href="#section-8.2" class="xref">8.2</a>.  <a href="#name-adherence-to-svg-p-s" class="xref">Adherence to SVG P/S</a><a href="#section-toc.1-1.8.2.2.1" class="pilcrow">¶</a></p>
+</li>
+<li class="toc ulEmpty" id="section-toc.1-1.8.2.3">
+                <p id="section-toc.1-1.8.2.3.1"><a href="#section-8.3" class="xref">8.3</a>.  <a href="#name-tools" class="xref">Tools</a><a href="#section-toc.1-1.8.2.3.1" class="pilcrow">¶</a></p>
+</li>
+<li class="toc ulEmpty" id="section-toc.1-1.8.2.4">
+                <p id="section-toc.1-1.8.2.4.1"><a href="#section-8.4" class="xref">8.4</a>.  <a href="#name-caveats" class="xref">Caveats</a><a href="#section-toc.1-1.8.2.4.1" class="pilcrow">¶</a></p>
+</li>
+</ul>
+</li>
+<li class="toc ulEmpty" id="section-toc.1-1.9">
+            <p id="section-toc.1-1.9.1"><a href="#section-9" class="xref">9</a>.  <a href="#name-basic-flow-example" class="xref">Basic flow example</a><a href="#section-toc.1-1.9.1" class="pilcrow">¶</a></p>
+<ul class="toc ulEmpty">
+<li class="toc ulEmpty" id="section-toc.1-1.9.2.1">
+                <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="xref">9.1</a>.  <a href="#name-message-classification" class="xref">Message Classification</a><a href="#section-toc.1-1.9.2.1.1" class="pilcrow">¶</a></p>
+</li>
+</ul>
+</li>
+<li class="toc ulEmpty" id="section-toc.1-1.10">
+            <p id="section-toc.1-1.10.1"><a href="#section-10" class="xref">10</a>. <a href="#name-domain-reputation" class="xref">Domain Reputation</a><a href="#section-toc.1-1.10.1" class="pilcrow">¶</a></p>
+<ul class="toc ulEmpty">
+<li class="toc ulEmpty" id="section-toc.1-1.10.2.1">
+                <p id="section-toc.1-1.10.2.1.1"><a href="#section-10.1" class="xref">10.1</a>.  <a href="#name-rolling-up-based-upon-domai" class="xref">Rolling up based upon domain vs organizational domain</a><a href="#section-toc.1-1.10.2.1.1" class="pilcrow">¶</a></p>
+</li>
+<li class="toc ulEmpty" id="section-toc.1-1.10.2.2">
+                <p id="section-toc.1-1.10.2.2.1"><a href="#section-10.2" class="xref">10.2</a>.  <a href="#name-vmc-root-of-trust" class="xref">VMC Root of Trust</a><a href="#section-toc.1-1.10.2.2.1" class="pilcrow">¶</a></p>
+</li>
+</ul>
+</li>
+<li class="toc ulEmpty" id="section-toc.1-1.11">
+            <p id="section-toc.1-1.11.1"><a href="#section-11" class="xref">11</a>. <a href="#name-security-concerns-relating-" class="xref">Security Concerns Relating to Message Authentication</a><a href="#section-toc.1-1.11.1" class="pilcrow">¶</a></p>
+<ul class="toc ulEmpty">
+<li class="toc ulEmpty" id="section-toc.1-1.11.2.1">
+                <p id="section-toc.1-1.11.2.1.1"><a href="#section-11.1" class="xref">11.1</a>.  <a href="#name-spf-concerns" class="xref">SPF Concerns</a><a href="#section-toc.1-1.11.2.1.1" class="pilcrow">¶</a></p>
+</li>
+<li class="toc ulEmpty" id="section-toc.1-1.11.2.2">
+                <p id="section-toc.1-1.11.2.2.1"><a href="#section-11.2" class="xref">11.2</a>.  <a href="#name-dkim-concerns" class="xref">DKIM Concerns</a><a href="#section-toc.1-1.11.2.2.1" class="pilcrow">¶</a></p>
+</li>
+</ul>
+</li>
+<li class="toc ulEmpty" id="section-toc.1-1.12">
+            <p id="section-toc.1-1.12.1"><a href="#section-12" class="xref">12</a>. <a href="#name-bimi-playbook-checklist" class="xref">BIMI Playbook Checklist</a><a href="#section-toc.1-1.12.1" class="pilcrow">¶</a></p>
+</li>
+<li class="toc ulEmpty" id="section-toc.1-1.13">
+            <p id="section-toc.1-1.13.1"><a href="#section-13" class="xref">13</a>. <a href="#name-public-documentation" class="xref">Public documentation</a><a href="#section-toc.1-1.13.1" class="pilcrow">¶</a></p>
+<ul class="toc ulEmpty">
+<li class="toc ulEmpty" id="section-toc.1-1.13.2.1">
+                <p id="section-toc.1-1.13.2.1.1"><a href="#section-13.1" class="xref">13.1</a>.  <a href="#name-documentation-for-brands" class="xref">Documentation For Brands:</a><a href="#section-toc.1-1.13.2.1.1" class="pilcrow">¶</a></p>
+</li>
+<li class="toc ulEmpty" id="section-toc.1-1.13.2.2">
+                <p id="section-toc.1-1.13.2.2.1"><a href="#section-13.2" class="xref">13.2</a>.  <a href="#name-documentation-for-users" class="xref">Documentation For Users:</a><a href="#section-toc.1-1.13.2.2.1" class="pilcrow">¶</a></p>
+</li>
+</ul>
+</li>
+<li class="toc ulEmpty" id="section-toc.1-1.14">
+            <p id="section-toc.1-1.14.1"><a href="#section-14" class="xref">14</a>. <a href="#name-appendix" class="xref">Appendix</a><a href="#section-toc.1-1.14.1" class="pilcrow">¶</a></p>
+<ul class="toc ulEmpty">
+<li class="toc ulEmpty" id="section-toc.1-1.14.2.1">
+                <p id="section-toc.1-1.14.2.1.1"><a href="#section-14.1" class="xref">14.1</a>.  <a href="#name-glossary" class="xref">Glossary</a><a href="#section-toc.1-1.14.2.1.1" class="pilcrow">¶</a></p>
+</li>
+</ul>
+</li>
+<li class="toc ulEmpty" id="section-toc.1-1.15">
+            <p id="section-toc.1-1.15.1"><a href="#section-15" class="xref">15</a>. <a href="#name-contributors" class="xref">Contributors</a><a href="#section-toc.1-1.15.1" class="pilcrow">¶</a></p>
+</li>
+<li class="toc ulEmpty" id="section-toc.1-1.16">
+            <p id="section-toc.1-1.16.1"><a href="#section-16" class="xref">16</a>. <a href="#name-references" class="xref">References</a><a href="#section-toc.1-1.16.1" class="pilcrow">¶</a></p>
+</li>
+<li class="toc ulEmpty" id="section-toc.1-1.17">
+            <p id="section-toc.1-1.17.1"><a href="#section-17" class="xref">17</a>. <a href="#name-normative-references" class="xref">Normative References</a><a href="#section-toc.1-1.17.1" class="pilcrow">¶</a></p>
+</li>
+<li class="toc ulEmpty" id="section-toc.1-1.18">
+            <p id="section-toc.1-1.18.1"><a href="#section-18" class="xref">18</a>. <a href="#name-informative-references" class="xref">Informative References</a><a href="#section-toc.1-1.18.1" class="pilcrow">¶</a></p>
+</li>
+<li class="toc ulEmpty" id="section-toc.1-1.19">
+            <p id="section-toc.1-1.19.1"><a href="#section-appendix.a" class="xref"></a><a href="#name-authors-addresses" class="xref">Authors' Addresses</a><a href="#section-toc.1-1.19.1" class="pilcrow">¶</a></p>
+</li>
+</ul>
+</nav>
+</section>
+</div>
+<div id="introduction">
+<section id="section-1">
+      <h2 id="name-introduction">
+<a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
+      </h2>
+<p id="section-1-1">The Brand Indicators for Message Identification (BIMI) specification
+introduces a method by which Mail User Agent (MUA, e.g., an email client)
+providers combine DMARC-based message authentication with cryptographic
+methods to ensure the identity of a sender. If the identity is ensured,
+the MUA can then retrieve sender-selected iconography to display within
+the MUA. This displayed iconography grants the sender brand impressions
+via the BIMI-capable MUA, and should be a driving factor for the adoption
+of authenticated email.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<div id="terminology">
+<section id="section-1.1">
+        <h3 id="name-terminology">
+<a href="#section-1.1" class="section-number selfRef">1.1. </a><a href="#name-terminology" class="section-name selfRef">Terminology</a>
+        </h3>
+<p id="section-1.1-1">The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
+"SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this
+document are to be interpreted as described in [BCP 14] <span>[<a href="#RFC2119" class="xref">RFC2119</a>]</span>
+          <span>[<a href="#RFC8174" class="xref">RFC8174</a>]</span> when, and only when, they appear in all capitals, as shown here.<a href="#section-1.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="goals-for-bimi">
+<section id="section-2">
+      <h2 id="name-goals-for-bimi">
+<a href="#section-2" class="section-number selfRef">2. </a><a href="#name-goals-for-bimi" class="section-name selfRef">Goals for BIMI</a>
+      </h2>
+<p id="section-2-1">As stated in other BIMI drafts, BIMI intends to advance email authentication
+by granting a sending party brand impressions as long as the message
+passes authentication mechanisms and meets other receiver qualifications
+(reputation, encryption, allow listing, et cetera). DMARC currently has wide
+adoption by some of the Internet's larger brands, but there is still a long
+tail of small-to-medium size brands (and many large ones) that do not have it.
+Furthermore, many domains are not employing DMARC enforcement via quarantine
+or reject policy, which may allow domain impersonation to continue.
+Because BIMI provides a visual presence in the inbox, and because visual
+impressions are desirable for brands, BIMI provides an incentive for marketers
+to spur DMARC adoption, whereas a concern purely from security may not.<a href="#section-2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="who-should-implement-bimi">
+<section id="section-3">
+      <h2 id="name-who-should-implement-bimi">
+<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-who-should-implement-bimi" class="section-name selfRef">Who should implement BIMI?</a>
+      </h2>
+<div id="brands">
+<section id="section-3.1">
+        <h3 id="name-brands">
+<a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-brands" class="section-name selfRef">Brands</a>
+        </h3>
+<p id="section-3.1-1">Organizations take great care to create and promote the image associated with their
+brand.  By implementing BIMI, and creating additional impressions, an organization
+can foster a stronger tie with customers.  In exchange for positive
+authentication, and strong DMARC policies, the MBP and MUA may show the associated
+logos with those messages.  It should be noted that the domain holder must
+implement those strong policy on not just a sub-domain, but also the Organizational
+Domain.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.1-2">As a Brand holder, you may need to satisfy these requirements:<a href="#section-3.1-2" class="pilcrow">¶</a></p>
+<ul>
+<li id="section-3.1-3.1">Ability to alter DNS to host a new TXT record<a href="#section-3.1-3.1" class="pilcrow">¶</a>
+</li>
+<li id="section-3.1-3.2">A web server to host one or two files, depending on your implementation<a href="#section-3.1-3.2" class="pilcrow">¶</a>
+</li>
+<li id="section-3.1-3.3">If you choose to obtain an evidence document, you will need a person to act as
+a representative for your company<a href="#section-3.1-3.3" class="pilcrow">¶</a>
+</li>
+<li id="section-3.1-3.4">The desire to have DMARC enforcement (quarantine/reject) policies on both the
+organizational and sub-domains. (ex., example.com and sub.example.com)<a href="#section-3.1-3.4" class="pilcrow">¶</a>
+</li>
+<li id="section-3.1-3.5">In the DMARC record, pct must be absent or 100%<a href="#section-3.1-3.5" class="pilcrow">¶</a>
+</li>
+</ul>
+<p id="section-3.1-4">However, also note that BIMI may not be for every domain. For example, it seems
+unlikely that a domain would want to implement BIMI for person-to-person
+correspondence. Or if a domain is not meant to send email, the domain holder may
+want to explicitly ensure the domain is exempted from BIMI via the BIMI DNS record.<a href="#section-3.1-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="receiver">
+<section id="section-3.2">
+        <h3 id="name-receiver">
+<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-receiver" class="section-name selfRef">Receiver</a>
+        </h3>
+<p id="section-3.2-1">If your site satisfies the <a href="#bimi-site-requirements">requirements</a>, this is likely a "yes".<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+<p id="section-3.2-2">As email has evolved over the past three decades, it is no longer a medium of
+merely exchanging text, but of enabling people to build rich experiences on top
+of it. BIMI provides an incentive for brands to send email more securely
+because the desired behavior - a visual imprint in the inbox - first requires
+DMARC adoption.<a href="#section-3.2-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="mua-authors">
+<section id="section-3.3">
+        <h3 id="name-mua-authors">
+<a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-mua-authors" class="section-name selfRef">MUA Authors</a>
+        </h3>
+<p id="section-3.3-1">The Mail User Agent (MUA) is ultimately responsible for displaying BIMI logos.  This could
+be an in-house/proprietary MUA, or something more generally available.  While the MUA may
+enable the display of the logos, the responsibility for validating inbound messages lies
+with the Receiver/MBP.  MUA Authors should also allow users the option to disable BIMI
+logo display.<a href="#section-3.3-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="mta-authors">
+<section id="section-3.4">
+        <h3 id="name-mta-authors">
+<a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-mta-authors" class="section-name selfRef">MTA Authors</a>
+        </h3>
+<p id="section-3.4-1">The receiving MTA at the destination is the system that is best suited to evaluate message
+authentication, as well as the DMARC and BIMI policies.  The MTA would also be responsible
+for creating the additional headers that the MUA is meant to utilize.  In an ideal world,
+all MTAs would support BIMI and allow the individual MBPs on deploying BIMI. The MTA would
+also ideally allow the MBP to alternately utilize a proxy instead of the direct URL
+retrieved from the BIMI record or evidence document.<a href="#section-3.4-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="terminology-1">
+<section id="section-4">
+      <h2 id="name-terminology-2">
+<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-terminology-2" class="section-name selfRef">Terminology</a>
+      </h2>
+<p id="section-4-1">The following terms are used throughout this document.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<ul>
+<li id="section-4-2.1">MTA<a href="#section-4-2.1" class="pilcrow">¶</a>
+</li>
+<li id="section-4-2.2">MUA<a href="#section-4-2.2" class="pilcrow">¶</a>
+</li>
+<li id="section-4-2.3">DKIM<a href="#section-4-2.3" class="pilcrow">¶</a>
+</li>
+<li id="section-4-2.4">SPF<a href="#section-4-2.4" class="pilcrow">¶</a>
+</li>
+<li id="section-4-2.5">DMARC<a href="#section-4-2.5" class="pilcrow">¶</a>
+</li>
+<li id="section-4-2.6">MBP<a href="#section-4-2.6" class="pilcrow">¶</a>
+</li>
+<li id="section-4-2.7">Alignment<a href="#section-4-2.7" class="pilcrow">¶</a>
+</li>
+<li id="section-4-2.8">Verified Mark Certificate (VMC)<a href="#section-4-2.8" class="pilcrow">¶</a>
+</li>
+<li id="section-4-2.9">Recipient Domain<a href="#section-4-2.9" class="pilcrow">¶</a>
+</li>
+<li id="section-4-2.10">Sending Domain<a href="#section-4-2.10" class="pilcrow">¶</a>
+</li>
+<li id="section-4-2.11">MVA<a href="#section-4-2.11" class="pilcrow">¶</a>
+</li>
+</ul>
+<p id="section-4-3">For definitions of these terms, see the Appendix.<a href="#section-4-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="receivers">
+<section id="section-5">
+      <h2 id="name-receivers">
+<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-receivers" class="section-name selfRef">Receivers</a>
+      </h2>
+<div id="site-implementations">
+<section id="section-5.1">
+        <h3 id="name-site-implementations">
+<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-site-implementations" class="section-name selfRef">Site implementations</a>
+        </h3>
+<p id="section-5.1-1">In order for a site to correctly implement BIMI, the receiver must be able
+to perform the following:<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+<ul>
+<li id="section-5.1-2.1">Validate SPF<a href="#section-5.1-2.1" class="pilcrow">¶</a>
+</li>
+<li id="section-5.1-2.2">Validate DKIM signatures<a href="#section-5.1-2.2" class="pilcrow">¶</a>
+</li>
+<li id="section-5.1-2.3">Validate DMARC<a href="#section-5.1-2.3" class="pilcrow">¶</a>
+</li>
+<li id="section-5.1-2.4">Discover and fetch a BIMI assertion record using DNS<a href="#section-5.1-2.4" class="pilcrow">¶</a>
+</li>
+<li id="section-5.1-2.5">Fetch a SVG using HTTPS<a href="#section-5.1-2.5" class="pilcrow">¶</a>
+</li>
+<li id="section-5.1-2.6">Validate a SVG using a profile<a href="#section-5.1-2.6" class="pilcrow">¶</a>
+</li>
+<li id="section-5.1-2.7">Add Authentication-Results and BIMI-* Headers to a message<a href="#section-5.1-2.7" class="pilcrow">¶</a>
+</li>
+</ul>
+<p id="section-5.1-3">Optionally, for a site to correctly implement BIMI evidence document (VMC is one
+example) verification, the receiver must be able to perform the following:<a href="#section-5.1-3" class="pilcrow">¶</a></p>
+<ul>
+<li id="section-5.1-4.1">Fetch the document using HTTPS<a href="#section-5.1-4.1" class="pilcrow">¶</a>
+</li>
+<li id="section-5.1-4.2">Validate the evidence document<a href="#section-5.1-4.2" class="pilcrow">¶</a>
+</li>
+<li id="section-5.1-4.3">Extract a SVG from the evidence document<a href="#section-5.1-4.3" class="pilcrow">¶</a>
+</li>
+</ul>
+<p id="section-5.1-5">A site may wish to implement URI alteration and image caching for hosted recipients.
+By implementing BIMI, a site agrees that through some combination of trust mechanisms,
+it will instruct a BIMI-capable MUA to display the image fetched from a URI within the
+message headers. This URI is created after the MTA authenticates a message, and is also
+(optionally) able to authenticate the evidence document associated with the sending domain.
+Discussion of these trust mechanisms is beyond the scope of this document.<a href="#section-5.1-5" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="validation-of-a-bimi-message">
+<section id="section-5.2">
+        <h3 id="name-validation-of-a-bimi-messag">
+<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-validation-of-a-bimi-messag" class="section-name selfRef">Validation of a BIMI message</a>
+        </h3>
+<div id="bimi-processing-requirements">
+<section id="section-5.2.1">
+          <h4 id="name-bimi-processing-requirement">
+<a href="#section-5.2.1" class="section-number selfRef">5.2.1. </a><a href="#name-bimi-processing-requirement" class="section-name selfRef">BIMI processing requirements</a>
+          </h4>
+<p id="section-5.2.1-1">In the BIMI specification, a message MUST be authenticated via DMARC. As stated
+in the DMARC draft, this requires that only one of DKIM or SPF must successfully
+pass validation with alignment with the organizational domain in the From: address.
+However, for additional local security measures, a receiving site may
+choose to create additional requirements for senders in order to verify BIMI  (that is,
+indicate to a downstream MUA that it is safe to load a BIMI logo in the email client)<a href="#section-5.2.1-1" class="pilcrow">¶</a></p>
+<p id="section-5.2.1-2">This may include, but is not limited to:<a href="#section-5.2.1-2" class="pilcrow">¶</a></p>
+<ul>
+<li id="section-5.2.1-3.1">Requiring both DKIM and SPF to validate and align with the organizational domain
+in the From: address (whereas DMARC only requires one of SPF or DKIM to align with
+the From: domain).  See below for some Security Concerns.<a href="#section-5.2.1-3.1" class="pilcrow">¶</a>
+</li>
+<li id="section-5.2.1-3.2">SPF "strength" requirements (e.g., requiring "-all", disallowing usage of "?all"
+or not allowing inclusion of overly large address spaces)<a href="#section-5.2.1-3.2" class="pilcrow">¶</a>
+</li>
+<li id="section-5.2.1-3.3">SMTP delivery via TLS<a href="#section-5.2.1-3.3" class="pilcrow">¶</a>
+</li>
+<li id="section-5.2.1-3.4">Feedback Loop registration or other method of registration with the receiving site<a href="#section-5.2.1-3.4" class="pilcrow">¶</a>
+</li>
+<li id="section-5.2.1-3.5">Domain reputation via a DNS allow list or other reputation system<a href="#section-5.2.1-3.5" class="pilcrow">¶</a>
+</li>
+</ul>
+<p id="section-5.2.1-4">These localized requirements are at the discretion of the receiving site. In general,
+the stricter the criteria, the less chance there is of an MUA erroneously showing a
+logo and giving the wrong signal to a user.<a href="#section-5.2.1-4" class="pilcrow">¶</a></p>
+<p id="section-5.2.1-5">Upon receipt of an email, a receiver that implements BIMI should remove or rename any
+previously existing BIMI-* headers other than BIMI-Selector, as they may have come
+from an attacker (as long as the BIMI-Selector is covered by the DKIM signature; if
+not, it should be removed, renamed, or ignored).<a href="#section-5.2.1-5" class="pilcrow">¶</a></p>
+<p id="section-5.2.1-6">Additionally:<a href="#section-5.2.1-6" class="pilcrow">¶</a></p>
+<ul>
+<li id="section-5.2.1-7.1">It may be useful to have messages exiting a site to have those BIMI-* headers removed
+as well.<a href="#section-5.2.1-7.1" class="pilcrow">¶</a>
+</li>
+<li id="section-5.2.1-7.2">It is useful for a site that has not implemented BIMI to remove those headers so
+that an MUA that does make use of those headers would not accidentally display a BIMI
+image when the message has not been properly authenticated by the email receiver (even
+though an MUA should not make use of BIMI headers and instead rely upon settings from
+the mail store, it is possible that some MUAs will nevertheless use headers
+without taking appropriate precautions).<a href="#section-5.2.1-7.2" class="pilcrow">¶</a>
+</li>
+</ul>
+</section>
+</div>
+<div id="verified-mark-certificate-vmc-validation">
+<section id="section-5.2.2">
+          <h4 id="name-verified-mark-certificate-v">
+<a href="#section-5.2.2" class="section-number selfRef">5.2.2. </a><a href="#name-verified-mark-certificate-v" class="section-name selfRef">Verified Mark Certificate (VMC) Validation</a>
+          </h4>
+<p id="section-5.2.2-1">(Currently, see document in Reference below)<a href="#section-5.2.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="communicating-bimi-results-between-the-mta-and-the-mua">
+<section id="section-5.3">
+        <h3 id="name-communicating-bimi-results-">
+<a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-communicating-bimi-results-" class="section-name selfRef">Communicating BIMI results between the MTA and the MUA</a>
+        </h3>
+<p id="section-5.3-1">In order for a receiver that has implemented BIMI to notify an MUA that it should
+display the images:<a href="#section-5.3-1" class="pilcrow">¶</a></p>
+<ul>
+<li id="section-5.3-2.1">An MTA must verify BIMI, and if it passes, add additional headers containing the logo
+to be displayed.<a href="#section-5.3-2.1" class="pilcrow">¶</a>
+</li>
+</ul>
+<p id="section-5.3-3">The MUA must check to see if a message passed BIMI before loading the BIMI image.<a href="#section-5.3-3" class="pilcrow">¶</a></p>
+<p id="section-5.3-4">While the MTA MAY stamp BIMI-related information in the message headers, they should not
+be relied upon by an MUA without additional checks to make sure they were added by a
+trusted source, for example, making sure the MTA strips existing headers on ingress, or
+by checking for a bimi pass in a trusted Authentication-Results header.<a href="#section-5.3-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="leveraging-arc-for-mta-mua-communication">
+<section id="section-5.4">
+        <h3 id="name-leveraging-arc-for-mta-mua-">
+<a href="#section-5.4" class="section-number selfRef">5.4. </a><a href="#name-leveraging-arc-for-mta-mua-" class="section-name selfRef">Leveraging ARC for MTA MUA communication</a>
+        </h3>
+<p id="section-5.4-1">If both the MTA and MUA support ARC then this MAY be used by the MUA to check that the
+BIMI evaluation was undertaken by a trusted MTA. In this case the MTA MUST add bimi
+entries to the Authentication-Results and ARC-Authentication-Results headers.
+The MUA MUST evaluate ARC, and only use ARC sets which have passed and were added by
+known good servers. This evaluation MUST stop at the first ARC fail.<a href="#section-5.4-1" class="pilcrow">¶</a></p>
+<p id="section-5.4-2">If the MUA is configured to require an evidence document then it MAY check for a policy.authority=pass
+in the bimi Authentication-Results and decline to show a logo if that is not present.<a href="#section-5.4-2" class="pilcrow">¶</a></p>
+<p id="section-5.4-3">If the MTA has added a BIMI-Indicator header containing the encoded SVG then the MTA
+SHOULD also add a short hashed checksum of this SVG into the Authentication-Results set.
+The MUA MUST disregard any BIMI-Indicator headers which do not have a matching hash in
+the Authentication-Results headers.
+The hashed checksum for the Indicator MAY be added in the policy.indicator-hash entry.
+If no BIMI-Indicator is present, or if the hash does not match then the MUA MAY retrieve
+the indicator from the evidence document at URL specified in the policy.authority-uri if
+present, from the SVG at the URL specified in the policy.indicator-uri if present and if
+the MUA does not require a verified evidence document, or by evaluating BIMI directly
+using the domain and selector from the bimi Authentication-Results entry.
+The BIMI-Location header is not protected from forgery in the ARC set, and MUST NOT be used.<a href="#section-5.4-3" class="pilcrow">¶</a></p>
+<p id="section-5.4-4">NOTE: This needs to be added to draft-brand-indicators-for-message-identification and relevant
+entries registered with IANA  A hashed Indicator will need to be added to the AR set
+policy.indicator-uri to be added to draft<a href="#section-5.4-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="image-retrieval">
+<section id="section-5.5">
+        <h3 id="name-image-retrieval">
+<a href="#section-5.5" class="section-number selfRef">5.5. </a><a href="#name-image-retrieval" class="section-name selfRef">Image Retrieval</a>
+        </h3>
+<p id="section-5.5-1">A core part of the BIMI specification is that the MUA will retrieve an image file to
+display for each BIMI-validated message. There are multiple ways to accomplish this,
+for example:<a href="#section-5.5-1" class="pilcrow">¶</a></p>
+<ul>
+<li id="section-5.5-2.1">
+            <p id="section-5.5-2.1.1">In its most basic setup, a BIMI-capable MUA could retrieve the image file directly
+from the site specified in the BIMI-Location header.<a href="#section-5.5-2.1.1" class="pilcrow">¶</a></p>
+</li>
+<li id="section-5.5-2.2">
+            <p id="section-5.5-2.2.1">A BIMI capable MTA will add a header containing the Base64 encoded SVG of the image file.
+The MUA can use this header to retrieve the already validated image file for display. This
+is the recommended method of image retrieval as the work of retrieval and validation has
+already been done by the MTA.  A consideration for this method may be the additional
+storage requirements for adding a base64-encoded version of the SVG, where the original
+file could be between 1 and 30 kilobytes, and encoding may add 35% to that size.<a href="#section-5.5-2.2.1" class="pilcrow">¶</a></p>
+</li>
+<li id="section-5.5-2.3">
+            <p id="section-5.5-2.3.1">Other providers may choose to cache the associated images in a local store which could
+be used as the BIMI resource address in the headers of a BIMI-approved message in a
+sort of proxy configuration.<a href="#section-5.5-2.3.1" class="pilcrow">¶</a></p>
+</li>
+</ul>
+</section>
+</div>
+<div id="limited-use-of-http-redirects">
+<section id="section-5.6">
+        <h3 id="name-limited-use-of-http-redirec">
+<a href="#section-5.6" class="section-number selfRef">5.6. </a><a href="#name-limited-use-of-http-redirec" class="section-name selfRef">Limited use of HTTP Redirects</a>
+        </h3>
+<ul>
+<li id="section-5.6-1.1">
+            <p id="section-5.6-1.1.1">Receivers may choose not to follow HTTP redirects when retrieving images or evidence
+documents, or may choose to follow only a limited number of redirects.<a href="#section-5.6-1.1.1" class="pilcrow">¶</a></p>
+</li>
+<li id="section-5.6-1.2">
+            <p id="section-5.6-1.2.1">When setting up BIMI, senders should eliminate, or limit the use of HTTP redirects to
+avoid images being unretrievable by receivers who either do not support the use of
+HTTP redirection, or have limited its use.<a href="#section-5.6-1.2.1" class="pilcrow">¶</a></p>
+</li>
+</ul>
+</section>
+</div>
+<div id="ttl-of-cached-images">
+<section id="section-5.7">
+        <h3 id="name-ttl-of-cached-images">
+<a href="#section-5.7" class="section-number selfRef">5.7. </a><a href="#name-ttl-of-cached-images" class="section-name selfRef">TTL of cached images</a>
+        </h3>
+<p id="section-5.7-1">In some circumstances it is necessary to cache the images that an MUA would want to load.
+For example, if a domain owner has a short TTL time, it would force the MUA to look it up
+in an unreasonably short period of time. In this case, a receiver may want to set its
+own TTL.<a href="#section-5.7-1" class="pilcrow">¶</a></p>
+<p id="section-5.7-2">One option is to set it to several hours, or a day; another option is to set the TTL to
+the same as the expiration period in the evidence document that contains the BIMI image. The
+downside is that the caching mechanism might need to check for certificate revocation, and
+then re-fetch images.<a href="#section-5.7-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="mua-authors-1">
+<section id="section-6">
+      <h2 id="name-mua-authors-2">
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-mua-authors-2" class="section-name selfRef">MUA Authors</a>
+      </h2>
+<div id="image-display">
+<section id="section-6.1">
+        <h3 id="name-image-display">
+<a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-image-display" class="section-name selfRef">Image Display</a>
+        </h3>
+<p id="section-6.1-1">Although BIMI does not define an aspect ratio for Brand Indicators it is expected that the
+majority of receivers will display them in a square or circular space. Is it recommended
+to brands that their Indicators should be constructed to display in a 1:1 aspect ratio, receivers
+should design the user interface display for BIMI Indicators with this in mind.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="security-concerns">
+<section id="section-6.2">
+        <h3 id="name-security-concerns">
+<a href="#section-6.2" class="section-number selfRef">6.2. </a><a href="#name-security-concerns" class="section-name selfRef">Security Concerns</a>
+        </h3>
+<p id="section-6.2-1">Receivers should consider the impact of XML bomb or "billion laughs" Denial of Service attacks when
+handling XML documents such as when validating SVG documents.
+<a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2003-1564">CVE-2003-1564</a> is an example of this attack.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
+<p id="section-6.2-2">When validating XML documents, receivers should consider the security and privacy implications of
+retrieving external entries referenced in those documents.<a href="#section-6.2-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="privacy-concerns">
+<section id="section-6.3">
+        <h3 id="name-privacy-concerns">
+<a href="#section-6.3" class="section-number selfRef">6.3. </a><a href="#name-privacy-concerns" class="section-name selfRef">Privacy Concerns</a>
+        </h3>
+<p id="section-6.3-1">There is some concern that the retrieval of the iconography could result in a privacy leak.<br>
+As the images are retrieved, it's possible that the image provider could track the retrieving
+system in some way. This has implications whether it be the sender or provider that is hosting
+the image. For example, a sender could include a singular selector for a single recipient, or
+a provider could append a tracking string to the image URI in the header.<a href="#section-6.3-1" class="pilcrow">¶</a></p>
+<p id="section-6.3-2">A receiver may choose to track the number of selectors an organizational domain is permitted to
+use and deny processing if this exceeds a defined limit. Similarly, a receiver may choose to
+track and limit distinct Indicator URLs.<a href="#section-6.3-2" class="pilcrow">¶</a></p>
+<p id="section-6.3-3">MTAs are encouraged to cache BIMI Records, evidence documents, and Indicators to limit tracking.<a href="#section-6.3-3" class="pilcrow">¶</a></p>
+<p id="section-6.3-4">MUAs are encouraged to extract Indicators from the BIMI-Indicator header rather than retrieving
+them directly from the source, as doing so will limit any data exposure to the MTA processing
+the message. The BIMI approved SVG profile prohibits an SVG from loading external elements,
+this removes the risk of tracking when an Indicator is shown in the client.<a href="#section-6.3-4" class="pilcrow">¶</a></p>
+<p id="section-6.3-5">An in-depth discussion of all the potential privacy leaks with respect to loading or embedding
+images is outside the scope of this document.<a href="#section-6.3-5" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="brands-1">
+<section id="section-7">
+      <h2 id="name-brands-2">
+<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-brands-2" class="section-name selfRef">Brands</a>
+      </h2>
+<div id="logo-hosting-considerations">
+<section id="section-7.1">
+        <h3 id="name-logo-hosting-considerations">
+<a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-logo-hosting-considerations" class="section-name selfRef">Logo Hosting Considerations</a>
+        </h3>
+<p id="section-7.1-1">The logo you wish to associate with your brand can be hosted anywhere, not necessarily within the
+domain that will be used to send the messages.  Doing so may make it easier to associate during
+inspection, though it is understood that not all entities have a web server at the domain associated
+with their email messages.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="cdn-considerations">
+<section id="section-7.2">
+        <h3 id="name-cdn-considerations">
+<a href="#section-7.2" class="section-number selfRef">7.2. </a><a href="#name-cdn-considerations" class="section-name selfRef">CDN Considerations</a>
+        </h3>
+<p id="section-7.2-1">If the logo is behind a CDN (Content Delivery Network) this may prevent automated systems from
+reaching the resource.  The automated systems may not appear to be a proper browser experience,
+and would not be able to correctly respond to a challenge that the CDN may use to protect a
+site, and therefore unable to retrieve the logo file.  If possible, those BIMI logos/resources
+should be marked as unprotected, allowing any who request the resource to do so without possibility
+of a challenge.<a href="#section-7.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="domains-listed-in-your-evidence-document">
+<section id="section-7.3">
+        <h3 id="name-domains-listed-in-your-evid">
+<a href="#section-7.3" class="section-number selfRef">7.3. </a><a href="#name-domains-listed-in-your-evid" class="section-name selfRef">Domains listed in your evidence document</a>
+        </h3>
+<p id="section-7.3-1">While obtaining an evidence document, an entity is expected to provide
+at least one domain name.  There exists the opportunity to list additional
+domains in the "SAN" field of the certificate.  These domains may or may
+not match the 5322.From domain, but must match the domain being used in
+the BIMI assertion record.  When using the organizational domain, other
+third-level domains can take advantage of the evidence document as well.<br>
+Within the core specification, it is discussed how the evaluator should
+look at the original domain being used, as well as the Organizational
+Domain.<a href="#section-7.3-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="logo-designers">
+<section id="section-8">
+      <h2 id="name-logo-designers">
+<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-logo-designers" class="section-name selfRef">Logo Designers</a>
+      </h2>
+<div id="known-issues">
+<section id="section-8.1">
+        <h3 id="name-known-issues">
+<a href="#section-8.1" class="section-number selfRef">8.1. </a><a href="#name-known-issues" class="section-name selfRef">Known Issues</a>
+      </h3>
+</section>
+</div>
+<div id="adherence-to-svg-p-s">
+<section id="section-8.2">
+        <h3 id="name-adherence-to-svg-p-s">
+<a href="#section-8.2" class="section-number selfRef">8.2. </a><a href="#name-adherence-to-svg-p-s" class="section-name selfRef">Adherence to SVG P/S</a>
+        </h3>
+<p id="section-8.2-1">There may be a few issues that designers may experience when trying to adhere to SVG P/S.<a href="#section-8.2-1" class="pilcrow">¶</a></p>
+<ul>
+<li id="section-8.2-2.1">SVG P/S is based on SVG Tiny 1.2, which does not allow for certain types of gradients.  When trying
+to convert/save as SVG Tiny 1.2, it will typically result in an embedded raster file. This is not
+compliant with SVG P/S, and could result in display issues.<a href="#section-8.2-2.1" class="pilcrow">¶</a>
+</li>
+<li id="section-8.2-2.2">When exporting to SVG Tiny 1.2 with Adobe Illustrator, the application will insert <code>x</code> and <code>y</code>
+attributes within the <code>svg</code> element.  These need to be removed to comply with SVG P/S.<a href="#section-8.2-2.2" class="pilcrow">¶</a>
+</li>
+</ul>
+</section>
+</div>
+<div id="tools">
+<section id="section-8.3">
+        <h3 id="name-tools">
+<a href="#section-8.3" class="section-number selfRef">8.3. </a><a href="#name-tools" class="section-name selfRef">Tools</a>
+      </h3>
+</section>
+</div>
+<div id="caveats">
+<section id="section-8.4">
+        <h3 id="name-caveats">
+<a href="#section-8.4" class="section-number selfRef">8.4. </a><a href="#name-caveats" class="section-name selfRef">Caveats</a>
+      </h3>
+</section>
+</div>
+</section>
+</div>
+<div id="basic-flow-example">
+<section id="section-9">
+      <h2 id="name-basic-flow-example">
+<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-basic-flow-example" class="section-name selfRef">Basic flow example</a>
+      </h2>
+<p id="section-9-1">One sample implementation of BIMI by a receiver, who does everything on-the-fly, is as following:<a href="#section-9-1" class="pilcrow">¶</a></p>
+<ul>
+<li id="section-9-2.1">
+          <p id="section-9-2.1.1">Upon receipt of a message, the receiver checks to see if the message passes aligned-SPF
+or DKIM, and DMARC, and ensures that the sending domain has a DMARC policy of <code>quarantine</code>
+or <code>reject</code> per local receiver policy, while properly applying the appropriate DMARC
+policy to the message.<a href="#section-9-2.1.1" class="pilcrow">¶</a></p>
+</li>
+<li id="section-9-2.2">
+          <p id="section-9-2.2.1">If the message passes prior checks, the receiver will then check to see if the domain
+in the From: address has a BIMI record (or, if the message has a BIMI-Selector header that
+is covered by the DKIM-Signature, uses that to do the BIMI query in DNS).<a href="#section-9-2.2.1" class="pilcrow">¶</a></p>
+</li>
+<li id="section-9-2.3">
+          <p id="section-9-2.3.1">If a BIMI record is found, the receiver then retrieves the VMC from the location
+that the BIMI record points to, and attempts to verify the VMC using a trusted root
+certificate. .<a href="#section-9-2.3.1" class="pilcrow">¶</a></p>
+</li>
+<li id="section-9-2.4">
+          <p id="section-9-2.4.1">Upon successful verification of the VMC, the receiver extracts the verified image from
+the VMC. If the SVG also passes the SVG validation steps then this is a successful BIMI verification.<a href="#section-9-2.4.1" class="pilcrow">¶</a></p>
+</li>
+<li id="section-9-2.5">
+          <p id="section-9-2.5.1">If the BIMI verification fails then the MTA must not indicate to the MUA to show
+a BIMI image. The MUA MAY show a default image such as a set of initials, or unidentified sender.<a href="#section-9-2.5.1" class="pilcrow">¶</a></p>
+</li>
+<li id="section-9-2.6">
+          <p id="section-9-2.6.1">The email receiver then does the rest of its anti-spam, anti-malware, and anti-phishing checks as
+discussed in <a href="#message-classification">Message Classification</a> below.<a href="#section-9-2.6.1" class="pilcrow">¶</a></p>
+</li>
+<li id="section-9-2.7">
+          <p id="section-9-2.7.1">The email receiver then adds the relevant Authentication-Results and BIMI-* headers to the message
+to signal to the downstream email client that the message passed BIMI and that is safe to load the
+logo.<a href="#section-9-2.7.1" class="pilcrow">¶</a></p>
+</li>
+<li id="section-9-2.8">
+          <p id="section-9-2.8.1">Eventually, the MUA checks the BIMI-* headers, decodes the image in the BIMI-Indicator header,
+and displays it as the sender photo (or however else it chooses to render the BIMI logo in conjunction
+with the message).<a href="#section-9-2.8.1" class="pilcrow">¶</a></p>
+</li>
+</ul>
+<div id="message-classification">
+<section id="section-9.1">
+        <h3 id="name-message-classification">
+<a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-message-classification" class="section-name selfRef">Message Classification</a>
+        </h3>
+<p id="section-9.1-1">The successful validation of BIMI does NOT indicate that a message is not spam, malware, or phishing.<a href="#section-9.1-1" class="pilcrow">¶</a></p>
+<p id="section-9.1-2">It is expected that receivers undertake their usual message filtering and classification steps, and
+take the results of these checks into consideration when deciding if a BIMI Indicator should be
+shown to the user.<a href="#section-9.1-2" class="pilcrow">¶</a></p>
+<p id="section-9.1-3">If classification is performed before BIMI is evaluated then a receiver MAY CHOOSE to skip BIMI
+processing for that message, in this case they SHOULD add a bimi=skipped entry to the Authentication-Results
+header for that message, and SHOULD add a comment stating the reasons for skipping BIMI processing.<a href="#section-9.1-3" class="pilcrow">¶</a></p>
+<p id="section-9.1-4">If a message is classified as phishing or malware then the MUA SHOULD NOT display the logo.<a href="#section-9.1-4" class="pilcrow">¶</a></p>
+<p id="section-9.1-5">If a message is classified as spam (meaning that the message comes from a known
+brand, but contains spammy content), then the email receiver MAY choose not to display the
+logo.<a href="#section-9.1-5" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="domain-reputation">
+<section id="section-10">
+      <h2 id="name-domain-reputation">
+<a href="#section-10" class="section-number selfRef">10. </a><a href="#name-domain-reputation" class="section-name selfRef">Domain Reputation</a>
+      </h2>
+<p id="section-10-1">Receivers are advised to consider incorporating local sources of domain trust intelligence
+into the processes which ultimately determine whether or not BIMI logos are displayed.
+Simply because a sending domain passes BIMI requirements does not mean the images should
+automatically be displayed in the MUA; a site may impose further restrictions based on
+domain reputation.<a href="#section-10-1" class="pilcrow">¶</a></p>
+<p id="section-10-2">One source of additional reputation intelligence could be a platform that the email provider
+has created to calculate domain trust based on historical traffic; another is an explicit list of
+trusted domains that has been curated by an individual provider; a third is a list that is purchased
+from a vendor that might be a pass/fail or a scored list; another option is some mix of any of the
+previous three.<a href="#section-10-2" class="pilcrow">¶</a></p>
+<div id="rolling-up-based-upon-domain-vs-organizational-domain">
+<section id="section-10.1">
+        <h3 id="name-rolling-up-based-upon-domai">
+<a href="#section-10.1" class="section-number selfRef">10.1. </a><a href="#name-rolling-up-based-upon-domai" class="section-name selfRef">Rolling up based upon domain vs organizational domain</a>
+        </h3>
+<p id="section-10.1-1">BIMI is designed to be able to work on selectors, and so in theory a brand/domain could specify
+multiple BIMI logos and differentiate them on a per-domain (per-selector) basis. The advantage
+for the brand is that they can choose the image they want the user to see depending upon various
+conditions (e.g., seasonal images, regional images, etc.).<a href="#section-10.1-1" class="pilcrow">¶</a></p>
+<p id="section-10.1-2">However, for an email receiver, it may be easier to roll up BIMI logos on an organizational domain
+basis. One reason may be for the purposes of reputation, another may be for simplifying management
+of images. In this case, it would need to be made clear to brands that this is how the loading of
+BIMI images works. This documentation could live on a postmaster site, under technical documentation,
+or other official page maintained by the receiver. It could then be referred to when sending
+organizations ask about how to on-board to BIMI at the receiver, and provide official guidance about
+the way it works at the site.<a href="#section-10.1-2" class="pilcrow">¶</a></p>
+<p id="section-10.1-3">If rolling up by organizational domain, then it may make sense to use a "lowest common denominator"
+approach. That is, an organizational domain must meet all the requirements for BIMI, rather than only
+a sub-domain. The reason for this is that if sub.brand.com gets an image due to having strong authentication
+policies, but brand.com does not, then this may cause confusion because a user may learn to associate
+sub.brand.com and its image with brand.com; and if brand.com can be spoofed even though sub.brand.com cannot,
+that can lead to users becoming more susceptible to phishing from brand.com.<a href="#section-10.1-3" class="pilcrow">¶</a></p>
+<p id="section-10.1-4">To alleviate this, receivers may wish to show logos only for domains that have organizational domains with
+strong DMARC policies. Or, if an organizational domain does not have a strong DMARC policy but a sub-domain
+does, then it may treat the organizational domain as if it does have a strong DMARC policy so as to prevent
+a phisher or spammer from impersonating the brand or any of its sub-domains.<a href="#section-10.1-4" class="pilcrow">¶</a></p>
+<p id="section-10.1-5">A strong DMARC policy may be defined as one which has some level of enforcement. For example, a
+p=quarantine policy with an effective pct=100, or a p=reject policy.<a href="#section-10.1-5" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="vmc-root-of-trust">
+<section id="section-10.2">
+        <h3 id="name-vmc-root-of-trust">
+<a href="#section-10.2" class="section-number selfRef">10.2. </a><a href="#name-vmc-root-of-trust" class="section-name selfRef">VMC Root of Trust</a>
+        </h3>
+<p id="section-10.2-1">VMCs are verified back to their issuing Mark Verifying Authority (MVA). Receivers may wish to maintain their
+own list of trusted CAs for BIMI rather than relying on a generally available bundle of trusted Root
+Certificates such as those distributed with browsers or operating systems. The AuthIndicators Working Group
+will maintain a list of known VMC Root CA Certificates to help bootstrap such a list.<a href="#section-10.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="security-concerns-relating-to-message-authentication">
+<section id="section-11">
+      <h2 id="name-security-concerns-relating-">
+<a href="#section-11" class="section-number selfRef">11. </a><a href="#name-security-concerns-relating-" class="section-name selfRef">Security Concerns Relating to Message Authentication</a>
+      </h2>
+<p id="section-11-1">BIMI relies upon the foundations of existing messsage authentication
+mechanisms. As of the writing of this document, those are DMARC, SPF, and
+DKIM. Each of these were created several years ago, and with time, some issues
+have been found, most specifically with SPF and DKIM. The items below are not
+specific to BIMI, and the referenced documents have more information.<a href="#section-11-1" class="pilcrow">¶</a></p>
+<div id="spf-concerns">
+<section id="section-11.1">
+        <h3 id="name-spf-concerns">
+<a href="#section-11.1" class="section-number selfRef">11.1. </a><a href="#name-spf-concerns" class="section-name selfRef">SPF Concerns</a>
+        </h3>
+<p id="section-11.1-1">SPF <span>[<a href="#RFC7208" class="xref">RFC7208</a>]</span> is used to denote from where a message should be arriving,
+typically based on IP.  SPF will only provide authentication for the first
+hop when sending from the originator to another internet mail site.  There
+are some mechanisms within the SPF that could be misused in a number of
+ways:<a href="#section-11.1-1" class="pilcrow">¶</a></p>
+<ul>
+<li id="section-11.1-2.1">SPF allows for a +all mechanism.  This effectively allows all hosts on the
+internet to be authenticated as this domain<a href="#section-11.1-2.1" class="pilcrow">¶</a>
+</li>
+<li id="section-11.1-2.2">Some domains publish domains with a includes that result in a large
+number of IPs that can be used by any number of other senders<a href="#section-11.1-2.2" class="pilcrow">¶</a>
+</li>
+<li id="section-11.1-2.3">A sender could typo a CIDR from an ip4/ip6 statement<a href="#section-11.1-2.3" class="pilcrow">¶</a>
+</li>
+<li id="section-11.1-2.4">A platform may not properly validate users are attached to a specified
+domain when sending<a href="#section-11.1-2.4" class="pilcrow">¶</a>
+</li>
+<li id="section-11.1-2.5">A platform may allow for some loose rules relating to forwards, which
+could permit an attacker to misuse a domain<a href="#section-11.1-2.5" class="pilcrow">¶</a>
+</li>
+</ul>
+<p id="section-11.1-3">It's suggested that a receiver should be extremely careful when allowing a
+message to be authenticated solely on SPF.  Similarly, a sender should do
+as much as they can to utilize both SPF and DKIM, properly aligned.<a href="#section-11.1-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="dkim-concerns">
+<section id="section-11.2">
+        <h3 id="name-dkim-concerns">
+<a href="#section-11.2" class="section-number selfRef">11.2. </a><a href="#name-dkim-concerns" class="section-name selfRef">DKIM Concerns</a>
+        </h3>
+<p id="section-11.2-1">DKIM <span>[<a href="#RFC6376" class="xref">RFC6376</a>]</span> is a cryptographic signature meant to protect against
+tampering with a message. This method is the most likely to survive forwarding
+to another internet site.<a href="#section-11.2-1" class="pilcrow">¶</a></p>
+<ul>
+<li id="section-11.2-2.1">DKIM Replay is a method by which an attacker attempts to subvert a previously
+sent message, and use the signature to send something different.
+See [draft-chuang-dkim-replay-problem] for additional information.<a href="#section-11.2-2.1" class="pilcrow">¶</a>
+</li>
+<li id="section-11.2-2.2">Poor selection for signature algorithm, the key length, or the length
+which a key has been in use<a href="#section-11.2-2.2" class="pilcrow">¶</a>
+</li>
+<li id="section-11.2-2.3">Oversigning of headers (RFC6376, Section 8.15) is considered a partial
+protection against DKIM Replay, and should be considered by senders
+implementing BIMI<a href="#section-11.2-2.3" class="pilcrow">¶</a>
+</li>
+<li id="section-11.2-2.4">Expiration of signatures utilizing the <code>-x</code> option while signing<a href="#section-11.2-2.4" class="pilcrow">¶</a>
+</li>
+</ul>
+</section>
+</div>
+</section>
+</div>
+<div id="bimi-playbook-checklist">
+<section id="section-12">
+      <h2 id="name-bimi-playbook-checklist">
+<a href="#section-12" class="section-number selfRef">12. </a><a href="#name-bimi-playbook-checklist" class="section-name selfRef">BIMI Playbook Checklist</a>
+      </h2>
+<p id="section-12-1">There are several factors to consider for email receivers on things that can go wrong; below are
+a handful of considerations:<a href="#section-12-1" class="pilcrow">¶</a></p>
+<ul>
+<li id="section-12-2.1">Failing to verify a VMC<a href="#section-12-2.1" class="pilcrow">¶</a>
+</li>
+<li id="section-12-2.2">Failing to extract an Indicator from a validated VMC<a href="#section-12-2.2" class="pilcrow">¶</a>
+</li>
+<li id="section-12-2.3">Failing to validate a SVG against the recommended profile<a href="#section-12-2.3" class="pilcrow">¶</a>
+</li>
+<li id="section-12-2.4">Failing to parse a gzipped SVG Indicator<a href="#section-12-2.4" class="pilcrow">¶</a>
+</li>
+<li id="section-12-2.5">Failing to load a logo in the email client<a href="#section-12-2.5" class="pilcrow">¶</a>
+</li>
+<li id="section-12-2.6">Failing to access the logo (e.g., permissions errors)<a href="#section-12-2.6" class="pilcrow">¶</a>
+</li>
+<li id="section-12-2.7">Connectivity problems to the logo<a href="#section-12-2.7" class="pilcrow">¶</a>
+</li>
+<li id="section-12-2.8">Failing to display a correct logo in the email client<a href="#section-12-2.8" class="pilcrow">¶</a>
+</li>
+<li id="section-12-2.9">Having the wrong logo stored for a brand (i.e., uploading it to a local store but associating
+it with the wrong brand)<a href="#section-12-2.9" class="pilcrow">¶</a>
+</li>
+<li id="section-12-2.10">Caching a logo for too long after it has updated<a href="#section-12-2.10" class="pilcrow">¶</a>
+</li>
+</ul>
+<p id="section-12-3">There are many reasons why a logo may fail to load; having tools to investigate (logs, headers
+in messages, internal documentation that is clearly written, having the knowledge pushed out
+to multiple escalation channels) is important for investigation.<a href="#section-12-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="public-documentation">
+<section id="section-13">
+      <h2 id="name-public-documentation">
+<a href="#section-13" class="section-number selfRef">13. </a><a href="#name-public-documentation" class="section-name selfRef">Public documentation</a>
+      </h2>
+<div id="documentation-for-brands">
+<section id="section-13.1">
+        <h3 id="name-documentation-for-brands">
+<a href="#section-13.1" class="section-number selfRef">13.1. </a><a href="#name-documentation-for-brands" class="section-name selfRef">Documentation For Brands:</a>
+        </h3>
+<p id="section-13.1-1">It is ideal to publish the criteria that is used by your site to determine when BIMI will
+be displayed. It is fine to say that you use some internal domain reputation metrics as
+additional criteria to determine whether or not a logo should be displayed, and it isn't
+necessary to give away the exact nature of the algorithm other than to say "You must maintain
+good sending practices."<a href="#section-13.1-1" class="pilcrow">¶</a></p>
+<p id="section-13.1-2">If you use an explicit allow list, a site may want to list the minimum requirements, and the
+method of applying to be listed.  Similarly, a provider may wish to state what type of
+activity will revoke the decision to display logos previously approved.<a href="#section-13.1-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="documentation-for-users">
+<section id="section-13.2">
+        <h3 id="name-documentation-for-users">
+<a href="#section-13.2" class="section-number selfRef">13.2. </a><a href="#name-documentation-for-users" class="section-name selfRef">Documentation For Users:</a>
+        </h3>
+<p id="section-13.2-1">BIMI is not meant to instill additional trust in messages, and it is important to make
+this known to your users. All messages, even those with logos, should still be treated with
+(mild) skepticism, and any action regarding the message should still be individually evaluated.
+It's possible for a site that has a high trust value to become compromised and send fraudulent
+messages that could compromise a user's system. Ensure your customers have a place that documents
+BIMI and demonstrates how to check messages for fraud.<a href="#section-13.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="appendix">
+<section id="section-14">
+      <h2 id="name-appendix">
+<a href="#section-14" class="section-number selfRef">14. </a><a href="#name-appendix" class="section-name selfRef">Appendix</a>
+      </h2>
+<div id="glossary">
+<section id="section-14.1">
+        <h3 id="name-glossary">
+<a href="#section-14.1" class="section-number selfRef">14.1. </a><a href="#name-glossary" class="section-name selfRef">Glossary</a>
+        </h3>
+<ul>
+<li id="section-14.1-1.1">
+            <p id="section-14.1-1.1.1">MUA - Mail User Agent - The application used to read messages by the end user.  This could
+be a thick client or a web-based application.<a href="#section-14.1-1.1.1" class="pilcrow">¶</a></p>
+</li>
+<li id="section-14.1-1.2">
+            <p id="section-14.1-1.2.1">MTA - Mail Transfer Agent - Software used to transfer messages between two systems, typically
+between two sites, using SMTP as the protocol.<a href="#section-14.1-1.2.1" class="pilcrow">¶</a></p>
+</li>
+<li id="section-14.1-1.3">
+            <p id="section-14.1-1.3.1">SPF - <a href="https://tools.ietf.org/html/rfc7208">Sender Policy Framework</a> -
+SPF is a framework that designates which systems should be sending for a given
+domain.  This can be a list of IPs, CIDRs, or references to DNS records.  As the sender
+should be controlling their DNS, they should understand which IPs should be sending as
+their domain.<a href="#section-14.1-1.3.1" class="pilcrow">¶</a></p>
+</li>
+<li id="section-14.1-1.4">
+            <p id="section-14.1-1.4.1">DKIM - <a href="https://tools.ietf.org/html/rfc6376">DomainKeys Identified Mail</a> -
+DKIM is a system by which a chosen set of headers, combined with the message
+contents, are cryptographically signed, and then validated by the receiving system.
+Using DNS, the receiving system can retrieve a public key, and then validate the signature
+within the headers of a message. When implemented properly, the systems responsible for
+sending the messages for a given domain name should be the only ones capable
+of creating messages that correctly validates.<a href="#section-14.1-1.4.1" class="pilcrow">¶</a></p>
+</li>
+<li id="section-14.1-1.5">
+            <p id="section-14.1-1.5.1">DMARC - <a href="https://tools.ietf.org/html/rfc7489">Domain-based Message Authentication, Reporting, and Conformance</a> -
+DMARC is a message authentication mechanism that works with SPF and DKIM. The
+BIMI specification requires that a message passes DMARC. In order for a message to pass
+DMARC, one of SPF or DKIM must successfully validate, and the domain in the From: address
+must align with the domain that passed SPF or DKIM.<a href="#section-14.1-1.5.1" class="pilcrow">¶</a></p>
+</li>
+<li id="section-14.1-1.6">
+            <p id="section-14.1-1.6.1">Alignment - Alignment refers to the organizational domain, as defined by DMARC, of the
+domain in the From: address being the same as the organizational domain that passed SPF or
+DKIM. For example, baz.example.com has an organizational domain of example.com;
+bar.foo.example.com also has an organizational domain of example.com. It aligns with
+org.example.com, because both have the same organizational domain. A definition of
+organizational domain and methods of discovery may be found in the <a href="https://tools.ietf.org/html/rfc7489">DMARC</a> RFC.<a href="#section-14.1-1.6.1" class="pilcrow">¶</a></p>
+</li>
+<li id="section-14.1-1.7">
+            <p id="section-14.1-1.7.1">MVA - Mark Verifying Authority - An entity that a receiver uses to certify that the
+iconography that they intend to use with BIMI is properly/legally licensed for their use.<a href="#section-14.1-1.7.1" class="pilcrow">¶</a></p>
+</li>
+<li id="section-14.1-1.8">
+            <p id="section-14.1-1.8.1">DRA - Dispute Resolution Authority - This organization will moderate between two entities
+that believe they are both entitled to use a logo.  Receivers should then abide by the
+decision of the DRA as it pertains to logo usage in the MUA.<a href="#section-14.1-1.8.1" class="pilcrow">¶</a></p>
+</li>
+<li id="section-14.1-1.9">
+            <p id="section-14.1-1.9.1">VMC - Verified Mark Certificate - An Extended Validation Certificate is used in conjunction with BIMI to
+create a place where information pertaining to iconography for a sending domain can be
+securely verified. In the case of BIMI, hashes for an MVA-approved set of iconography
+will be stored in a field within the certificate. This should allow a receiver site to
+validate the retrieved imagery before putting the BIMI image URI into the message headers.<a href="#section-14.1-1.9.1" class="pilcrow">¶</a></p>
+</li>
+</ul>
+</section>
+</div>
+</section>
+</div>
+<div id="contributors">
+<section id="section-15">
+      <h2 id="name-contributors">
+<a href="#section-15" class="section-number selfRef">15. </a><a href="#name-contributors" class="section-name selfRef">Contributors</a>
+      </h2>
+<p id="section-15-1">TBD<a href="#section-15-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="references">
+<section id="section-16">
+      <h2 id="name-references">
+<a href="#section-16" class="section-number selfRef">16. </a><a href="#name-references" class="section-name selfRef">References</a>
+      </h2>
+<p id="section-16-1">The full BIMI verification spec can be found at:
+  <a href="https://github.com/authindicators/rfc-brand-indicators-for-message-identification">https://github.com/authindicators/rfc-brand-indicators-for-message-identification</a><a href="#section-16-1" class="pilcrow">¶</a></p>
+<p id="section-16-2">Verified Mark Certificates Usage:<a href="#section-16-2" class="pilcrow">¶</a></p>
+<p id="section-16-3"><a href="http://bimigroup.org/resources/VMC_Guidelines_latest.pdf">http://bimigroup.org/resources/VMC_Guidelines_latest.pdf</a><a href="#section-16-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<section id="section-17">
+      <h2 id="name-normative-references">
+<a href="#section-17" class="section-number selfRef">17. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+      </h2>
+<dl class="references">
+<dt id="RFC2119">[RFC2119]</dt>
+<dd>
+<span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc2119">https://www.rfc-editor.org/info/rfc2119</a>&gt;</span>. </dd>
+<dt id="RFC8174">[RFC8174]</dt>
+<dd>
+<span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8174">https://www.rfc-editor.org/info/rfc8174</a>&gt;</span>. </dd>
+</dl>
+</section>
+<section id="section-18">
+      <h2 id="name-informative-references">
+<a href="#section-18" class="section-number selfRef">18. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
+      </h2>
+<dl class="references">
+<dt id="RFC6376">[RFC6376]</dt>
+<dd>
+<span class="refAuthor">Crocker, D., Ed.</span><span class="refAuthor">, Hansen, T., Ed.</span><span class="refAuthor">, and M. Kucherawy, Ed.</span>, <span class="refTitle">"DomainKeys Identified Mail (DKIM) Signatures"</span>, <span class="seriesInfo">STD 76</span>, <span class="seriesInfo">RFC 6376</span>, <span class="seriesInfo">DOI 10.17487/RFC6376</span>, <time datetime="2011-09">September 2011</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc6376">https://www.rfc-editor.org/info/rfc6376</a>&gt;</span>. </dd>
+<dt id="RFC7208">[RFC7208]</dt>
+<dd>
+<span class="refAuthor">Kitterman, S.</span>, <span class="refTitle">"Sender Policy Framework (SPF) for Authorizing Use of Domains in Email, Version 1"</span>, <span class="seriesInfo">RFC 7208</span>, <span class="seriesInfo">DOI 10.17487/RFC7208</span>, <time datetime="2014-04">April 2014</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7208">https://www.rfc-editor.org/info/rfc7208</a>&gt;</span>. </dd>
+</dl>
+</section>
+<div id="authors-addresses">
+<section id="section-appendix.a">
+      <h2 id="name-authors-addresses">
+<a href="#name-authors-addresses" class="section-name selfRef">Authors' Addresses</a>
+      </h2>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Alex Brotman</span></div>
+<div dir="auto" class="left"><span class="org">Comcast</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:alex_brotman@comcast.com" class="email">alex_brotman@comcast.com</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Terry Zink</span></div>
+<div dir="auto" class="left"><span class="org">Zink Magical Contraptions</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:tzink@terryzink.com" class="email">tzink@terryzink.com</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Marc Bradshaw</span></div>
+<div dir="auto" class="left"><span class="org">Fastmail</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:marc@fastmailteam.com" class="email">marc@fastmailteam.com</a>
+</div>
+</address>
+</section>
+</div>
+<script>var toc = document.getElementById("toc");
+var tocToggle = toc.querySelector("h2");
+var tocNav = toc.querySelector("nav");
+
+// mobile menu toggle
+tocToggle.onclick = function(event) {
+    if (window.innerWidth < 1024) {
+ var tocNavDisplay = tocNav.currentStyle ? tocNav.currentStyle.display : getComputedStyle(tocNav, null).display;
+ if (tocNavDisplay == "none") {
+     tocNav.style.display = "block";
+ } else {
+     tocNav.style.display = "none";
+ }
+    }
+}
+
+// toc anchor scroll to anchor
+tocNav.addEventListener("click", function (event) {
+    event.preventDefault();
+    if (event.target.nodeName == 'A') {
+ if (window.innerWidth < 1024) {
+     tocNav.style.display = "none";
+ }
+ var href = event.target.getAttribute("href");
+ var anchorId = href.substr(1);
+ var anchor =  document.getElementById(anchorId);
+ anchor.scrollIntoView(true);
+ window.history.pushState("","",href);
+    }
+});
+
+// switch toc mode when window resized
+window.onresize = function () {
+    if (window.innerWidth < 1024) {
+ tocNav.style.display = "none";
+    } else {
+ tocNav.style.display = "block";
+    }
+}
+</script>
+</body>
+</html>
