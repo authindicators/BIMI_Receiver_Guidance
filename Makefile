@@ -6,17 +6,16 @@ XML=$(SOURCES:.md=.xml)
 HTML=$(SOURCES:.md=.html)
 TXT=$(SOURCES:.md=.txt)
 
-all: $(XML) $(TXT)
+all: build/$(XML) build/$(TXT) build/$(HTML)
 
-%.xml : %.md
+build/%.xml : %.md
 	$(MMARK) $< > $@
 
-%.html : %.xml
+build/%.html : build/%.xml
 	$(XML2RFC) $< --html $@
 
-%.txt : %.xml
+build/%.txt : build/%.xml
 	$(XML2RFC) $< 
 
 clean:
-	rm $(TXT)
-	rm $(XML)
+	rm build/*
