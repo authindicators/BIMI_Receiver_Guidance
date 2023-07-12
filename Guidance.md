@@ -244,6 +244,33 @@ be relied upon by an MUA without additional checks to make sure they were added 
 trusted source, for example, making sure the MTA strips existing headers on ingress, or 
 by checking for a bimi pass in a trusted Authentication-Results header.
 
+## Leveraging ARC for MTA MUA communication
+
+If both the MTA and MUA support ARC then this MAY be used by the MUA to check that the
+BIMI evaluation was undertaken by a trusted MTA. In this case the MTA MUST add bimi
+entries to the Authentication-Results and ARC-Authentication-Results headers.
+The MUA MUST evaluate ARC, and only use ARC sets which have passed and were added by
+known good servers. This evaluation MUST stop at the first ARC fail.
+
+If the MUA is configured to require an evidence document then it MAY check for a policy.authority=pass
+in the bimi Authentication-Results and decline to show a logo if that is not present.
+
+If the MTA has added a BIMI-Indicator header containing the encoded SVG then the MTA
+SHOULD also add a short hashed checksum of this SVG into the Authentication-Results set.
+The MUA MUST disregard any BIMI-Indicator headers which do not have a matching hash in
+the Authentication-Results headers.
+The hashed checksum for the Indicator MAY be added in the policy.indicator-hash entry.
+If no BIMI-Indicator is present, or if the hash does not match then the MUA MAY retrieve
+the indicator from the evidence document at URL specified in the policy.authority-uri if
+present, from the SVG at the URL specified in the policy.indicator-uri if present and if
+the MUA does not require a verified evidence document, or by evaluating BIMI directly
+using the domain and selector from the bimi Authentication-Results entry.
+The BIMI-Location header is not protected from forgery in the ARC set, and MUST NOT be used.
+
+NOTE: This needs to be added to draft-brand-indicators-for-message-identification and relevant
+entries registered with IANA  A hashed Indicator will need to be added to the AR set
+policy.indicator-uri to be added to draft
+
 ## Image Retrieval
 
 A core part of the BIMI specification is that the MUA will retrieve an image file to 
