@@ -9,7 +9,7 @@
    workgroup = ""
    keyword = [""]
 
-   date = 2023-07-11T00:00:00Z
+   date = 2023-08-07T00:00:00Z
 
    [seriesInfo]
    name="RFC"
@@ -522,7 +522,7 @@ ways:
 
 * SPF allows for a +all mechanism.  This effectively allows all hosts on the
 internet to be authenticated as this domain
-* Some domains publish domains with a includes that result in a large
+* Some domains publish domains with includes that result in a large
 number of IPs that can be used by any number of other senders
 * A sender could typo a CIDR from an ip4/ip6 statement
 * A platform may not properly validate users are attached to a specified

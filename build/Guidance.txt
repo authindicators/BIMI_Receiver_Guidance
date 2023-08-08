@@ -44,12 +44,12 @@ Copyright Notice
    Copyright (c) 2023 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
-   This document is subject to BCP 78 and the IETF Trust's Legal
-   Provisions Relating to IETF Documents (https://trustee.ietf.org/
-   license-info) in effect on the date of publication of this document.
-   Please review these documents carefully, as they describe your rights
-   and restrictions with respect to this document.  Code Components
-   extracted from this document must include Simplified BSD License text
+
+
+
+
+
+
 
 
 
@@ -58,18 +58,24 @@ Brotman, et al.          Expires 12 January 2024                [Page 1]
 RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
 
 
-   as described in Section 4.e of the Trust Legal Provisions and are
-   provided without warranty as described in the Simplified BSD License.
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents (https://trustee.ietf.org/
+   license-info) in effect on the date of publication of this document.
+   Please review these documents carefully, as they describe your rights
+   and restrictions with respect to this document.  Code Components
+   extracted from this document must include Revised BSD License text as
+   described in Section 4.e of the Trust Legal Provisions and are
+   provided without warranty as described in the Revised BSD License.
 
 Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
      1.1.  Terminology . . . . . . . . . . . . . . . . . . . . . . .   3
    2.  Goals for BIMI  . . . . . . . . . . . . . . . . . . . . . . .   3
-   3.  Who should implement BIMI?  . . . . . . . . . . . . . . . . .   3
+   3.  Who should implement BIMI?  . . . . . . . . . . . . . . . . .   4
      3.1.  Brands  . . . . . . . . . . . . . . . . . . . . . . . . .   4
      3.2.  Receiver  . . . . . . . . . . . . . . . . . . . . . . . .   4
-     3.3.  MUA Authors . . . . . . . . . . . . . . . . . . . . . . .   4
+     3.3.  MUA Authors . . . . . . . . . . . . . . . . . . . . . . .   5
      3.4.  MTA Authors . . . . . . . . . . . . . . . . . . . . . . .   5
    4.  Terminology . . . . . . . . . . . . . . . . . . . . . . . . .   5
    5.  Receivers . . . . . . . . . . . . . . . . . . . . . . . . . .   5
@@ -78,34 +84,28 @@ Table of Contents
        5.2.1.  BIMI processing requirements  . . . . . . . . . . . .   6
        5.2.2.  Verified Mark Certificate (VMC) Validation  . . . . .   7
      5.3.  Communicating BIMI results between the MTA and the MUA  .   7
-     5.4.  Leveraging ARC for MTA MUA communication  . . . . . . . .   7
+     5.4.  Leveraging ARC for MTA MUA communication  . . . . . . . .   8
      5.5.  Image Retrieval . . . . . . . . . . . . . . . . . . . . .   8
      5.6.  Limited use of HTTP Redirects . . . . . . . . . . . . . .   9
      5.7.  TTL of cached images  . . . . . . . . . . . . . . . . . .   9
    6.  MUA Authors . . . . . . . . . . . . . . . . . . . . . . . . .   9
      6.1.  Image Display . . . . . . . . . . . . . . . . . . . . . .   9
-     6.2.  Security Concerns . . . . . . . . . . . . . . . . . . . .   9
+     6.2.  Security Concerns . . . . . . . . . . . . . . . . . . . .  10
      6.3.  Privacy Concerns  . . . . . . . . . . . . . . . . . . . .  10
    7.  Brands  . . . . . . . . . . . . . . . . . . . . . . . . . . .  10
-     7.1.  Logo Hosting Considerations . . . . . . . . . . . . . . .  10
-     7.2.  CDN Considerations  . . . . . . . . . . . . . . . . . . .  10
+     7.1.  Logo Hosting Considerations . . . . . . . . . . . . . . .  11
+     7.2.  CDN Considerations  . . . . . . . . . . . . . . . . . . .  11
      7.3.  Domains listed in your evidence document  . . . . . . . .  11
    8.  Logo Designers  . . . . . . . . . . . . . . . . . . . . . . .  11
      8.1.  Known Issues  . . . . . . . . . . . . . . . . . . . . . .  11
      8.2.  Adherence to SVG P/S  . . . . . . . . . . . . . . . . . .  11
-     8.3.  Tools . . . . . . . . . . . . . . . . . . . . . . . . . .  11
-     8.4.  Caveats . . . . . . . . . . . . . . . . . . . . . . . . .  11
-   9.  Basic flow example  . . . . . . . . . . . . . . . . . . . . .  11
-     9.1.  Message Classification  . . . . . . . . . . . . . . . . .  12
+     8.3.  Tools . . . . . . . . . . . . . . . . . . . . . . . . . .  12
+     8.4.  Caveats . . . . . . . . . . . . . . . . . . . . . . . . .  12
+   9.  Basic flow example  . . . . . . . . . . . . . . . . . . . . .  12
+     9.1.  Message Classification  . . . . . . . . . . . . . . . . .  13
    10. Domain Reputation . . . . . . . . . . . . . . . . . . . . . .  13
      10.1.  Rolling up based upon domain vs organizational domain  .  13
      10.2.  VMC Root of Trust  . . . . . . . . . . . . . . . . . . .  14
-   11. Security Concerns Relating to Message Authentication  . . . .  14
-     11.1.  SPF Concerns . . . . . . . . . . . . . . . . . . . . . .  14
-     11.2.  DKIM Concerns  . . . . . . . . . . . . . . . . . . . . .  15
-   12. BIMI Playbook Checklist . . . . . . . . . . . . . . . . . . .  15
-   13. Public documentation  . . . . . . . . . . . . . . . . . . . .  16
-     13.1.  Documentation For Brands:  . . . . . . . . . . . . . . .  16
 
 
 
@@ -114,14 +114,20 @@ Brotman, et al.          Expires 12 January 2024                [Page 2]
 RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
 
 
+   11. Security Concerns Relating to Message Authentication  . . . .  15
+     11.1.  SPF Concerns . . . . . . . . . . . . . . . . . . . . . .  15
+     11.2.  DKIM Concerns  . . . . . . . . . . . . . . . . . . . . .  15
+   12. BIMI Playbook Checklist . . . . . . . . . . . . . . . . . . .  16
+   13. Public documentation  . . . . . . . . . . . . . . . . . . . .  16
+     13.1.  Documentation For Brands:  . . . . . . . . . . . . . . .  16
      13.2.  Documentation For Users: . . . . . . . . . . . . . . . .  16
-   14. Appendix  . . . . . . . . . . . . . . . . . . . . . . . . . .  16
-     14.1.  Glossary . . . . . . . . . . . . . . . . . . . . . . . .  16
-   15. Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  17
+   14. Appendix  . . . . . . . . . . . . . . . . . . . . . . . . . .  17
+     14.1.  Glossary . . . . . . . . . . . . . . . . . . . . . . . .  17
+   15. Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  18
    16. References  . . . . . . . . . . . . . . . . . . . . . . . . .  18
    17. Normative References  . . . . . . . . . . . . . . . . . . . .  18
-   18. Informative References  . . . . . . . . . . . . . . . . . . .  18
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  18
+   18. Informative References  . . . . . . . . . . . . . . . . . . .  19
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  19
 
 1.  Introduction
 
@@ -156,12 +162,6 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
    BIMI provides a visual presence in the inbox, and because visual
    impressions are desirable for brands, BIMI provides an incentive for
    marketers to spur DMARC adoption, whereas a concern purely from
-   security may not.
-
-3.  Who should implement BIMI?
-
-
-
 
 
 
@@ -169,6 +169,10 @@ Brotman, et al.          Expires 12 January 2024                [Page 3]
 
 RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
 
+
+   security may not.
+
+3.  Who should implement BIMI?
 
 3.1.  Brands
 
@@ -210,6 +214,18 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
    to send email more securely because the desired behavior - a visual
    imprint in the inbox - first requires DMARC adoption.
 
+
+
+
+
+
+
+
+Brotman, et al.          Expires 12 January 2024                [Page 4]
+
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
+
+
 3.3.  MUA Authors
 
    The Mail User Agent (MUA) is ultimately responsible for displaying
@@ -218,13 +234,6 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
    the logos, the responsibility for validating inbound messages lies
    with the Receiver/MBP.  MUA Authors should also allow users the
    option to disable BIMI logo display.
-
-
-
-Brotman, et al.          Expires 12 January 2024                [Page 4]
-
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
-
 
 3.4.  MTA Authors
 
@@ -265,6 +274,14 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
    *  Validate SPF
    *  Validate DKIM signatures
    *  Validate DMARC
+
+
+
+Brotman, et al.          Expires 12 January 2024                [Page 5]
+
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
+
+
    *  Discover and fetch a BIMI assertion record using DNS
    *  Fetch a SVG using HTTPS
    *  Validate a SVG using a profile
@@ -273,14 +290,6 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
    Optionally, for a site to correctly implement BIMI evidence document
    (VMC is one example) verification, the receiver must be able to
    perform the following:
-
-
-
-
-Brotman, et al.          Expires 12 January 2024                [Page 5]
-
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
-
 
    *  Fetch the document using HTTPS
    *  Validate the evidence document
@@ -322,6 +331,13 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
       the receiving site
    *  Domain reputation via a DNS allow list or other reputation system
 
+
+
+Brotman, et al.          Expires 12 January 2024                [Page 6]
+
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
+
+
    These localized requirements are at the discretion of the receiving
    site.  In general, the stricter the criteria, the less chance there
    is of an MUA erroneously showing a logo and giving the wrong signal
@@ -330,14 +346,6 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
    Upon receipt of an email, a receiver that implements BIMI should
    remove or rename any previously existing BIMI-* headers other than
    BIMI-Selector, as they may have come from an attacker (as long as the
-
-
-
-Brotman, et al.          Expires 12 January 2024                [Page 6]
-
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
-
-
    BIMI-Selector is covered by the DKIM signature; if not, it should be
    removed, renamed, or ignored).
 
@@ -374,6 +382,18 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
    making sure the MTA strips existing headers on ingress, or by
    checking for a bimi pass in a trusted Authentication-Results header.
 
+
+
+
+
+
+
+
+Brotman, et al.          Expires 12 January 2024                [Page 7]
+
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
+
+
 5.4.  Leveraging ARC for MTA MUA communication
 
    If both the MTA and MUA support ARC then this MAY be used by the MUA
@@ -385,15 +405,6 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
    fail.
 
    If the MUA is configured to require an evidence document then it MAY
-
-
-
-
-Brotman, et al.          Expires 12 January 2024                [Page 7]
-
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
-
-
    check for a policy.authority=pass in the bimi Authentication-Results
    and decline to show a logo if that is not present.
 
@@ -431,6 +442,14 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
       SVG of the image file.  The MUA can use this header to retrieve
       the already validated image file for display.  This is the
       recommended method of image retrieval as the work of retrieval and
+
+
+
+Brotman, et al.          Expires 12 January 2024                [Page 8]
+
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
+
+
       validation has already been done by the MTA.  A consideration for
       this method may be the additional storage requirements for adding
       a base64-encoded version of the SVG, where the original file could
@@ -441,14 +460,6 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
       local store which could be used as the BIMI resource address in
       the headers of a BIMI-approved message in a sort of proxy
       configuration.
-
-
-
-
-Brotman, et al.          Expires 12 January 2024                [Page 8]
-
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
-
 
 5.6.  Limited use of HTTP Redirects
 
@@ -486,6 +497,15 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
    receivers should design the user interface display for BIMI
    Indicators with this in mind.
 
+
+
+
+
+Brotman, et al.          Expires 12 January 2024                [Page 9]
+
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
+
+
 6.2.  Security Concerns
 
    Receivers should consider the impact of XML bomb or "billion laughs"
@@ -496,15 +516,6 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
    When validating XML documents, receivers should consider the security
    and privacy implications of retrieving external entries referenced in
    those documents.
-
-
-
-
-
-Brotman, et al.          Expires 12 January 2024                [Page 9]
-
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
-
 
 6.3.  Privacy Concerns
 
@@ -538,6 +549,19 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
 
 7.  Brands
 
+
+
+
+
+
+
+
+
+Brotman, et al.          Expires 12 January 2024               [Page 10]
+
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
+
+
 7.1.  Logo Hosting Considerations
 
    The logo you wish to associate with your brand can be hosted
@@ -554,14 +578,6 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
    not be able to correctly respond to a challenge that the CDN may use
    to protect a site, and therefore unable to retrieve the logo file.
    If possible, those BIMI logos/resources should be marked as
-
-
-
-Brotman, et al.          Expires 12 January 2024               [Page 10]
-
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
-
-
    unprotected, allowing any who request the resource to do so without
    possibility of a challenge.
 
@@ -592,8 +608,15 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
       it will typically result in an embedded raster file.  This is not
       compliant with SVG P/S, and could result in display issues.
    *  When exporting to SVG Tiny 1.2 with Adobe Illustrator, the
-      application will insert "x" and "y" attributes within the "svg"
-      element.  These need to be removed to comply with SVG P/S.
+      application will insert x and y attributes within the svg element.
+      These need to be removed to comply with SVG P/S.
+
+
+
+Brotman, et al.          Expires 12 January 2024               [Page 11]
+
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
+
 
 8.3.  Tools
 
@@ -606,17 +629,9 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
 
    *  Upon receipt of a message, the receiver checks to see if the
       message passes aligned-SPF or DKIM, and DMARC, and ensures that
-      the sending domain has a DMARC policy of "quarantine" or "reject"
-      per local receiver policy, while properly applying the appropriate
+      the sending domain has a DMARC policy of quarantine or reject per
+      local receiver policy, while properly applying the appropriate
       DMARC policy to the message.
-
-
-
-
-Brotman, et al.          Expires 12 January 2024               [Page 11]
-
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
-
 
    *  If the message passes prior checks, the receiver will then check
       to see if the domain in the From: address has a BIMI record (or,
@@ -649,6 +664,16 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
       (or however else it chooses to render the BIMI logo in conjunction
       with the message).
 
+
+
+
+
+
+Brotman, et al.          Expires 12 January 2024               [Page 12]
+
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
+
+
 9.1.  Message Classification
 
    The successful validation of BIMI does NOT indicate that a message is
@@ -664,15 +689,6 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
    case they SHOULD add a bimi=skipped entry to the Authentication-
    Results header for that message, and SHOULD add a comment stating the
    reasons for skipping BIMI processing.
-
-
-
-
-
-Brotman, et al.          Expires 12 January 2024               [Page 12]
-
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
-
 
    If a message is classified as phishing or malware then the MUA SHOULD
    NOT display the logo.
@@ -706,6 +722,14 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
    upon various conditions (e.g., seasonal images, regional images,
    etc.).
 
+
+
+
+Brotman, et al.          Expires 12 January 2024               [Page 13]
+
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
+
+
    However, for an email receiver, it may be easier to roll up BIMI
    logos on an organizational domain basis.  One reason may be for the
    purposes of reputation, another may be for simplifying management of
@@ -722,14 +746,6 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
    domain must meet all the requirements for BIMI, rather than only a
    sub-domain.  The reason for this is that if sub.brand.com gets an
    image due to having strong authentication policies, but brand.com
-
-
-
-Brotman, et al.          Expires 12 January 2024               [Page 13]
-
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
-
-
    does not, then this may cause confusion because a user may learn to
    associate sub.brand.com and its image with brand.com; and if
    brand.com can be spoofed even though sub.brand.com cannot, that can
@@ -755,6 +771,21 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
    operating systems.  The AuthIndicators Working Group will maintain a
    list of known VMC Root CA Certificates to help bootstrap such a list.
 
+
+
+
+
+
+
+
+
+
+
+Brotman, et al.          Expires 12 January 2024               [Page 14]
+
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
+
+
 11.  Security Concerns Relating to Message Authentication
 
    BIMI relies upon the foundations of existing messsage authentication
@@ -778,14 +809,6 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
       large number of IPs that can be used by any number of other
       senders
    *  A sender could typo a CIDR from an ip4/ip6 statement
-
-
-
-Brotman, et al.          Expires 12 January 2024               [Page 14]
-
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
-
-
    *  A platform may not properly validate users are attached to a
       specified domain when sending
    *  A platform may allow for some loose rules relating to forwards,
@@ -811,7 +834,15 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
    *  Oversigning of headers (RFC6376, Section 8.15) is considered a
       partial protection against DKIM Replay, and should be considered
       by senders implementing BIMI
-   *  Expiration of signatures utilizing the "-x" option while signing
+
+
+
+Brotman, et al.          Expires 12 January 2024               [Page 15]
+
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
+
+
+   *  Expiration of signatures utilizing the -x option while signing
 
 12.  BIMI Playbook Checklist
 
@@ -834,13 +865,6 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
    investigate (logs, headers in messages, internal documentation that
    is clearly written, having the knowledge pushed out to multiple
    escalation channels) is important for investigation.
-
-
-
-Brotman, et al.          Expires 12 January 2024               [Page 15]
-
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
-
 
 13.  Public documentation
 
@@ -866,6 +890,14 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
    action regarding the message should still be individually evaluated.
    It's possible for a site that has a high trust value to become
    compromised and send fraudulent messages that could compromise a
+
+
+
+Brotman, et al.          Expires 12 January 2024               [Page 16]
+
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
+
+
    user's system.  Ensure your customers have a place that documents
    BIMI and demonstrates how to check messages for fraud.
 
@@ -890,14 +922,6 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
 
    *  DKIM - DomainKeys Identified Mail (https://tools.ietf.org/html/
       rfc6376) - DKIM is a system by which a chosen set of headers,
-
-
-
-Brotman, et al.          Expires 12 January 2024               [Page 16]
-
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
-
-
       combined with the message contents, are cryptographically signed,
       and then validated by the receiving system.  Using DNS, the
       receiving system can retrieve a public key, and then validate the
@@ -913,6 +937,22 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
       order for a message to pass DMARC, one of SPF or DKIM must
       successfully validate, and the domain in the From: address must
       align with the domain that passed SPF or DKIM.
+
+
+
+
+
+
+
+
+
+
+
+
+Brotman, et al.          Expires 12 January 2024               [Page 17]
+
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
+
 
    *  Alignment - Alignment refers to the organizational domain, as
       defined by DMARC, of the domain in the From: address being the
@@ -946,14 +986,6 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
 
    TBD
 
-
-
-
-Brotman, et al.          Expires 12 January 2024               [Page 17]
-
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
-
-
 16.  References
 
    The full BIMI verification spec can be found at:
@@ -967,6 +999,16 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
    (http://bimigroup.org/resources/VMC_Guidelines_latest.pdf)
 
 17.  Normative References
+
+
+
+
+
+
+Brotman, et al.          Expires 12 January 2024               [Page 18]
+
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
+
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -993,59 +1035,17 @@ Authors' Addresses
 
    Alex Brotman
    Comcast
-
    Email: alex_brotman@comcast.com
 
 
    Terry Zink
    Zink Magical Contraptions
-
    Email: tzink@terryzink.com
-
-
-
-
-Brotman, et al.          Expires 12 January 2024               [Page 18]
-
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
 
 
    Marc Bradshaw
    Fastmail
-
    Email: marc@fastmailteam.com
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
