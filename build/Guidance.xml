@@ -10,7 +10,7 @@
 </postal><email>tzink@terryzink.com</email>
 </address></author><author initials="M." surname="Bradshaw" fullname="Marc Bradshaw"><organization>Fastmail</organization><address><postal><street></street>
 </postal><email>marc@fastmailteam.com</email>
-</address></author><date year="2023" month="July" day="11"></date>
+</address></author><date year="2023" month="September" day="3"></date>
 <area>Applications</area>
 <workgroup></workgroup>
 
@@ -500,7 +500,7 @@ ways:</t>
 <ul spacing="compact">
 <li>SPF allows for a +all mechanism.  This effectively allows all hosts on the
 internet to be authenticated as this domain</li>
-<li>Some domains publish domains with a includes that result in a large
+<li>Some domains publish domains with includes that result in a large
 number of IPs that can be used by any number of other senders</li>
 <li>A sender could typo a CIDR from an ip4/ip6 statement</li>
 <li>A platform may not properly validate users are attached to a specified
@@ -647,12 +647,12 @@ validate the retrieved imagery before putting the BIMI image URI into the messag
 
 <back>
 <references><name>Normative References</name>
-<xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml"/>
-<xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8174.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8174.xml"/>
 </references>
 <references><name>Informative References</name>
-<xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6376.xml"/>
-<xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.7208.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6376.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7208.xml"/>
 </references>
 
 </back>

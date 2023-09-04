@@ -5,10 +5,10 @@
 Network Working Group                                         A. Brotman
 Internet-Draft                                                   Comcast
 Intended status: Best Current Practice                           T. Zink
-Expires: 12 January 2024                       Zink Magical Contraptions
+Expires: 6 March 2024                          Zink Magical Contraptions
                                                              M. Bradshaw
                                                                 Fastmail
-                                                            11 July 2023
+                                                        3 September 2023
 
 
     General Guidance for Implementing Branded Indicators for Message
@@ -37,7 +37,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 12 January 2024.
+   This Internet-Draft will expire on 6 March 2024.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Brotman, et al.          Expires 12 January 2024                [Page 1]
+Brotman, et al.           Expires 6 March 2024                  [Page 1]
 
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                  September 2023
 
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Brotman, et al.          Expires 12 January 2024                [Page 2]
+Brotman, et al.           Expires 6 March 2024                  [Page 2]
 
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                  September 2023
 
 
    11. Security Concerns Relating to Message Authentication  . . . .  15
@@ -126,7 +126,7 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
    15. Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  18
    16. References  . . . . . . . . . . . . . . . . . . . . . . . . .  18
    17. Normative References  . . . . . . . . . . . . . . . . . . . .  18
-   18. Informative References  . . . . . . . . . . . . . . . . . . .  19
+   18. Informative References  . . . . . . . . . . . . . . . . . . .  18
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  19
 
 1.  Introduction
@@ -165,9 +165,9 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
 
 
 
-Brotman, et al.          Expires 12 January 2024                [Page 3]
+Brotman, et al.           Expires 6 March 2024                  [Page 3]
 
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                  September 2023
 
 
    security may not.
@@ -221,9 +221,9 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
 
 
 
-Brotman, et al.          Expires 12 January 2024                [Page 4]
+Brotman, et al.           Expires 6 March 2024                  [Page 4]
 
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                  September 2023
 
 
 3.3.  MUA Authors
@@ -277,9 +277,9 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
 
 
 
-Brotman, et al.          Expires 12 January 2024                [Page 5]
+Brotman, et al.           Expires 6 March 2024                  [Page 5]
 
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                  September 2023
 
 
    *  Discover and fetch a BIMI assertion record using DNS
@@ -333,9 +333,9 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
 
 
 
-Brotman, et al.          Expires 12 January 2024                [Page 6]
+Brotman, et al.           Expires 6 March 2024                  [Page 6]
 
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                  September 2023
 
 
    These localized requirements are at the discretion of the receiving
@@ -389,9 +389,9 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
 
 
 
-Brotman, et al.          Expires 12 January 2024                [Page 7]
+Brotman, et al.           Expires 6 March 2024                  [Page 7]
 
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                  September 2023
 
 
 5.4.  Leveraging ARC for MTA MUA communication
@@ -445,9 +445,9 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
 
 
 
-Brotman, et al.          Expires 12 January 2024                [Page 8]
+Brotman, et al.           Expires 6 March 2024                  [Page 8]
 
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                  September 2023
 
 
       validation has already been done by the MTA.  A consideration for
@@ -501,9 +501,9 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
 
 
 
-Brotman, et al.          Expires 12 January 2024                [Page 9]
+Brotman, et al.           Expires 6 March 2024                  [Page 9]
 
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                  September 2023
 
 
 6.2.  Security Concerns
@@ -557,9 +557,9 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
 
 
 
-Brotman, et al.          Expires 12 January 2024               [Page 10]
+Brotman, et al.           Expires 6 March 2024                 [Page 10]
 
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                  September 2023
 
 
 7.1.  Logo Hosting Considerations
@@ -613,9 +613,9 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
 
 
 
-Brotman, et al.          Expires 12 January 2024               [Page 11]
+Brotman, et al.           Expires 6 March 2024                 [Page 11]
 
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                  September 2023
 
 
 8.3.  Tools
@@ -669,9 +669,9 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
 
 
 
-Brotman, et al.          Expires 12 January 2024               [Page 12]
+Brotman, et al.           Expires 6 March 2024                 [Page 12]
 
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                  September 2023
 
 
 9.1.  Message Classification
@@ -725,9 +725,9 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
 
 
 
-Brotman, et al.          Expires 12 January 2024               [Page 13]
+Brotman, et al.           Expires 6 March 2024                 [Page 13]
 
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                  September 2023
 
 
    However, for an email receiver, it may be easier to roll up BIMI
@@ -781,9 +781,9 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
 
 
 
-Brotman, et al.          Expires 12 January 2024               [Page 14]
+Brotman, et al.           Expires 6 March 2024                 [Page 14]
 
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                  September 2023
 
 
 11.  Security Concerns Relating to Message Authentication
@@ -805,9 +805,8 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
 
    *  SPF allows for a +all mechanism.  This effectively allows all
       hosts on the internet to be authenticated as this domain
-   *  Some domains publish domains with a includes that result in a
-      large number of IPs that can be used by any number of other
-      senders
+   *  Some domains publish domains with includes that result in a large
+      number of IPs that can be used by any number of other senders
    *  A sender could typo a CIDR from an ip4/ip6 statement
    *  A platform may not properly validate users are attached to a
       specified domain when sending
@@ -834,15 +833,14 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
    *  Oversigning of headers (RFC6376, Section 8.15) is considered a
       partial protection against DKIM Replay, and should be considered
       by senders implementing BIMI
-
-
-
-Brotman, et al.          Expires 12 January 2024               [Page 15]
-
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
-
-
    *  Expiration of signatures utilizing the -x option while signing
+
+
+
+Brotman, et al.           Expires 6 March 2024                 [Page 15]
+
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                  September 2023
+
 
 12.  BIMI Playbook Checklist
 
@@ -890,16 +888,15 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
    action regarding the message should still be individually evaluated.
    It's possible for a site that has a high trust value to become
    compromised and send fraudulent messages that could compromise a
-
-
-
-Brotman, et al.          Expires 12 January 2024               [Page 16]
-
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
-
-
    user's system.  Ensure your customers have a place that documents
    BIMI and demonstrates how to check messages for fraud.
+
+
+
+Brotman, et al.           Expires 6 March 2024                 [Page 16]
+
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                  September 2023
+
 
 14.  Appendix
 
@@ -938,22 +935,6 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
       successfully validate, and the domain in the From: address must
       align with the domain that passed SPF or DKIM.
 
-
-
-
-
-
-
-
-
-
-
-
-Brotman, et al.          Expires 12 January 2024               [Page 17]
-
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
-
-
    *  Alignment - Alignment refers to the organizational domain, as
       defined by DMARC, of the domain in the From: address being the
       same as the organizational domain that passed SPF or DKIM.  For
@@ -963,6 +944,15 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
       the same organizational domain.  A definition of organizational
       domain and methods of discovery may be found in the DMARC
       (https://tools.ietf.org/html/rfc7489) RFC.
+
+
+
+
+
+Brotman, et al.           Expires 6 March 2024                 [Page 17]
+
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                  September 2023
+
 
    *  MVA - Mark Verifying Authority - An entity that a receiver uses to
       certify that the iconography that they intend to use with BIMI is
@@ -1000,16 +990,6 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
 
 17.  Normative References
 
-
-
-
-
-
-Brotman, et al.          Expires 12 January 2024               [Page 18]
-
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
-
-
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
@@ -1020,6 +1000,15 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                       July 2023
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
 
 18.  Informative References
+
+
+
+
+
+Brotman, et al.           Expires 6 March 2024                 [Page 18]
+
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                  September 2023
+
 
    [RFC6376]  Crocker, D., Ed., Hansen, T., Ed., and M. Kucherawy, Ed.,
               "DomainKeys Identified Mail (DKIM) Signatures", STD 76,
@@ -1061,4 +1050,15 @@ Authors' Addresses
 
 
 
-Brotman, et al.          Expires 12 January 2024               [Page 19]
+
+
+
+
+
+
+
+
+
+
+
+Brotman, et al.           Expires 6 March 2024                 [Page 19]

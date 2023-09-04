@@ -6,7 +6,7 @@ XML=$(SOURCES:.md=.xml)
 HTML=$(SOURCES:.md=.html)
 TXT=$(SOURCES:.md=.txt)
 
-all: build/$(XML) build/$(TXT) build/$(HTML)
+all: build/$(XML) build/$(TXT)
 
 build/%.xml : %.md
 	$(MMARK) $< > $@
