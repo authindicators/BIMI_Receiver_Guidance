@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- name="GENERATOR" content="github.com/mmarkdown/mmark Mmark Markdown Processor - mmark.miek.nl" -->
-<rfc version="3" ipr="trust200902" docName="draft-brotman-ietf-bimi-guidance-08" submissionType="IETF" category="bcp" xml:lang="en" xmlns:xi="http://www.w3.org/2001/XInclude" indexInclude="true" consensus="true">
+<rfc version="3" ipr="trust200902" docName="draft-brotman-ietf-bimi-guidance-09" submissionType="IETF" category="bcp" xml:lang="en" xmlns:xi="http://www.w3.org/2001/XInclude" indexInclude="true" consensus="true">
 
 <front>
-<title abbrev="BIMI-GG">General Guidance for Implementing Branded Indicators for Message Identification (BIMI)</title><seriesInfo value="draft-brotman-ietf-bimi-guidance-08" stream="IETF" status="bcp" name="RFC"></seriesInfo>
+<title abbrev="BIMI-GG">General Guidance for Implementing Branded Indicators for Message Identification (BIMI)</title><seriesInfo value="draft-brotman-ietf-bimi-guidance-09" stream="IETF" status="bcp" name="RFC"></seriesInfo>
 <author initials="A." surname="Brotman" fullname="Alex Brotman"><organization>Comcast</organization><address><postal><street></street>
 </postal><email>alex_brotman@comcast.com</email>
 </address></author><author initials="T." surname="Zink" fullname="Terry Zink"><organization>Zink Magical Contraptions</organization><address><postal><street></street>
 </postal><email>tzink@terryzink.com</email>
 </address></author><author initials="M." surname="Bradshaw" fullname="Marc Bradshaw"><organization>Fastmail</organization><address><postal><street></street>
 </postal><email>marc@fastmailteam.com</email>
-</address></author><date year="2023" month="September" day="3"></date>
+</address></author><date year="2024" month="March" day="3"></date>
 <area>Applications</area>
 <workgroup></workgroup>
 
