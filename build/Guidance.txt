@@ -5,15 +5,15 @@
 Network Working Group                                         A. Brotman
 Internet-Draft                                                   Comcast
 Intended status: Best Current Practice                           T. Zink
-Expires: 4 September 2024                      Zink Magical Contraptions
+Expires: 5 March 2025                          Zink Magical Contraptions
                                                              M. Bradshaw
                                                                 Fastmail
-                                                            3 March 2024
+                                                        1 September 2024
 
 
     General Guidance for Implementing Branded Indicators for Message
                          Identification (BIMI)
-                  draft-brotman-ietf-bimi-guidance-09
+                  draft-brotman-ietf-bimi-guidance-10
 
 Abstract
 
@@ -37,7 +37,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 4 September 2024.
+   This Internet-Draft will expire on 5 March 2025.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Brotman, et al.         Expires 4 September 2024                [Page 1]
+Brotman, et al.           Expires 5 March 2025                  [Page 1]
 
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                      March 2024
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                  September 2024
 
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Brotman, et al.         Expires 4 September 2024                [Page 2]
+Brotman, et al.           Expires 5 March 2025                  [Page 2]
 
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                      March 2024
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                  September 2024
 
 
    11. Security Concerns Relating to Message Authentication  . . . .  15
@@ -165,9 +165,9 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                      March 2024
 
 
 
-Brotman, et al.         Expires 4 September 2024                [Page 3]
+Brotman, et al.           Expires 5 March 2025                  [Page 3]
 
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                      March 2024
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                  September 2024
 
 
    security may not.
@@ -221,9 +221,9 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                      March 2024
 
 
 
-Brotman, et al.         Expires 4 September 2024                [Page 4]
+Brotman, et al.           Expires 5 March 2025                  [Page 4]
 
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                      March 2024
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                  September 2024
 
 
 3.3.  MUA Authors
@@ -277,9 +277,9 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                      March 2024
 
 
 
-Brotman, et al.         Expires 4 September 2024                [Page 5]
+Brotman, et al.           Expires 5 March 2025                  [Page 5]
 
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                      March 2024
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                  September 2024
 
 
    *  Discover and fetch a BIMI assertion record using DNS
@@ -333,9 +333,9 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                      March 2024
 
 
 
-Brotman, et al.         Expires 4 September 2024                [Page 6]
+Brotman, et al.           Expires 5 March 2025                  [Page 6]
 
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                      March 2024
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                  September 2024
 
 
    These localized requirements are at the discretion of the receiving
@@ -389,9 +389,9 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                      March 2024
 
 
 
-Brotman, et al.         Expires 4 September 2024                [Page 7]
+Brotman, et al.           Expires 5 March 2025                  [Page 7]
 
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                      March 2024
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                  September 2024
 
 
 5.4.  Leveraging ARC for MTA MUA communication
@@ -445,9 +445,9 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                      March 2024
 
 
 
-Brotman, et al.         Expires 4 September 2024                [Page 8]
+Brotman, et al.           Expires 5 March 2025                  [Page 8]
 
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                      March 2024
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                  September 2024
 
 
       validation has already been done by the MTA.  A consideration for
@@ -501,9 +501,9 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                      March 2024
 
 
 
-Brotman, et al.         Expires 4 September 2024                [Page 9]
+Brotman, et al.           Expires 5 March 2025                  [Page 9]
 
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                      March 2024
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                  September 2024
 
 
 6.2.  Security Concerns
@@ -557,9 +557,9 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                      March 2024
 
 
 
-Brotman, et al.         Expires 4 September 2024               [Page 10]
+Brotman, et al.           Expires 5 March 2025                 [Page 10]
 
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                      March 2024
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                  September 2024
 
 
 7.1.  Logo Hosting Considerations
@@ -613,9 +613,9 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                      March 2024
 
 
 
-Brotman, et al.         Expires 4 September 2024               [Page 11]
+Brotman, et al.           Expires 5 March 2025                 [Page 11]
 
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                      March 2024
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                  September 2024
 
 
 8.3.  Tools
@@ -669,9 +669,9 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                      March 2024
 
 
 
-Brotman, et al.         Expires 4 September 2024               [Page 12]
+Brotman, et al.           Expires 5 March 2025                 [Page 12]
 
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                      March 2024
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                  September 2024
 
 
 9.1.  Message Classification
@@ -725,9 +725,9 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                      March 2024
 
 
 
-Brotman, et al.         Expires 4 September 2024               [Page 13]
+Brotman, et al.           Expires 5 March 2025                 [Page 13]
 
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                      March 2024
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                  September 2024
 
 
    However, for an email receiver, it may be easier to roll up BIMI
@@ -781,9 +781,9 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                      March 2024
 
 
 
-Brotman, et al.         Expires 4 September 2024               [Page 14]
+Brotman, et al.           Expires 5 March 2025                 [Page 14]
 
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                      March 2024
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                  September 2024
 
 
 11.  Security Concerns Relating to Message Authentication
@@ -837,9 +837,9 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                      March 2024
 
 
 
-Brotman, et al.         Expires 4 September 2024               [Page 15]
+Brotman, et al.           Expires 5 March 2025                 [Page 15]
 
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                      March 2024
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                  September 2024
 
 
 12.  BIMI Playbook Checklist
@@ -893,9 +893,9 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                      March 2024
 
 
 
-Brotman, et al.         Expires 4 September 2024               [Page 16]
+Brotman, et al.           Expires 5 March 2025                 [Page 16]
 
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                      March 2024
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                  September 2024
 
 
 14.  Appendix
@@ -949,9 +949,9 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                      March 2024
 
 
 
-Brotman, et al.         Expires 4 September 2024               [Page 17]
+Brotman, et al.           Expires 5 March 2025                 [Page 17]
 
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                      March 2024
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                  September 2024
 
 
    *  MVA - Mark Verifying Authority - An entity that a receiver uses to
@@ -1005,9 +1005,9 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                      March 2024
 
 
 
-Brotman, et al.         Expires 4 September 2024               [Page 18]
+Brotman, et al.           Expires 5 March 2025                 [Page 18]
 
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                      March 2024
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                  September 2024
 
 
    [RFC6376]  Crocker, D., Ed., Hansen, T., Ed., and M. Kucherawy, Ed.,
@@ -1061,4 +1061,4 @@ Authors' Addresses
 
 
 
-Brotman, et al.         Expires 4 September 2024               [Page 19]
+Brotman, et al.           Expires 5 March 2025                 [Page 19]
