@@ -3,17 +3,17 @@
    Title = "General Guidance for Implementing Branded Indicators for Message Identification (BIMI)"
    abbrev = "BIMI-GG"
    category = "bcp"
-   docName = "draft-brotman-ietf-bimi-guidance-10"
+   docName = "draft-brotman-ietf-bimi-guidance-11"
    ipr = "trust200902"
    area = "Applications"
    workgroup = ""
    keyword = [""]
 
-   date = 2024-09-01T00:00:00Z
+   date = 2024-11-04T00:00:00Z
 
    [seriesInfo]
    name="RFC"
-   value="draft-brotman-ietf-bimi-guidance-10"
+   value="draft-brotman-ietf-bimi-guidance-11"
    stream="IETF"
    status="bcp"
 
