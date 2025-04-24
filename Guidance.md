@@ -604,6 +604,9 @@ BIMI and demonstrates how to check messages for fraud.
 * MTA - Mail Transfer Agent - Software used to transfer messages between two systems, typically
   between two sites, using SMTP as the protocol.
 
+* MBP - Mailbox Provider - An organization who provides access to a user's mailbox via
+  some method such as IMAP/POP/MAPI/Webmail.
+
 * SPF - [Sender Policy Framework](https://tools.ietf.org/html/rfc7208) - 
   SPF is a framework that designates which systems should be sending for a given 
   domain.  This can be a list of IPs, CIDRs, or references to DNS records.  As the sender 
