@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- name="GENERATOR" content="github.com/mmarkdown/mmark Mmark Markdown Processor - mmark.miek.nl" -->
-<rfc version="3" ipr="trust200902" docName="draft-brotman-ietf-bimi-guidance-11" submissionType="IETF" category="bcp" xml:lang="en" xmlns:xi="http://www.w3.org/2001/XInclude" indexInclude="true" consensus="true">
+<rfc version="3" ipr="trust200902" docName="draft-brotman-ietf-bimi-guidance-12" submissionType="IETF" category="bcp" xml:lang="en" xmlns:xi="http://www.w3.org/2001/XInclude" indexInclude="true" consensus="true">
 
 <front>
-<title abbrev="BIMI-GG">General Guidance for Implementing Branded Indicators for Message Identification (BIMI)</title><seriesInfo value="draft-brotman-ietf-bimi-guidance-11" stream="IETF" status="bcp" name="RFC"></seriesInfo>
+<title abbrev="BIMI-GG">General Guidance for Implementing Branded Indicators for Message Identification (BIMI)</title><seriesInfo value="draft-brotman-ietf-bimi-guidance-12" stream="IETF" status="bcp" name="RFC"></seriesInfo>
 <author initials="A." surname="Brotman" fullname="Alex Brotman"><organization>Comcast</organization><address><postal><street></street>
 </postal><email>alex_brotman@comcast.com</email>
 </address></author><author initials="T." surname="Zink" fullname="Terry Zink"><organization>Zink Magical Contraptions</organization><address><postal><street></street>
 </postal><email>tzink@terryzink.com</email>
 </address></author><author initials="M." surname="Bradshaw" fullname="Marc Bradshaw"><organization>Fastmail</organization><address><postal><street></street>
 </postal><email>marc@fastmailteam.com</email>
-</address></author><date year="2024" month="November" day="4"></date>
+</address></author><date year="2025" month="May" day="2"></date>
 <area>Applications</area>
 <workgroup></workgroup>
 
@@ -587,6 +587,9 @@ be a thick client or a web-based application.</t>
 </li>
 <li><t>MTA - Mail Transfer Agent - Software used to transfer messages between two systems, typically
 between two sites, using SMTP as the protocol.</t>
+</li>
+<li><t>MBP - Mailbox Provider - An organization who provides access to a user's mailbox via
+some method such as IMAP/POP/MAPI/Webmail.</t>
 </li>
 <li><t>SPF - <eref target="https://tools.ietf.org/html/rfc7208">Sender Policy Framework</eref> -
 SPF is a framework that designates which systems should be sending for a given
