@@ -5,10 +5,10 @@
 Network Working Group                                         A. Brotman
 Internet-Draft                                                   Comcast
 Intended status: Best Current Practice                           T. Zink
-Expires: 3 November 2025                       Zink Magical Contraptions
+Expires: 2 November 2025                       Zink Magical Contraptions
                                                              M. Bradshaw
                                                                 Fastmail
-                                                              2 May 2025
+                                                              1 May 2025
 
 
     General Guidance for Implementing Branded Indicators for Message
@@ -37,7 +37,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 November 2025.
+   This Internet-Draft will expire on 2 November 2025.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Brotman, et al.          Expires 3 November 2025                [Page 1]
+Brotman, et al.          Expires 2 November 2025                [Page 1]
 
 RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
 
@@ -78,56 +78,56 @@ Table of Contents
      3.3.  MUA Authors . . . . . . . . . . . . . . . . . . . . . . .   5
      3.4.  MTA Authors . . . . . . . . . . . . . . . . . . . . . . .   5
    4.  Terminology . . . . . . . . . . . . . . . . . . . . . . . . .   5
-   5.  Receivers . . . . . . . . . . . . . . . . . . . . . . . . . .   5
-     5.1.  Site implementations  . . . . . . . . . . . . . . . . . .   5
+   5.  Receivers . . . . . . . . . . . . . . . . . . . . . . . . . .   6
+     5.1.  Site implementations  . . . . . . . . . . . . . . . . . .   6
      5.2.  Validation of a BIMI message  . . . . . . . . . . . . . .   6
-       5.2.1.  BIMI processing requirements  . . . . . . . . . . . .   6
-       5.2.2.  Verified Mark Certificate (VMC) Validation  . . . . .   7
-     5.3.  Communicating BIMI results between the MTA and the MUA  .   7
+       5.2.1.  BIMI processing requirements  . . . . . . . . . . . .   7
+       5.2.2.  Verified Mark Certificate (VMC) Validation  . . . . .   8
+     5.3.  Communicating BIMI results between the MTA and the MUA  .   8
      5.4.  Leveraging ARC for MTA MUA communication  . . . . . . . .   8
-     5.5.  Image Retrieval . . . . . . . . . . . . . . . . . . . . .   8
+     5.5.  Image Retrieval . . . . . . . . . . . . . . . . . . . . .   9
      5.6.  Limited use of HTTP Redirects . . . . . . . . . . . . . .   9
-     5.7.  TTL of cached images  . . . . . . . . . . . . . . . . . .   9
-   6.  MUA Authors . . . . . . . . . . . . . . . . . . . . . . . . .   9
-     6.1.  Image Display . . . . . . . . . . . . . . . . . . . . . .   9
+     5.7.  TTL of cached images  . . . . . . . . . . . . . . . . . .  10
+   6.  MUA Authors . . . . . . . . . . . . . . . . . . . . . . . . .  10
+     6.1.  Image Display . . . . . . . . . . . . . . . . . . . . . .  10
      6.2.  Security Concerns . . . . . . . . . . . . . . . . . . . .  10
      6.3.  Privacy Concerns  . . . . . . . . . . . . . . . . . . . .  10
-   7.  Brands  . . . . . . . . . . . . . . . . . . . . . . . . . . .  10
+   7.  Brands  . . . . . . . . . . . . . . . . . . . . . . . . . . .  11
      7.1.  Logo Hosting Considerations . . . . . . . . . . . . . . .  11
      7.2.  CDN Considerations  . . . . . . . . . . . . . . . . . . .  11
      7.3.  Domains listed in your evidence document  . . . . . . . .  11
-   8.  Logo Designers  . . . . . . . . . . . . . . . . . . . . . . .  11
-     8.1.  Known Issues  . . . . . . . . . . . . . . . . . . . . . .  11
-     8.2.  Adherence to SVG P/S  . . . . . . . . . . . . . . . . . .  11
+   8.  Logo Designers  . . . . . . . . . . . . . . . . . . . . . . .  12
+     8.1.  Known Issues  . . . . . . . . . . . . . . . . . . . . . .  12
+     8.2.  Adherence to SVG P/S  . . . . . . . . . . . . . . . . . .  12
      8.3.  Tools . . . . . . . . . . . . . . . . . . . . . . . . . .  12
      8.4.  Caveats . . . . . . . . . . . . . . . . . . . . . . . . .  12
    9.  Basic flow example  . . . . . . . . . . . . . . . . . . . . .  12
      9.1.  Message Classification  . . . . . . . . . . . . . . . . .  13
-   10. Domain Reputation . . . . . . . . . . . . . . . . . . . . . .  13
-     10.1.  Rolling up based upon domain vs organizational domain  .  13
-     10.2.  VMC Root of Trust  . . . . . . . . . . . . . . . . . . .  14
+   10. Domain Reputation . . . . . . . . . . . . . . . . . . . . . .  14
+     10.1.  Rolling up based upon domain vs organizational domain  .  14
+     10.2.  VMC Root of Trust  . . . . . . . . . . . . . . . . . . .  15
 
 
 
-Brotman, et al.          Expires 3 November 2025                [Page 2]
+Brotman, et al.          Expires 2 November 2025                [Page 2]
 
 RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
 
 
    11. Security Concerns Relating to Message Authentication  . . . .  15
      11.1.  SPF Concerns . . . . . . . . . . . . . . . . . . . . . .  15
-     11.2.  DKIM Concerns  . . . . . . . . . . . . . . . . . . . . .  15
+     11.2.  DKIM Concerns  . . . . . . . . . . . . . . . . . . . . .  16
    12. BIMI Playbook Checklist . . . . . . . . . . . . . . . . . . .  16
-   13. Public documentation  . . . . . . . . . . . . . . . . . . . .  16
-     13.1.  Documentation For Brands:  . . . . . . . . . . . . . . .  16
-     13.2.  Documentation For Users: . . . . . . . . . . . . . . . .  16
+   13. Public documentation  . . . . . . . . . . . . . . . . . . . .  17
+     13.1.  Documentation For Brands:  . . . . . . . . . . . . . . .  17
+     13.2.  Documentation For Users: . . . . . . . . . . . . . . . .  17
    14. Appendix  . . . . . . . . . . . . . . . . . . . . . . . . . .  17
      14.1.  Glossary . . . . . . . . . . . . . . . . . . . . . . . .  17
-   15. Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  18
-   16. References  . . . . . . . . . . . . . . . . . . . . . . . . .  18
-   17. Normative References  . . . . . . . . . . . . . . . . . . . .  18
+   15. Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  19
+   16. References  . . . . . . . . . . . . . . . . . . . . . . . . .  19
+   17. Normative References  . . . . . . . . . . . . . . . . . . . .  19
    18. Informative References  . . . . . . . . . . . . . . . . . . .  19
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  19
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  20
 
 1.  Introduction
 
@@ -165,7 +165,7 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
 
 
 
-Brotman, et al.          Expires 3 November 2025                [Page 3]
+Brotman, et al.          Expires 2 November 2025                [Page 3]
 
 RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
 
@@ -188,13 +188,17 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
    As a Brand holder, you may need to satisfy these requirements:
 
    *  Ability to alter DNS to host a new TXT record
+
    *  A web server to host one or two files, depending on your
       implementation
+
    *  If you choose to obtain an evidence document, you will need a
       person to act as a representative for your company
+
    *  The desire to have DMARC enforcement (quarantine/reject) policies
       on both the organizational and sub-domains. (ex., example.com and
       sub.example.com)
+
    *  In the DMARC record, pct must be absent or 100%
 
    However, also note that BIMI may not be for every domain.  For
@@ -217,11 +221,7 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
 
 
 
-
-
-
-
-Brotman, et al.          Expires 3 November 2025                [Page 4]
+Brotman, et al.          Expires 2 November 2025                [Page 4]
 
 RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
 
@@ -251,16 +251,36 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
    The following terms are used throughout this document.
 
    *  MTA
+
    *  MUA
+
    *  DKIM
+
    *  SPF
+
    *  DMARC
+
    *  MBP
+
    *  Alignment
+
    *  Verified Mark Certificate (VMC)
+
    *  Recipient Domain
+
    *  Sending Domain
+
    *  MVA
+
+   *  Local-part
+
+
+
+
+Brotman, et al.          Expires 2 November 2025                [Page 5]
+
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
+
 
    For definitions of these terms, see the Appendix.
 
@@ -272,19 +292,17 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
    able to perform the following:
 
    *  Validate SPF
+
    *  Validate DKIM signatures
+
    *  Validate DMARC
 
-
-
-Brotman, et al.          Expires 3 November 2025                [Page 5]
-
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
-
-
    *  Discover and fetch a BIMI assertion record using DNS
+
    *  Fetch a SVG using HTTPS
+
    *  Validate a SVG using a profile
+
    *  Add Authentication-Results and BIMI-* Headers to a message
 
    Optionally, for a site to correctly implement BIMI evidence document
@@ -292,7 +310,9 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
    perform the following:
 
    *  Fetch the document using HTTPS
+
    *  Validate the evidence document
+
    *  Extract a SVG from the evidence document
 
    A site may wish to implement URI alteration and image caching for
@@ -305,6 +325,18 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
    mechanisms is beyond the scope of this document.
 
 5.2.  Validation of a BIMI message
+
+
+
+
+
+
+
+
+Brotman, et al.          Expires 2 November 2025                [Page 6]
+
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
+
 
 5.2.1.  BIMI processing requirements
 
@@ -323,20 +355,17 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
       organizational domain in the From: address (whereas DMARC only
       requires one of SPF or DKIM to align with the From: domain).  See
       below for some Security Concerns.
+
    *  SPF "strength" requirements (e.g., requiring "-all", disallowing
       usage of "?all" or not allowing inclusion of overly large address
       spaces)
+
    *  SMTP delivery via TLS
+
    *  Feedback Loop registration or other method of registration with
       the receiving site
+
    *  Domain reputation via a DNS allow list or other reputation system
-
-
-
-Brotman, et al.          Expires 3 November 2025                [Page 6]
-
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
-
 
    These localized requirements are at the discretion of the receiving
    site.  In general, the stricter the criteria, the less chance there
@@ -353,9 +382,18 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
 
    *  It may be useful to have messages exiting a site to have those
       BIMI-* headers removed as well.
+
    *  It is useful for a site that has not implemented BIMI to remove
       those headers so that an MUA that does make use of those headers
       would not accidentally display a BIMI image when the message has
+
+
+
+Brotman, et al.          Expires 2 November 2025                [Page 7]
+
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
+
+
       not been properly authenticated by the email receiver (even though
       an MUA should not make use of BIMI headers and instead rely upon
       settings from the mail store, it is possible that some MUAs will
@@ -382,18 +420,6 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
    making sure the MTA strips existing headers on ingress, or by
    checking for a bimi pass in a trusted Authentication-Results header.
 
-
-
-
-
-
-
-
-Brotman, et al.          Expires 3 November 2025                [Page 7]
-
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
-
-
 5.4.  Leveraging ARC for MTA MUA communication
 
    If both the MTA and MUA support ARC then this MAY be used by the MUA
@@ -416,6 +442,14 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
    Indicator MAY be added in the policy.indicator-hash entry.  If no
    BIMI-Indicator is present, or if the hash does not match then the MUA
    MAY retrieve the indicator from the evidence document at URL
+
+
+
+Brotman, et al.          Expires 2 November 2025                [Page 8]
+
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
+
+
    specified in the policy.authority-uri if present, from the SVG at the
    URL specified in the policy.indicator-uri if present and if the MUA
    does not require a verified evidence document, or by evaluating BIMI
@@ -442,14 +476,6 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
       SVG of the image file.  The MUA can use this header to retrieve
       the already validated image file for display.  This is the
       recommended method of image retrieval as the work of retrieval and
-
-
-
-Brotman, et al.          Expires 3 November 2025                [Page 8]
-
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
-
-
       validation has already been done by the MTA.  A consideration for
       this method may be the additional storage requirements for adding
       a base64-encoded version of the SVG, where the original file could
@@ -471,6 +497,14 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
       of HTTP redirects to avoid images being unretrievable by receivers
       who either do not support the use of HTTP redirection, or have
       limited its use.
+
+
+
+
+Brotman, et al.          Expires 2 November 2025                [Page 9]
+
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
+
 
 5.7.  TTL of cached images
 
@@ -497,15 +531,6 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
    receivers should design the user interface display for BIMI
    Indicators with this in mind.
 
-
-
-
-
-Brotman, et al.          Expires 3 November 2025                [Page 9]
-
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
-
-
 6.2.  Security Concerns
 
    Receivers should consider the impact of XML bomb or "billion laughs"
@@ -528,6 +553,15 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
    recipient, or a provider could append a tracking string to the image
    URI in the header.
 
+
+
+
+
+Brotman, et al.          Expires 2 November 2025               [Page 10]
+
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
+
+
    A receiver may choose to track the number of selectors an
    organizational domain is permitted to use and deny processing if this
    exceeds a defined limit.  Similarly, a receiver may choose to track
@@ -548,19 +582,6 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
    document.
 
 7.  Brands
-
-
-
-
-
-
-
-
-
-Brotman, et al.          Expires 3 November 2025               [Page 10]
-
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
-
 
 7.1.  Logo Hosting Considerations
 
@@ -589,6 +610,14 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
    domains may or may not match the 5322.From domain, but must match the
    domain being used in the BIMI assertion record.  When using the
    organizational domain, other third-level domains can take advantage
+
+
+
+Brotman, et al.          Expires 2 November 2025               [Page 11]
+
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
+
+
    of the evidence document as well.
    Within the core specification, it is discussed how the evaluator
    should look at the original domain being used, as well as the
@@ -607,16 +636,10 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
       types of gradients.  When trying to convert/save as SVG Tiny 1.2,
       it will typically result in an embedded raster file.  This is not
       compliant with SVG P/S, and could result in display issues.
+
    *  When exporting to SVG Tiny 1.2 with Adobe Illustrator, the
       application will insert x and y attributes within the svg element.
       These need to be removed to comply with SVG P/S.
-
-
-
-Brotman, et al.          Expires 3 November 2025               [Page 11]
-
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
-
 
 8.3.  Tools
 
@@ -638,9 +661,22 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
       if the message has a BIMI-Selector header that is covered by the
       DKIM-Signature, uses that to do the BIMI query in DNS).
 
+   *  If a BIMI record is found, the receiver checks for the lps tag.
+      If present and true then the receiver normalizes the local-part of
+      the sending address and checks for a BIMI record using the
+      normalized selector.  If a BIMI record is found this is used in
+      place of the BIMI record containing the lps tag.
+
+
+
+Brotman, et al.          Expires 2 November 2025               [Page 12]
+
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
+
+
    *  If a BIMI record is found, the receiver then retrieves the VMC
       from the location that the BIMI record points to, and attempts to
-      verify the VMC using a trusted root certificate. .
+      verify the VMC using a trusted root certificate.
 
    *  Upon successful verification of the VMC, the receiver extracts the
       verified image from the VMC.  If the SVG also passes the SVG
@@ -664,16 +700,6 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
       (or however else it chooses to render the BIMI logo in conjunction
       with the message).
 
-
-
-
-
-
-Brotman, et al.          Expires 3 November 2025               [Page 12]
-
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
-
-
 9.1.  Message Classification
 
    The successful validation of BIMI does NOT indicate that a message is
@@ -696,6 +722,13 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
    If a message is classified as spam (meaning that the message comes
    from a known brand, but contains spammy content), then the email
    receiver MAY choose not to display the logo.
+
+
+
+Brotman, et al.          Expires 2 November 2025               [Page 13]
+
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
+
 
 10.  Domain Reputation
 
@@ -722,14 +755,6 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
    upon various conditions (e.g., seasonal images, regional images,
    etc.).
 
-
-
-
-Brotman, et al.          Expires 3 November 2025               [Page 13]
-
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
-
-
    However, for an email receiver, it may be easier to roll up BIMI
    logos on an organizational domain basis.  One reason may be for the
    purposes of reputation, another may be for simplifying management of
@@ -751,6 +776,16 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
    brand.com can be spoofed even though sub.brand.com cannot, that can
    lead to users becoming more susceptible to phishing from brand.com.
 
+
+
+
+
+
+Brotman, et al.          Expires 2 November 2025               [Page 14]
+
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
+
+
    To alleviate this, receivers may wish to show logos only for domains
    that have organizational domains with strong DMARC policies.  Or, if
    an organizational domain does not have a strong DMARC policy but a
@@ -771,21 +806,6 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
    operating systems.  The AuthIndicators Working Group will maintain a
    list of known VMC Root CA Certificates to help bootstrap such a list.
 
-
-
-
-
-
-
-
-
-
-
-Brotman, et al.          Expires 3 November 2025               [Page 14]
-
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
-
-
 11.  Security Concerns Relating to Message Authentication
 
    BIMI relies upon the foundations of existing messsage authentication
@@ -805,11 +825,23 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
 
    *  SPF allows for a +all mechanism.  This effectively allows all
       hosts on the internet to be authenticated as this domain
+
    *  Some domains publish domains with includes that result in a large
       number of IPs that can be used by any number of other senders
+
    *  A sender could typo a CIDR from an ip4/ip6 statement
+
    *  A platform may not properly validate users are attached to a
       specified domain when sending
+
+
+
+
+Brotman, et al.          Expires 2 November 2025               [Page 15]
+
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
+
+
    *  A platform may allow for some loose rules relating to forwards,
       which could permit an attacker to misuse a domain
 
@@ -828,19 +860,15 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
       previously sent message, and use the signature to send something
       different.  See [draft-chuang-dkim-replay-problem] for additional
       information.
+
    *  Poor selection for signature algorithm, the key length, or the
       length which a key has been in use
+
    *  Oversigning of headers (RFC6376, Section 8.15) is considered a
       partial protection against DKIM Replay, and should be considered
       by senders implementing BIMI
+
    *  Expiration of signatures utilizing the -x option while signing
-
-
-
-Brotman, et al.          Expires 3 November 2025               [Page 15]
-
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
-
 
 12.  BIMI Playbook Checklist
 
@@ -848,15 +876,31 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
    that can go wrong; below are a handful of considerations:
 
    *  Failing to verify a VMC
+
    *  Failing to extract an Indicator from a validated VMC
+
    *  Failing to validate a SVG against the recommended profile
+
    *  Failing to parse a gzipped SVG Indicator
+
    *  Failing to load a logo in the email client
+
    *  Failing to access the logo (e.g., permissions errors)
+
    *  Connectivity problems to the logo
+
    *  Failing to display a correct logo in the email client
+
+
+
+Brotman, et al.          Expires 2 November 2025               [Page 16]
+
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
+
+
    *  Having the wrong logo stored for a brand (i.e., uploading it to a
       local store but associating it with the wrong brand)
+
    *  Caching a logo for too long after it has updated
 
    There are many reasons why a logo may fail to load; having tools to
@@ -891,13 +935,6 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
    user's system.  Ensure your customers have a place that documents
    BIMI and demonstrates how to check messages for fraud.
 
-
-
-Brotman, et al.          Expires 3 November 2025               [Page 16]
-
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
-
-
 14.  Appendix
 
 14.1.  Glossary
@@ -909,6 +946,13 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
    *  MTA - Mail Transfer Agent - Software used to transfer messages
       between two systems, typically between two sites, using SMTP as
       the protocol.
+
+
+
+Brotman, et al.          Expires 2 November 2025               [Page 17]
+
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
+
 
    *  MBP - Mailbox Provider - An organization who provides access to a
       user's mailbox via some method such as IMAP/POP/MAPI/Webmail.
@@ -938,22 +982,6 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
       successfully validate, and the domain in the From: address must
       align with the domain that passed SPF or DKIM.
 
-
-
-
-
-
-
-
-
-
-
-
-Brotman, et al.          Expires 3 November 2025               [Page 17]
-
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
-
-
    *  Alignment - Alignment refers to the organizational domain, as
       defined by DMARC, of the domain in the From: address being the
       same as the organizational domain that passed SPF or DKIM.  For
@@ -973,6 +1001,15 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
       to use a logo.  Receivers should then abide by the decision of the
       DRA as it pertains to logo usage in the MUA.
 
+
+
+
+
+Brotman, et al.          Expires 2 November 2025               [Page 18]
+
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
+
+
    *  VMC - Verified Mark Certificate - An Extended Validation
       Certificate is used in conjunction with BIMI to create a place
       where information pertaining to iconography for a sending domain
@@ -981,6 +1018,10 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
       certificate.  This should allow a receiver site to validate the
       retrieved imagery before putting the BIMI image URI into the
       message headers.
+
+   *  Local-part - The locally interpret string part of an email address
+      which appears before the at-sign character ("@", ASCII value 64)
+      which is then followed by an Internet domain.
 
 15.  Contributors
 
@@ -1000,16 +1041,6 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
 
 17.  Normative References
 
-
-
-
-
-
-Brotman, et al.          Expires 3 November 2025               [Page 18]
-
-RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
-
-
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
@@ -1025,6 +1056,15 @@ RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
               "DomainKeys Identified Mail (DKIM) Signatures", STD 76,
               RFC 6376, DOI 10.17487/RFC6376, September 2011,
               <https://www.rfc-editor.org/info/rfc6376>.
+
+
+
+
+
+Brotman, et al.          Expires 2 November 2025               [Page 19]
+
+RFC draft-brotman-ietf-bimi-guidaBIMI-GG                        May 2025
+
 
    [RFC7208]  Kitterman, S., "Sender Policy Framework (SPF) for
               Authorizing Use of Domains in Email, Version 1", RFC 7208,
@@ -1061,4 +1101,20 @@ Authors' Addresses
 
 
 
-Brotman, et al.          Expires 3 November 2025               [Page 19]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Brotman, et al.          Expires 2 November 2025               [Page 20]
