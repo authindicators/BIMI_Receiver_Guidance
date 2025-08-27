@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- name="GENERATOR" content="github.com/mmarkdown/mmark Mmark Markdown Processor - mmark.miek.nl" -->
-<rfc version="3" ipr="trust200902" docName="draft-brotman-ietf-bimi-guidance-12" submissionType="IETF" category="bcp" xml:lang="en" xmlns:xi="http://www.w3.org/2001/XInclude" indexInclude="true" consensus="true">
+<rfc version="3" ipr="trust200902" docName="draft-brotman-ietf-bimi-guidance-12" submissionType="IETF" category="bcp" xml:lang="en" xmlns:xi="http://www.w3.org/2001/XInclude" consensus="true">
 
 <front>
 <title abbrev="BIMI-GG">General Guidance for Implementing Branded Indicators for Message Identification (BIMI)</title><seriesInfo value="draft-brotman-ietf-bimi-guidance-12" stream="IETF" status="bcp" name="RFC"></seriesInfo>
 <author initials="A." surname="Brotman" fullname="Alex Brotman"><organization>Comcast</organization><address><postal><street></street>
 </postal><email>alex_brotman@comcast.com</email>
-</address></author><author initials="T." surname="Zink" fullname="Terry Zink"><organization>Zink Magical Contraptions</organization><address><postal><street></street>
+</address></author>
+<author initials="T." surname="Zink" fullname="Terry Zink"><organization>Zink Magical Contraptions</organization><address><postal><street></street>
 </postal><email>tzink@terryzink.com</email>
-</address></author><author initials="M." surname="Bradshaw" fullname="Marc Bradshaw"><organization>Fastmail</organization><address><postal><street></street>
+</address></author>
+<author initials="M." surname="Bradshaw" fullname="Marc Bradshaw"><organization>Fastmail</organization><address><postal><street></street>
 </postal><email>marc@fastmailteam.com</email>
-</address></author><date year="2025" month="May" day="2"></date>
+</address></author>
+<date year="2025" month="May" day="1"></date>
 <area>Applications</area>
 <workgroup></workgroup>
 
@@ -69,7 +72,7 @@ implement those strong policy on not just a sub-domain, but also the Organizatio
 Domain.</t>
 <t>As a Brand holder, you may need to satisfy these requirements:</t>
 
-<ul spacing="compact">
+<ul>
 <li>Ability to alter DNS to host a new TXT record</li>
 <li>A web server to host one or two files, depending on your implementation</li>
 <li>If you choose to obtain an evidence document, you will need a person to act as
@@ -114,7 +117,7 @@ retrieved from the BIMI record or evidence document.</t>
 <section anchor="terminology-1"><name>Terminology</name>
 <t>The following terms are used throughout this document.</t>
 
-<ul spacing="compact">
+<ul>
 <li>MTA</li>
 <li>MUA</li>
 <li>DKIM</li>
@@ -126,6 +129,7 @@ retrieved from the BIMI record or evidence document.</t>
 <li>Recipient Domain</li>
 <li>Sending Domain</li>
 <li>MVA</li>
+<li>Local-part</li>
 </ul>
 <t>For definitions of these terms, see the Appendix.</t>
 </section>
@@ -136,7 +140,7 @@ retrieved from the BIMI record or evidence document.</t>
 <t>In order for a site to correctly implement BIMI, the receiver must be able
 to perform the following:</t>
 
-<ul spacing="compact">
+<ul>
 <li>Validate SPF</li>
 <li>Validate DKIM signatures</li>
 <li>Validate DMARC</li>
@@ -148,7 +152,7 @@ to perform the following:</t>
 <t>Optionally, for a site to correctly implement BIMI evidence document (VMC is one
 example) verification, the receiver must be able to perform the following:</t>
 
-<ul spacing="compact">
+<ul>
 <li>Fetch the document using HTTPS</li>
 <li>Validate the evidence document</li>
 <li>Extract a SVG from the evidence document</li>
@@ -172,7 +176,7 @@ choose to create additional requirements for senders in order to verify BIMI  (t
 indicate to a downstream MUA that it is safe to load a BIMI logo in the email client)</t>
 <t>This may include, but is not limited to:</t>
 
-<ul spacing="compact">
+<ul>
 <li>Requiring both DKIM and SPF to validate and align with the organizational domain
 in the From: address (whereas DMARC only requires one of SPF or DKIM to align with
 the From: domain).  See below for some Security Concerns.</li>
@@ -191,7 +195,7 @@ from an attacker (as long as the BIMI-Selector is covered by the DKIM signature;
 not, it should be removed, renamed, or ignored).</t>
 <t>Additionally:</t>
 
-<ul spacing="compact">
+<ul>
 <li>It may be useful to have messages exiting a site to have those BIMI-* headers removed
 as well.</li>
 <li>It is useful for a site that has not implemented BIMI to remove those headers so
@@ -212,7 +216,7 @@ without taking appropriate precautions).</li>
 <t>In order for a receiver that has implemented BIMI to notify an MUA that it should
 display the images:</t>
 
-<ul spacing="compact">
+<ul>
 <li>An MTA must verify BIMI, and if it passes, add additional headers containing the logo
 to be displayed.</li>
 </ul>
@@ -370,7 +374,7 @@ Domain.</t>
 <section anchor="adherence-to-svg-p-s"><name>Adherence to SVG P/S</name>
 <t>There may be a few issues that designers may experience when trying to adhere to SVG P/S.</t>
 
-<ul spacing="compact">
+<ul>
 <li>SVG P/S is based on SVG Tiny 1.2, which does not allow for certain types of gradients.  When trying
 to convert/save as SVG Tiny 1.2, it will typically result in an embedded raster file. This is not
 compliant with SVG P/S, and could result in display issues.</li>
@@ -399,9 +403,14 @@ policy to the message.</t>
 in the From: address has a BIMI record (or, if the message has a BIMI-Selector header that
 is covered by the DKIM-Signature, uses that to do the BIMI query in DNS).</t>
 </li>
+<li><t>If a BIMI record is found, the receiver checks for the lps tag. If present and true then the
+receiver normalizes the local-part of the sending address and checks for a BIMI
+record using the normalized selector. If a BIMI record is found this is used in place of the
+BIMI record containing the lps tag.</t>
+</li>
 <li><t>If a BIMI record is found, the receiver then retrieves the VMC from the location
 that the BIMI record points to, and attempts to verify the VMC using a trusted root
-certificate. .</t>
+certificate.</t>
 </li>
 <li><t>Upon successful verification of the VMC, the receiver extracts the verified image from
 the VMC. If the SVG also passes the SVG validation steps then this is a successful BIMI verification.</t>
@@ -497,7 +506,7 @@ hop when sending from the originator to another internet mail site.  There
 are some mechanisms within the SPF that could be misused in a number of
 ways:</t>
 
-<ul spacing="compact">
+<ul>
 <li>SPF allows for a +all mechanism.  This effectively allows all hosts on the
 internet to be authenticated as this domain</li>
 <li>Some domains publish domains with includes that result in a large
@@ -518,7 +527,7 @@ as much as they can to utilize both SPF and DKIM, properly aligned.</t>
 tampering with a message. This method is the most likely to survive forwarding
 to another internet site.</t>
 
-<ul spacing="compact">
+<ul>
 <li>DKIM Replay is a method by which an attacker attempts to subvert a previously
 sent message, and use the signature to send something different.
 See [draft-chuang-dkim-replay-problem] for additional information.</li>
@@ -536,7 +545,7 @@ implementing BIMI</li>
 <t>There are several factors to consider for email receivers on things that can go wrong; below are
 a handful of considerations:</t>
 
-<ul spacing="compact">
+<ul>
 <li>Failing to verify a VMC</li>
 <li>Failing to extract an Indicator from a validated VMC</li>
 <li>Failing to validate a SVG against the recommended profile</li>
@@ -630,6 +639,10 @@ create a place where information pertaining to iconography for a sending domain 
 securely verified. In the case of BIMI, hashes for an MVA-approved set of iconography
 will be stored in a field within the certificate. This should allow a receiver site to
 validate the retrieved imagery before putting the BIMI image URI into the message headers.</t>
+</li>
+<li><t>Local-part - The locally interpret string part of an email address which appears before the
+at-sign character (&quot;@&quot;, ASCII value 64) which is then followed by an Internet
+domain.</t>
 </li>
 </ul>
 </section>

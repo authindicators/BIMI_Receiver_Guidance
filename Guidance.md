@@ -151,6 +151,7 @@ The following terms are used throughout this document.
 * Recipient Domain
 * Sending Domain
 * MVA
+* Local-part
 
 For definitions of these terms, see the Appendix.
 
@@ -414,25 +415,30 @@ One sample implementation of BIMI by a receiver, who does everything on-the-fly,
   in the From: address has a BIMI record (or, if the message has a BIMI-Selector header that 
   is covered by the DKIM-Signature, uses that to do the BIMI query in DNS).
 
+* If a BIMI record is found, the receiver checks for the lps tag. If present and true then the
+  receiver normalizes the local-part of the sending address and checks for a BIMI
+  record using the normalized selector. If a BIMI record is found this is used in place of the
+  BIMI record containing the lps tag.
+
 * If a BIMI record is found, the receiver then retrieves the VMC from the location 
   that the BIMI record points to, and attempts to verify the VMC using a trusted root 
-  certificate. .
+  certificate.
 
 * Upon successful verification of the VMC, the receiver extracts the verified image from 
-  the VMC. If the SVG also passes the SVG validation steps then this is a successful BIMI verification. 
+  the VMC. If the SVG also passes the SVG validation steps then this is a successful BIMI verification.
 
 * If the BIMI verification fails then the MTA must not indicate to the MUA to show 
   a BIMI image. The MUA MAY show a default image such as a set of initials, or unidentified sender.
 
-* The email receiver then does the rest of its anti-spam, anti-malware, and anti-phishing checks as 
+* The email receiver then does the rest of its anti-spam, anti-malware, and anti-phishing checks as
   discussed in [Message Classification](#message-classification) below.
 
-* The email receiver then adds the relevant Authentication-Results and BIMI-* headers to the message 
-  to signal to the downstream email client that the message passed BIMI and that is safe to load the 
+* The email receiver then adds the relevant Authentication-Results and BIMI-* headers to the message
+  to signal to the downstream email client that the message passed BIMI and that is safe to load the
   logo.
 
 * Eventually, the MUA checks the BIMI-* headers, decodes the image in the BIMI-Indicator header, 
- and displays it as the sender photo (or however else it chooses to render the BIMI logo in conjunction 
+ and displays it as the sender photo (or however else it chooses to render the BIMI logo in conjunction
  with the message).
 
 ## Message Classification {#message-classification}
@@ -646,6 +652,10 @@ BIMI and demonstrates how to check messages for fraud.
   securely verified. In the case of BIMI, hashes for an MVA-approved set of iconography 
   will be stored in a field within the certificate. This should allow a receiver site to 
   validate the retrieved imagery before putting the BIMI image URI into the message headers.
+
+* Local-part - The locally interpret string part of an email address which appears before the
+at-sign character ("@", ASCII value 64) which is then followed by an Internet
+domain.
 
 # Contributors
 
