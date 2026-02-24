@@ -32,12 +32,12 @@
      [author.address]
      email="tzink@terryzink.com"
    [[author]]
-   initials="M."
+   initials="J."
    surname="Bradshaw"
-   fullname="Marc Bradshaw"
+   fullname="Jemma Bradshaw"
    organization="Fastmail"
      [author.address]
-     email="marc@fastmailteam.com"
+     email="jemma@fastmailteam.com"
 
 %%%
 
