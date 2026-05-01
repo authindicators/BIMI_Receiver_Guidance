@@ -382,6 +382,34 @@ Within the core specification, it is discussed how the evaluator should
 look at the original domain being used, as well as the Organizational 
 Domain.
 
+## Deployment Guidance for LPS and AVP
+
+There exist two methods by which the owner of a domain can directly influence
+when BIMI logos for email messages might be displayed at a mailbox provider,
+provided the mailbox provider has implemented support for either/both of
+these options.  In the domain's BIMI declaration, there are options for 'lps'
+and 'avp'.  LPS allows for the domain owner to specify a list of sender
+addresses which will explicitly receive the BIMI treatment.  AVP allows the
+domain owner to state whether personal avatars should have preference over a
+BIMI declaration.
+
+LPS would typically be used in a situation where a domain owner uses the same
+domain for some marketing, but also for employee messages.  The domain owner
+wants marketing messages from 'marketing@example.com' to display a logo,
+while employee messages from 'alice@example.com' should display any underlying
+profile pictures instead.  The LPS option does require publication of an
+additional DNS BIMI assertion record per logo, and potentially an additional
+DNS lookups for that record.
+
+AVP can also be used to exert influence over display, however, they would be
+using a messaging platform that allows for users to supply their own avatar,
+or contain an address book where the receiver can add an image for the
+sender.  In these cases, the domain owner can opt to supersede those
+personalized images in place of the BIMI-specified logo.  This could also be
+useful in a situation where a company would like all their employees to
+recognize when an email comes from another employee (without scrutinizing a
+small photo of a face), or perhaps a specific partner company.
+
 # Logo Designers
 
 ## Known Issues
