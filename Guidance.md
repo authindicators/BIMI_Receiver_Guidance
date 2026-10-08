@@ -410,6 +410,33 @@ useful in a situation where a company would like all their employees to
 recognize when an email comes from another employee (without scrutinizing a
 small photo of a face), or perhaps a specific partner company.
 
+### Deployment Examples for LPS
+
+Providing a few examples of usage.  
+
+A few reminders:
+
+* If the LPS doesn't find a match, it will continue with the standard analysis.  
+* Each logo variation requires its own certificate (if the MBP requires MCs)
+
+#### Standard logo, holiday logo
+
+Primary domain has a logo, special logo for holiday
+
+default._bimi.example.com TXT "v=BIMI1;a=https://site/vmc.pem;l=https://site/logo.svg;lps=holiday"
+holiday._bimi.example.com TXT "v=BIMI1;a=https://site/vmc_holiday.pem;l=https://site/logo_holiday.svg"
+
+#### No logo on apex, only specific addresses, shared logo
+
+An example where the primary domain only wants specific senders to have a shared
+logo.
+
+default._bimi.example.com TXT "v=BIMI1;a=;l=;lps=marketing,info,account
+shared._bimi.example.com TXT "v=BIMI1;a=https://site/vmc.pem;l=https://site/logo.svg"
+marketing._bimi.example.com CNAME shared._bimi.example.com
+info._bimi.example.com CNAME shared._bimi.example.com
+account._bimi.example.com CNAME shared._bimi.example.com
+
 # Logo Designers
 
 ## Known Issues
