@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- name="GENERATOR" content="github.com/mmarkdown/mmark Mmark Markdown Processor - mmark.miek.nl" -->
-<rfc version="3" ipr="trust200902" docName="draft-brotman-ietf-bimi-guidance-15" submissionType="IETF" category="bcp" xml:lang="en" xmlns:xi="http://www.w3.org/2001/XInclude" indexInclude="true" consensus="true">
+<rfc version="3" ipr="trust200902" docName="draft-brotman-ietf-bimi-guidance-16" submissionType="IETF" category="bcp" xml:lang="en" xmlns:xi="http://www.w3.org/2001/XInclude" indexInclude="true" consensus="true">
 
 <front>
-<title abbrev="BIMI-GG">General Guidance for Implementing Branded Indicators for Message Identification (BIMI)</title><seriesInfo value="draft-brotman-ietf-bimi-guidance-15" stream="IETF" status="bcp" name="RFC"></seriesInfo>
+<title abbrev="BIMI-GG">General Guidance for Implementing Branded Indicators for Message Identification (BIMI)</title><seriesInfo value="draft-brotman-ietf-bimi-guidance-16" stream="IETF" status="bcp" name="RFC"></seriesInfo>
 <author initials="A." surname="Brotman" fullname="Alex Brotman"><organization>Comcast</organization><address><postal><street></street>
 </postal><email>alex_brotman@comcast.com</email>
 </address></author><author initials="T." surname="Zink" fullname="Terry Zink"><organization>Zink Magical Contraptions</organization><address><postal><street></street>
 </postal><email>tzink@terryzink.com</email>
 </address></author><author initials="J." surname="Bradshaw" fullname="Jemma Bradshaw"><organization>Fastmail</organization><address><postal><street></street>
 </postal><email>jemma@fastmailteam.com</email>
-</address></author><date year="2026" month="May" day="1"></date>
+</address></author><date year="2026" month="October" day="31"></date>
 <area>Applications</area>
 <workgroup></workgroup>
 
@@ -385,6 +385,33 @@ personalized images in place of the BIMI-specified logo.  This could also be
 useful in a situation where a company would like all their employees to
 recognize when an email comes from another employee (without scrutinizing a
 small photo of a face), or perhaps a specific partner company.</t>
+
+<section anchor="deployment-examples-for-lps"><name>Deployment Examples for LPS</name>
+<t>Providing a few examples of usage.</t>
+<t>A few reminders:</t>
+
+<ul spacing="compact">
+<li>If the LPS doesn't find a match, it will continue with the standard analysis.<br />
+</li>
+<li>Each logo variation requires its own certificate (if the MBP requires MCs)</li>
+</ul>
+
+<section anchor="standard-logo-holiday-logo"><name>Standard logo, holiday logo</name>
+<t>Primary domain has a logo, special logo for holiday</t>
+<t>default._bimi.example.com TXT &quot;v=BIMI1;a=<eref target="https://site/vmc.pem;l=https://site/logo.svg;lps=holiday&quot;">https://site/vmc.pem;l=https://site/logo.svg;lps=holiday"</eref>
+holiday._bimi.example.com TXT &quot;v=BIMI1;a=<eref target="https://site/vmc_holiday.pem;l=https://site/logo_holiday.svg&quot;">https://site/vmc_holiday.pem;l=https://site/logo_holiday.svg"</eref></t>
+</section>
+
+<section anchor="no-logo-on-apex-only-specific-addresses-shared-logo"><name>No logo on apex, only specific addresses, shared logo</name>
+<t>An example where the primary domain only wants specific senders to have a shared
+logo.</t>
+<t>default._bimi.example.com TXT &quot;v=BIMI1;a=;l=;lps=marketing,info,account
+shared._bimi.example.com TXT &quot;v=BIMI1;a=<eref target="https://site/vmc.pem;l=https://site/logo.svg&quot;">https://site/vmc.pem;l=https://site/logo.svg"</eref>
+marketing._bimi.example.com CNAME shared._bimi.example.com
+info._bimi.example.com CNAME shared._bimi.example.com
+account._bimi.example.com CNAME shared._bimi.example.com</t>
+</section>
+</section>
 </section>
 </section>
 
